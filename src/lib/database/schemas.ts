@@ -7,7 +7,7 @@
  */
 
 import type { RxJsonSchema } from 'rxdb';
-import type { HabitDocType, HabitCompletionDocType } from './types';
+import type { HabitDocType, HabitCompletionDocType, HabitLogDocType } from './types';
 
 /**
  * Valid habit types
@@ -157,4 +157,73 @@ export const habitCompletionSchema: RxJsonSchema<HabitCompletionDocType> = {
   },
   required: ['id', 'habitId', 'completedAt', 'count', 'notes'],
   indexes: ['habitId', 'completedAt'],
+};
+
+/**
+ * Habit Log Schema
+ *
+ * Daily habit tracking logs with fields:
+ * - id: Unique identifier for the log entry
+ * - habitId: Reference to the habit being tracked (relationship)
+ * - date: Date in YYYY-MM-DD format for efficient querying
+ * - completed: Boolean indicating if habit was completed
+ * - notes: Optional notes about the completion
+ * - createdAt: Timestamp when the log entry was created
+ *
+ * Indexes optimized for:
+ * - Querying logs by habitId (to get all logs for a habit)
+ * - Querying logs by date (to get all habits for a day)
+ * - Compound queries by habitId + date (to get specific habit on specific day)
+ */
+export const habitLogSchema: RxJsonSchema<HabitLogDocType> = {
+  version: 0,
+  primaryKey: 'id',
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      maxLength: 100,
+      // ID should be non-empty
+      minLength: 1,
+    },
+    habitId: {
+      type: 'string',
+      maxLength: 100,
+      // Reference to habit collection
+      minLength: 1,
+      // Note: RxDB doesn't enforce foreign key constraints,
+      // but this establishes the relationship semantically
+      ref: 'habits',
+    },
+    date: {
+      type: 'string',
+      // YYYY-MM-DD format (10 characters)
+      minLength: 10,
+      maxLength: 10,
+      // Pattern for date format validation
+      pattern: '^\\d{4}-\\d{2}-\\d{2}$',
+    },
+    completed: {
+      type: 'boolean',
+    },
+    notes: {
+      type: 'string',
+      // Notes can be empty but have max length
+      maxLength: 1000,
+    },
+    createdAt: {
+      type: 'integer',
+      // Timestamp in milliseconds since epoch
+      minimum: 0,
+      maximum: 9999999999999,
+    },
+  },
+  required: ['id', 'habitId', 'date', 'completed', 'notes', 'createdAt'],
+  // Indexes for efficient querying patterns
+  indexes: [
+    'habitId',           // Query logs by habit
+    'date',              // Query logs by date
+    ['habitId', 'date'], // Compound index for specific habit on specific date
+    'createdAt',         // Query logs by creation time
+  ],
 };

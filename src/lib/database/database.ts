@@ -15,7 +15,7 @@ import {
   DatabaseError,
   DatabaseErrorCode,
 } from './types';
-import { habitSchema, habitCompletionSchema } from './schemas';
+import { habitSchema, habitCompletionSchema, habitLogSchema } from './schemas';
 
 // Database singleton instance
 let databaseInstance: HabitTrackerDatabase | null = null;
@@ -106,6 +106,9 @@ async function createDatabase(
       },
       habit_completions: {
         schema: habitCompletionSchema,
+      },
+      habit_logs: {
+        schema: habitLogSchema,
       },
     });
 

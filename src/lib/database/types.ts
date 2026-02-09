@@ -71,18 +71,40 @@ export interface HabitCompletionDocType {
   notes: string;
 }
 
+/**
+ * Habit log record type - daily tracking of habit completion
+ * Designed for efficient querying by date and habit
+ */
+export interface HabitLogDocType {
+  /** Unique identifier for the log entry */
+  id: string;
+  /** Reference to the habit being tracked */
+  habitId: string;
+  /** Date of the log entry in YYYY-MM-DD format for efficient querying */
+  date: string;
+  /** Whether the habit was completed on this date */
+  completed: boolean;
+  /** Optional notes about the completion */
+  notes: string;
+  /** Timestamp when the log entry was created (ms since epoch) */
+  createdAt: number;
+}
+
 // RxDB document types
 export type HabitDocument = RxDocument<HabitDocType>;
 export type HabitCompletionDocument = RxDocument<HabitCompletionDocType>;
+export type HabitLogDocument = RxDocument<HabitLogDocType>;
 
 // RxDB collection types
 export type HabitCollection = RxCollection<HabitDocType>;
 export type HabitCompletionCollection = RxCollection<HabitCompletionDocType>;
+export type HabitLogCollection = RxCollection<HabitLogDocType>;
 
 // Database collections interface
 export interface DatabaseCollections {
   habits: HabitCollection;
   habit_completions: HabitCompletionCollection;
+  habit_logs: HabitLogCollection;
 }
 
 // Full database type

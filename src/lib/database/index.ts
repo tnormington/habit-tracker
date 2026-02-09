@@ -23,10 +23,13 @@ export type {
   HabitColor,
   HabitDocType,
   HabitCompletionDocType,
+  HabitLogDocType,
   HabitDocument,
   HabitCompletionDocument,
+  HabitLogDocument,
   HabitCollection,
   HabitCompletionCollection,
+  HabitLogCollection,
   DatabaseCollections,
   HabitTrackerDatabase,
   DatabaseInitOptions,
@@ -35,4 +38,4 @@ export type {
 export { DatabaseError, DatabaseErrorCode } from './types';
 
 // Schemas
-export { habitSchema, habitCompletionSchema } from './schemas';
+export { habitSchema, habitCompletionSchema, habitLogSchema } from './schemas';
