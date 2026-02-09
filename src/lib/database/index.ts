@@ -64,3 +64,45 @@ export { DatabaseError, DatabaseErrorCode } from './types';
 
 // Schemas
 export { habitSchema, habitCompletionSchema, habitLogSchema } from './schemas';
+
+// Habit Service Functions
+export {
+  // CRUD operations
+  createHabit,
+  getHabitById,
+  getHabits,
+  getActiveHabits,
+  getArchivedHabits,
+  getHabitsByType,
+  getHabitsByCategory,
+  updateHabit,
+  archiveHabit,
+  restoreHabit,
+  deleteHabit,
+  countHabits,
+  habitExists,
+  bulkDeleteHabits,
+  bulkArchiveHabits,
+  // Validation functions
+  validateHabitName,
+  validateHabitDescription,
+  validateHabitType,
+  validateHabitCategory,
+  validateHabitColor,
+  validateCreateHabitData,
+  validateUpdateHabitData,
+  // Constants
+  VALID_HABIT_TYPES,
+  VALID_HABIT_CATEGORIES,
+  VALID_HABIT_COLORS,
+  // Error class and codes
+  HabitServiceError,
+  HabitServiceErrorCode,
+} from './habitService';
+
+export type {
+  CreateHabitData,
+  UpdateHabitData,
+  HabitQueryOptions,
+  HabitServiceResult,
+} from './habitService';
