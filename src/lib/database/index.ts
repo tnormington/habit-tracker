@@ -12,9 +12,34 @@ export {
   removeDatabase,
 } from './database';
 
-// React hooks
+// React hooks - Database access
 export { useDatabase, useDatabaseStatus } from './useDatabase';
 export type { UseDatabaseResult } from './useDatabase';
+
+// React hooks - Habits collection
+export { useHabits, useHabit } from './useHabits';
+export type {
+  CreateHabitInput,
+  UpdateHabitInput,
+  HabitsFilter,
+  HabitsSort,
+  UseHabitsResult,
+} from './useHabits';
+
+// React hooks - Habit Logs collection
+export {
+  useHabitLogs,
+  useHabitLogsForHabit,
+  useHabitLogsForDate,
+  useHabitLog,
+} from './useHabitLogs';
+export type {
+  CreateHabitLogInput,
+  UpdateHabitLogInput,
+  HabitLogsFilter,
+  HabitLogsSort,
+  UseHabitLogsResult,
+} from './useHabitLogs';
 
 // Types
 export type {
