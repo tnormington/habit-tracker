@@ -5,17 +5,60 @@
 
 import type { RxDatabase, RxCollection, RxDocument } from 'rxdb';
 
+/**
+ * Habit type - determines if completing the habit is positive or negative
+ * - positive: Habits you want to build (e.g., exercise, reading)
+ * - negative: Habits you want to break (e.g., smoking, excessive screen time)
+ */
+export type HabitType = 'positive' | 'negative';
+
+/**
+ * Pre-defined habit categories for organization
+ */
+export type HabitCategory =
+  | 'health'
+  | 'fitness'
+  | 'productivity'
+  | 'mindfulness'
+  | 'learning'
+  | 'social'
+  | 'finance'
+  | 'creativity'
+  | 'other';
+
+/**
+ * Valid color options for habits
+ * Using a constrained set for consistent UI
+ */
+export type HabitColor =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'gray';
+
 // Habit document type
 export interface HabitDocType {
+  /** Unique identifier for the habit */
   id: string;
+  /** Display name of the habit */
   name: string;
+  /** Optional longer description of the habit */
   description: string;
-  frequency: 'daily' | 'weekly' | 'monthly';
-  targetCount: number;
-  color: string;
-  icon: string;
+  /** Whether this is a positive habit to build or negative habit to break */
+  type: HabitType;
+  /** Category for organizing habits */
+  category: HabitCategory;
+  /** Color for visual identification */
+  color: HabitColor;
+  /** Timestamp when the habit was created (ms since epoch) */
   createdAt: number;
+  /** Timestamp when the habit was last updated (ms since epoch) */
   updatedAt: number;
+  /** Whether the habit is archived (hidden from active view) */
   isArchived: boolean;
 }
 

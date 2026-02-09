@@ -18,6 +18,9 @@ export type { UseDatabaseResult } from './useDatabase';
 
 // Types
 export type {
+  HabitType,
+  HabitCategory,
+  HabitColor,
   HabitDocType,
   HabitCompletionDocType,
   HabitDocument,
