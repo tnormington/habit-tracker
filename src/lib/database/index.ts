@@ -106,3 +106,51 @@ export type {
   HabitQueryOptions,
   HabitServiceResult,
 } from './habitService';
+
+// Habit Log Service Functions
+export {
+  // CRUD operations
+  createHabitLog,
+  getHabitLogById,
+  getHabitLogByHabitAndDate,
+  getHabitLogs,
+  getHabitLogsByDateRange,
+  getHabitLogsByDate,
+  getHabitLogsByHabitId,
+  updateHabitLog,
+  toggleHabitCompletion,
+  setHabitCompletion,
+  updateHabitLogNotes,
+  deleteHabitLog,
+  deleteHabitLogByHabitAndDate,
+  // Bulk operations
+  bulkCreateHabitLogs,
+  bulkToggleCompletion,
+  bulkDeleteHabitLogs,
+  deleteAllLogsForHabit,
+  // Statistics / Query helpers
+  countHabitLogs,
+  getCompletedDatesForHabit,
+  isHabitCompletedForDate,
+  // Validation functions
+  validateHabitId,
+  validateDate,
+  validateNotes,
+  validateCreateHabitLogData,
+  validateUpdateHabitLogData,
+  // Helper functions
+  getTodayDate,
+  formatDate,
+  // Error class and codes
+  HabitLogServiceError,
+  HabitLogServiceErrorCode,
+} from './habitLogService';
+
+export type {
+  CreateHabitLogData,
+  UpdateHabitLogData,
+  HabitLogQueryOptions,
+  BulkToggleInput,
+  BulkCreateLogInput,
+  HabitLogServiceResult,
+} from './habitLogService';
