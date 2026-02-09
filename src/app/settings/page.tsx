@@ -5,38 +5,38 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function DashboardPage() {
+export default function SettingsPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="text-2xl font-bold">Settings</h1>
       <p className="mt-2 text-muted-foreground">
-        Welcome back! Here&apos;s your habit overview.
+        Configure your habit tracking preferences.
       </p>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 max-w-2xl space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Today&apos;s Progress</CardTitle>
+            <CardTitle>Appearance</CardTitle>
             <CardDescription>
-              Track your habits for today
+              Customize the look and feel of your app
             </CardDescription>
           </CardHeader>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Weekly Streak</CardTitle>
+            <CardTitle>Notifications</CardTitle>
             <CardDescription>
-              Your current streak statistics
+              Configure habit reminders and notifications
             </CardDescription>
           </CardHeader>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle>Data & Privacy</CardTitle>
             <CardDescription>
-              Add a new habit or view statistics
+              Manage your data and export options
             </CardDescription>
           </CardHeader>
         </Card>

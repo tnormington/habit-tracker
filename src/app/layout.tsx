@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "./globals.css";
+import { AppLayout } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "Habit Tracker",
@@ -12,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppLayout>{children}</AppLayout>
+      </body>
     </html>
   );
 }
