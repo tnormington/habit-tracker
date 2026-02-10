@@ -64,7 +64,7 @@ export type {
 export { DatabaseError, DatabaseErrorCode } from './types';
 
 // Schemas
-export { habitSchema, habitCompletionSchema, habitLogSchema } from './schemas';
+export { habitSchema, habitCompletionSchema, habitLogSchema, notificationSettingsSchema } from './schemas';
 
 // Habit Service Functions
 export {
@@ -250,3 +250,52 @@ export type {
   UseDateCompletionStatsResult,
   UsePeriodStatisticsResult,
 } from './useStatistics';
+
+// Notification Settings Types
+export type {
+  NotificationSettingsDocType,
+  NotificationSettingsDocument,
+  NotificationSettingsCollection,
+} from './types';
+
+// Notification Service Functions
+export {
+  // Settings CRUD
+  getNotificationSettings,
+  updateNotificationSettings,
+  enableNotifications,
+  disableNotifications,
+  // Browser notifications
+  isNotificationSupported,
+  getNotificationPermission,
+  requestNotificationPermission,
+  showTestNotification,
+  showReminderNotification,
+  // Validation
+  validateTimeFormat,
+  validateTimezone,
+  // Helpers
+  getUserTimezone,
+  getDefaultSettings,
+  getMillisecondsUntilReminder,
+  formatTimeForDisplay,
+  convertTo24Hour,
+  // Error class and codes
+  NotificationServiceError,
+  NotificationServiceErrorCode,
+} from './notificationService';
+
+export type {
+  UpdateNotificationSettingsData,
+  NotificationServiceResult,
+} from './notificationService';
+
+// React hooks - Notification Settings
+export {
+  useNotificationSettings,
+  useNotificationScheduler,
+} from './useNotificationSettings';
+
+export type {
+  UseNotificationSettingsResult,
+} from './useNotificationSettings';

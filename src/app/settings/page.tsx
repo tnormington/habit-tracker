@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/theme";
+import { NotificationSettings } from "@/components/notifications";
 
 export default function SettingsPage() {
   return (
@@ -34,9 +35,12 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle>Notifications</CardTitle>
             <CardDescription>
-              Configure habit reminders and notifications
+              Configure daily reminders to track your habits
             </CardDescription>
           </CardHeader>
+          <CardContent>
+            <NotificationSettings />
+          </CardContent>
         </Card>
 
         <Card>

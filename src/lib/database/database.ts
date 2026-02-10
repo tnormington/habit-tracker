@@ -15,7 +15,7 @@ import {
   DatabaseError,
   DatabaseErrorCode,
 } from './types';
-import { habitSchema, habitCompletionSchema, habitLogSchema } from './schemas';
+import { habitSchema, habitCompletionSchema, habitLogSchema, notificationSettingsSchema } from './schemas';
 
 // Database singleton instance
 let databaseInstance: HabitTrackerDatabase | null = null;
@@ -110,6 +110,9 @@ async function createDatabase(
       habit_logs: {
         schema: habitLogSchema,
       },
+      notification_settings: {
+        schema: notificationSettingsSchema,
+      },
     });
 
     return db;
@@ -157,16 +160,30 @@ export async function getDatabase(
     return initializationPromise;
   }
 
-  // Start initialization
+  // Start initialization with automatic recovery on failure
   initializationPromise = createDatabase(options)
     .then((db) => {
       databaseInstance = db;
       return db;
     })
-    .catch((error) => {
-      // Reset state on failure to allow retry
+    .catch(async (error) => {
+      // Reset state on failure
       initializationPromise = null;
-      throw error;
+
+      // If the database is corrupted, try removing it and recreating
+      console.warn('Database initialization failed, attempting recovery:', error);
+      try {
+        const { removeRxDatabase } = await import('rxdb');
+        const { getRxStorageDexie } = await import('rxdb/plugins/storage-dexie');
+        await removeRxDatabase(options?.name ?? DEFAULT_DATABASE_NAME, getRxStorageDexie());
+        console.info('Removed corrupted database, recreating...');
+        const db = await createDatabase(options);
+        databaseInstance = db;
+        return db;
+      } catch (recoveryError) {
+        console.error('Database recovery failed:', recoveryError);
+        throw error; // Throw the original error
+      }
     });
 
   return initializationPromise;

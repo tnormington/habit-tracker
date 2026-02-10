@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AppLayout } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme";
+import { NotificationProvider } from "@/components/notifications";
 
 export const metadata: Metadata = {
   title: "Habit Tracker",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <AppLayout>{children}</AppLayout>
+          <NotificationProvider>
+            <AppLayout>{children}</AppLayout>
+          </NotificationProvider>
         </ThemeProvider>
       </body>
     </html>

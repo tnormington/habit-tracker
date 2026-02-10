@@ -116,6 +116,7 @@ export interface DatabaseCollections {
   habits: HabitCollection;
   habit_completions: HabitCompletionCollection;
   habit_logs: HabitLogCollection;
+  notification_settings: NotificationSettingsCollection;
 }
 
 // Full database type
@@ -146,3 +147,28 @@ export enum DatabaseErrorCode {
   STORAGE_NOT_AVAILABLE = 'STORAGE_NOT_AVAILABLE',
   UNKNOWN = 'UNKNOWN',
 }
+
+/**
+ * Notification settings document type
+ * Stores user preferences for daily habit reminders
+ */
+export interface NotificationSettingsDocType {
+  /** Unique identifier - always 'default' for singleton settings */
+  id: string;
+  /** Whether notifications are enabled */
+  enabled: boolean;
+  /** Time to send daily reminder in HH:MM format (24-hour) */
+  reminderTime: string;
+  /** User's timezone for scheduling (e.g., 'America/New_York') */
+  timezone: string;
+  /** Whether browser notification permission has been granted */
+  permissionGranted: boolean;
+  /** Timestamp when settings were last updated (ms since epoch) */
+  updatedAt: number;
+}
+
+// RxDB document type for notification settings
+export type NotificationSettingsDocument = RxDocument<NotificationSettingsDocType>;
+
+// RxDB collection type for notification settings
+export type NotificationSettingsCollection = RxCollection<NotificationSettingsDocType>;

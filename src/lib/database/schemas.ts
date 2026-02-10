@@ -7,7 +7,7 @@
  */
 
 import type { RxJsonSchema } from 'rxdb';
-import type { HabitDocType, HabitCompletionDocType, HabitLogDocType } from './types';
+import type { HabitDocType, HabitCompletionDocType, HabitLogDocType, NotificationSettingsDocType } from './types';
 
 /**
  * Valid habit types
@@ -242,4 +242,54 @@ export const habitLogSchema: RxJsonSchema<HabitLogDocType> = {
     ['habitId', 'date'], // Compound index for specific habit on specific date
     'createdAt',         // Query logs by creation time
   ],
+};
+
+/**
+ * Notification Settings Schema
+ *
+ * Singleton document storing user's notification preferences:
+ * - id: Always 'default' for singleton pattern
+ * - enabled: Whether daily reminders are turned on
+ * - reminderTime: Time in HH:MM format (24-hour)
+ * - timezone: User's timezone for scheduling
+ * - permissionGranted: Whether browser permission was granted
+ * - updatedAt: Last modification timestamp
+ */
+export const notificationSettingsSchema: RxJsonSchema<NotificationSettingsDocType> = {
+  version: 0,
+  primaryKey: 'id',
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      maxLength: 100,
+      minLength: 1,
+    },
+    enabled: {
+      type: 'boolean',
+    },
+    reminderTime: {
+      type: 'string',
+      // HH:MM format (5 characters)
+      minLength: 5,
+      maxLength: 5,
+      // Pattern for 24-hour time format
+      pattern: '^([01]\\d|2[0-3]):[0-5]\\d$',
+    },
+    timezone: {
+      type: 'string',
+      // Timezone string (e.g., 'America/New_York')
+      minLength: 1,
+      maxLength: 100,
+    },
+    permissionGranted: {
+      type: 'boolean',
+    },
+    updatedAt: {
+      type: 'integer',
+      minimum: 0,
+      maximum: 9999999999999,
+    },
+  },
+  required: ['id', 'enabled', 'reminderTime', 'timezone', 'permissionGranted', 'updatedAt'],
 };
