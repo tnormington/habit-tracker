@@ -1,9 +1,13 @@
+"use client";
+
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/theme";
 
 export default function SettingsPage() {
   return (
@@ -21,6 +25,9 @@ export default function SettingsPage() {
               Customize the look and feel of your app
             </CardDescription>
           </CardHeader>
+          <CardContent>
+            <ThemeToggle />
+          </CardContent>
         </Card>
 
         <Card>
