@@ -13,53 +13,26 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ChoiceCardGroup } from '@/components/ui/choice-card';
-import { CalendarDays, CalendarRange, Calendar } from 'lucide-react';
+import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import {
   createHabit,
   VALID_HABIT_TYPES,
-  VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
   type CreateHabitData,
 } from '@/lib/database/habitService';
 import type { HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
 import { cn } from '@/lib/utils';
-
-// Color display mappings for the color picker
-const COLOR_DISPLAY: Record<HabitColor, { label: string; bgClass: string }> = {
-  red: { label: 'Red', bgClass: 'bg-red-500' },
-  orange: { label: 'Orange', bgClass: 'bg-orange-500' },
-  yellow: { label: 'Yellow', bgClass: 'bg-yellow-500' },
-  green: { label: 'Green', bgClass: 'bg-green-500' },
-  blue: { label: 'Blue', bgClass: 'bg-blue-500' },
-  purple: { label: 'Purple', bgClass: 'bg-purple-500' },
-  pink: { label: 'Pink', bgClass: 'bg-pink-500' },
-  gray: { label: 'Gray', bgClass: 'bg-gray-500' },
-};
-
-// Category display labels
-const CATEGORY_DISPLAY: Record<HabitCategory, string> = {
-  health: 'Health',
-  fitness: 'Fitness',
-  productivity: 'Productivity',
-  mindfulness: 'Mindfulness',
-  learning: 'Learning',
-  social: 'Social',
-  finance: 'Finance',
-  creativity: 'Creativity',
-  other: 'Other',
-};
-
-// Type display labels
-const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = {
-  positive: { label: 'Positive', description: 'A habit you want to build' },
-  negative: { label: 'Negative', description: 'A habit you want to break' },
-};
+import {
+  COLOR_DISPLAY,
+  TYPE_DISPLAY,
+  FREQUENCY_DISPLAY,
+} from '@/lib/constants/habit-display';
 
 // Frequency options for choice cards
 const FREQUENCY_OPTIONS: Array<{ value: HabitFrequency; label: string; description: string; icon: React.ReactNode }> = [
-  { value: 'daily', label: 'Daily', description: 'Every day', icon: <CalendarDays className="size-5" /> },
-  { value: 'weekly', label: 'Weekly', description: 'Once per week', icon: <CalendarRange className="size-5" /> },
-  { value: 'monthly', label: 'Monthly', description: 'Once per month', icon: <Calendar className="size-5" /> },
+  { value: 'daily', ...FREQUENCY_DISPLAY.daily },
+  { value: 'weekly', ...FREQUENCY_DISPLAY.weekly },
+  { value: 'monthly', ...FREQUENCY_DISPLAY.monthly },
 ];
 
 interface FormErrors {
@@ -268,33 +241,21 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
 
       {/* Category Field */}
       <div className="space-y-2">
-        <Label htmlFor="habit-category">
+        <Label>
           Category <span className="text-destructive">*</span>
         </Label>
-        <Select
-          value={category}
-          onValueChange={(value) => {
-            setCategory(value as HabitCategory);
+        <CategoryIconGrid
+          value={category || undefined}
+          onChange={(value) => {
+            setCategory(value);
             clearFieldError('category');
           }}
           disabled={isSubmitting}
-        >
-          <SelectTrigger
-            id="habit-category"
-            data-testid="habit-category-select"
-            aria-invalid={!!errors.category}
-            aria-describedby={errors.category ? 'habit-category-error' : undefined}
-          >
-            <SelectValue placeholder="Select a category" />
-          </SelectTrigger>
-          <SelectContent>
-            {VALID_HABIT_CATEGORIES.map((c) => (
-              <SelectItem key={c} value={c} data-testid={`habit-category-option-${c}`}>
-                {CATEGORY_DISPLAY[c]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          aria-label="Habit category"
+          aria-invalid={!!errors.category}
+          aria-describedby={errors.category ? 'habit-category-error' : undefined}
+          data-testid="habit-category"
+        />
         {errors.category && (
           <p id="habit-category-error" className="text-sm text-destructive" data-testid="habit-category-error">
             {errors.category}

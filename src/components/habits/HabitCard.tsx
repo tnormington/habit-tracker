@@ -12,10 +12,12 @@ import {
   TrendingUp,
   TrendingDown,
   ChevronRight,
-  CalendarDays,
-  CalendarRange,
-  Calendar,
 } from 'lucide-react';
+import {
+  CATEGORY_DISPLAY,
+  CATEGORY_ICONS,
+  FREQUENCY_ICONS,
+} from '@/lib/constants/habit-display';
 
 interface HabitCardProps {
   habit: HabitDocType;
@@ -35,22 +37,10 @@ const COLOR_CLASSES: Record<HabitDocType['color'], string> = {
   gray: 'bg-gray-500',
 };
 
-const CATEGORY_LABELS: Record<HabitDocType['category'], string> = {
-  health: 'Health',
-  fitness: 'Fitness',
-  productivity: 'Productivity',
-  mindfulness: 'Mindfulness',
-  learning: 'Learning',
-  social: 'Social',
-  finance: 'Finance',
-  creativity: 'Creativity',
-  other: 'Other',
-};
-
 const FREQUENCY_CONFIG = {
-  daily: { label: 'Daily', Icon: CalendarDays },
-  weekly: { label: 'Weekly', Icon: CalendarRange },
-  monthly: { label: 'Monthly', Icon: Calendar },
+  daily: { label: 'Daily' },
+  weekly: { label: 'Weekly' },
+  monthly: { label: 'Monthly' },
 } as const;
 
 export function HabitCard({
@@ -61,7 +51,8 @@ export function HabitCard({
 }: HabitCardProps) {
   const isPositive = habit.type === 'positive';
   const frequency = habit.frequency || 'daily';
-  const FrequencyIcon = FREQUENCY_CONFIG[frequency].Icon;
+  const FrequencyIcon = FREQUENCY_ICONS[frequency];
+  const CategoryIcon = CATEGORY_ICONS[habit.category];
 
   return (
     <Card
@@ -135,10 +126,11 @@ export function HabitCard({
 
             {/* Category badge */}
             <span
-              className="inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground"
+              className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground"
               data-testid="habit-category-badge"
             >
-              {CATEGORY_LABELS[habit.category]}
+              <CategoryIcon className="size-3" aria-hidden="true" />
+              {CATEGORY_DISPLAY[habit.category].label}
             </span>
 
             {/* Frequency badge (only show for non-daily) */}

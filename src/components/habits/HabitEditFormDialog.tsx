@@ -26,51 +26,25 @@ import {
   restoreHabit,
   deleteHabit,
   VALID_HABIT_TYPES,
-  VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
 } from '@/lib/database/habitService';
 import { ChoiceCardGroup } from '@/components/ui/choice-card';
+import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import type { HabitDocType, HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
 import { cn } from '@/lib/utils';
-import { Archive, ArchiveRestore, Trash2, CalendarDays, CalendarRange, Calendar } from 'lucide-react';
+import { Archive, ArchiveRestore, Trash2 } from 'lucide-react';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
-
-// Color display mappings for the color picker
-const COLOR_DISPLAY: Record<HabitColor, { label: string; bgClass: string }> = {
-  red: { label: 'Red', bgClass: 'bg-red-500' },
-  orange: { label: 'Orange', bgClass: 'bg-orange-500' },
-  yellow: { label: 'Yellow', bgClass: 'bg-yellow-500' },
-  green: { label: 'Green', bgClass: 'bg-green-500' },
-  blue: { label: 'Blue', bgClass: 'bg-blue-500' },
-  purple: { label: 'Purple', bgClass: 'bg-purple-500' },
-  pink: { label: 'Pink', bgClass: 'bg-pink-500' },
-  gray: { label: 'Gray', bgClass: 'bg-gray-500' },
-};
-
-// Category display labels
-const CATEGORY_DISPLAY: Record<HabitCategory, string> = {
-  health: 'Health',
-  fitness: 'Fitness',
-  productivity: 'Productivity',
-  mindfulness: 'Mindfulness',
-  learning: 'Learning',
-  social: 'Social',
-  finance: 'Finance',
-  creativity: 'Creativity',
-  other: 'Other',
-};
-
-// Type display labels
-const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = {
-  positive: { label: 'Positive', description: 'A habit you want to build' },
-  negative: { label: 'Negative', description: 'A habit you want to break' },
-};
+import {
+  COLOR_DISPLAY,
+  TYPE_DISPLAY,
+  FREQUENCY_DISPLAY,
+} from '@/lib/constants/habit-display';
 
 // Frequency options for choice cards
 const FREQUENCY_OPTIONS: Array<{ value: HabitFrequency; label: string; description: string; icon: React.ReactNode }> = [
-  { value: 'daily', label: 'Daily', description: 'Every day', icon: <CalendarDays className="size-5" /> },
-  { value: 'weekly', label: 'Weekly', description: 'Once per week', icon: <CalendarRange className="size-5" /> },
-  { value: 'monthly', label: 'Monthly', description: 'Once per month', icon: <Calendar className="size-5" /> },
+  { value: 'daily', ...FREQUENCY_DISPLAY.daily },
+  { value: 'weekly', ...FREQUENCY_DISPLAY.weekly },
+  { value: 'monthly', ...FREQUENCY_DISPLAY.monthly },
 ];
 
 interface FormErrors {
@@ -350,33 +324,21 @@ export function HabitEditFormDialog({
 
             {/* Category Field */}
             <div className="space-y-2">
-              <Label htmlFor="edit-habit-category">
+              <Label>
                 Category <span className="text-destructive">*</span>
               </Label>
-              <Select
+              <CategoryIconGrid
                 value={category}
-                onValueChange={(value) => {
-                  setCategory(value as HabitCategory);
+                onChange={(value) => {
+                  setCategory(value);
                   clearFieldError('category');
                 }}
                 disabled={isLoading}
-              >
-                <SelectTrigger
-                  id="edit-habit-category"
-                  data-testid="edit-habit-category-select"
-                  aria-invalid={!!errors.category}
-                  aria-describedby={errors.category ? 'edit-habit-category-error' : undefined}
-                >
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {VALID_HABIT_CATEGORIES.map((c) => (
-                    <SelectItem key={c} value={c} data-testid={`edit-habit-category-option-${c}`}>
-                      {CATEGORY_DISPLAY[c]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                aria-label="Habit category"
+                aria-invalid={!!errors.category}
+                aria-describedby={errors.category ? 'edit-habit-category-error' : undefined}
+                data-testid="edit-habit-category"
+              />
               {errors.category && (
                 <p id="edit-habit-category-error" className="text-sm text-destructive" data-testid="edit-habit-category-error">
                   {errors.category}
