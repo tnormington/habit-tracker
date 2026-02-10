@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,6 +11,7 @@ import {
   MoreVertical,
   TrendingUp,
   TrendingDown,
+  ChevronRight,
 } from 'lucide-react';
 
 interface HabitCardProps {
@@ -67,21 +69,30 @@ export function HabitCard({
 
       <CardHeader className="pb-3 pl-5">
         <div className="flex items-start justify-between gap-2">
-          <div className="flex-1 min-w-0">
-            <CardTitle className="text-base font-medium truncate">
+          <Link
+            href={`/habits/${habit.id}`}
+            className="flex-1 min-w-0 group"
+            data-testid="habit-detail-link"
+          >
+            <CardTitle className="text-base font-medium truncate group-hover:text-primary transition-colors">
               {habit.name}
+              <ChevronRight className="inline-block size-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
             </CardTitle>
             {habit.description && (
               <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                 {habit.description}
               </p>
             )}
-          </div>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
             className="size-8 shrink-0"
-            onClick={() => onEdit?.(habit)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onEdit?.(habit);
+            }}
             aria-label={`Edit ${habit.name}`}
           >
             <MoreVertical className="size-4" />
@@ -126,7 +137,11 @@ export function HabitCard({
               variant="ghost"
               size="icon"
               className="size-8"
-              onClick={() => onComplete?.(habit)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onComplete?.(habit);
+              }}
               aria-label={`Mark ${habit.name} as complete`}
               title="Mark as complete"
             >
@@ -136,7 +151,11 @@ export function HabitCard({
               variant="ghost"
               size="icon"
               className="size-8"
-              onClick={() => onArchive?.(habit)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onArchive?.(habit);
+              }}
               aria-label={`Archive ${habit.name}`}
               title="Archive habit"
             >

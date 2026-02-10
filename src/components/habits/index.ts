@@ -7,3 +7,8 @@ export { HabitSearch } from './HabitSearch';
 export { HabitEmptyState } from './HabitEmptyState';
 export { HabitListView } from './HabitListView';
 export { DailyCheckIn } from './DailyCheckIn';
+export { HabitDetailHeader } from './HabitDetailHeader';
+export { HabitStatsCard } from './HabitStatsCard';
+export { HabitStreakCard } from './HabitStreakCard';
+export { HabitCalendar } from './HabitCalendar';
+export { HabitRecentLogs } from './HabitRecentLogs';
