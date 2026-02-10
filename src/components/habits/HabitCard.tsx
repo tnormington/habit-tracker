@@ -70,7 +70,7 @@ export function HabitCard({
       <CardHeader className="pb-3 pl-5">
         <div className="flex items-start justify-between gap-2">
           <Link
-            href={`/habits/${habit.id}`}
+            href={`/habits/detail?id=${habit.id}`}
             className="flex-1 min-w-0 group"
             data-testid="habit-detail-link"
           >

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useHabit } from '@/lib/database/useHabits';
 import {
   HabitDetailHeader,
@@ -14,9 +14,9 @@ import {
 import type { HabitDocType } from '@/lib/database/types';
 
 export default function HabitDetailPage() {
-  const params = useParams();
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const habitId = params.id as string;
+  const habitId = searchParams.get('id') ?? '';
 
   const { habit, isLoading, error } = useHabit(habitId);
   const [editingHabit, setEditingHabit] = React.useState<HabitDocType | null>(null);
@@ -36,11 +36,31 @@ export default function HabitDetailPage() {
 
   // Handle deletion - redirect back to habits list
   React.useEffect(() => {
-    if (!isLoading && !habit && !error) {
+    if (!isLoading && !habit && !error && habitId) {
       // Habit was deleted, redirect to habits list
       router.push('/habits');
     }
-  }, [habit, isLoading, error, router]);
+  }, [habit, isLoading, error, router, habitId]);
+
+  if (!habitId) {
+    return (
+      <div
+        className="flex flex-col items-center justify-center py-12"
+        data-testid="habit-not-found"
+      >
+        <p className="text-lg font-medium">No habit selected</p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Please select a habit from the habits list.
+        </p>
+        <button
+          onClick={() => router.push('/habits')}
+          className="mt-4 text-sm text-primary hover:underline"
+        >
+          Back to Habits
+        </button>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
