@@ -4,3 +4,4 @@ export { HabitFilters, type HabitFiltersState } from './HabitFilters';
 export { HabitSearch } from './HabitSearch';
 export { HabitEmptyState } from './HabitEmptyState';
 export { HabitListView } from './HabitListView';
+export { DailyCheckIn } from './DailyCheckIn';

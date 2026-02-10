@@ -1,46 +1,27 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client';
+
+import { DailyCheckIn } from '@/components/habits';
+
+function formatTodayDate(): string {
+  return new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 export default function DashboardPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p className="mt-2 text-muted-foreground">
-        Welcome back! Here&apos;s your habit overview.
-      </p>
-
-      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>Today&apos;s Progress</CardTitle>
-            <CardDescription>
-              Track your habits for today
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Weekly Streak</CardTitle>
-            <CardDescription>
-              Your current streak statistics
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>
-              Add a new habit or view statistics
-            </CardDescription>
-          </CardHeader>
-        </Card>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Today's Check-In</h1>
+        <p className="mt-1 text-muted-foreground">
+          {formatTodayDate()}
+        </p>
       </div>
+
+      <DailyCheckIn />
     </div>
   );
 }
