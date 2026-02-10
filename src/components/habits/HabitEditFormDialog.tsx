@@ -18,16 +18,13 @@ import {
   archiveHabit,
   restoreHabit,
   deleteHabit,
-  VALID_HABIT_COLORS,
 } from '@/lib/database/habitService';
 import { ChoiceCardGroup } from '@/components/ui/choice-card';
 import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import type { HabitDocType, HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
-import { cn } from '@/lib/utils';
 import { Archive, ArchiveRestore, Trash2 } from 'lucide-react';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
 import {
-  COLOR_DISPLAY,
   TYPE_DISPLAY,
   FREQUENCY_DISPLAY,
 } from '@/lib/constants/habit-display';
@@ -51,7 +48,6 @@ interface FormErrors {
   description?: string;
   type?: string;
   category?: string;
-  color?: string;
   frequency?: string;
   submit?: string;
 }
@@ -348,49 +344,6 @@ export function HabitEditFormDialog({
               {errors.frequency && (
                 <p id="edit-habit-frequency-error" className="text-sm text-destructive" data-testid="edit-habit-frequency-error">
                   {errors.frequency}
-                </p>
-              )}
-            </div>
-
-            {/* Color Picker Field */}
-            <div className="space-y-2">
-              <Label>
-                Color <span className="text-destructive">*</span>
-              </Label>
-              <div
-                className="flex flex-wrap gap-2"
-                role="radiogroup"
-                aria-label="Habit color"
-                aria-invalid={!!errors.color}
-                aria-describedby={errors.color ? 'edit-habit-color-error' : undefined}
-              >
-                {VALID_HABIT_COLORS.map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    role="radio"
-                    aria-checked={color === c}
-                    data-testid={`edit-habit-color-option-${c}`}
-                    onClick={() => {
-                      setColor(c);
-                      clearFieldError('color');
-                    }}
-                    disabled={isLoading}
-                    className={cn(
-                      'size-8 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      COLOR_DISPLAY[c].bgClass,
-                      color === c && 'ring-2 ring-ring ring-offset-2 scale-110',
-                      isLoading && 'opacity-50 cursor-not-allowed'
-                    )}
-                    title={COLOR_DISPLAY[c].label}
-                  >
-                    <span className="sr-only">{COLOR_DISPLAY[c].label}</span>
-                  </button>
-                ))}
-              </div>
-              {errors.color && (
-                <p id="edit-habit-color-error" className="text-sm text-destructive" data-testid="edit-habit-color-error">
-                  {errors.color}
                 </p>
               )}
             </div>

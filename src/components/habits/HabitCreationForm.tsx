@@ -9,13 +9,10 @@ import { ChoiceCardGroup } from '@/components/ui/choice-card';
 import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import {
   createHabit,
-  VALID_HABIT_COLORS,
   type CreateHabitData,
 } from '@/lib/database/habitService';
-import type { HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
-import { cn } from '@/lib/utils';
+import type { HabitType, HabitCategory, HabitFrequency } from '@/lib/database/types';
 import {
-  COLOR_DISPLAY,
   TYPE_DISPLAY,
   FREQUENCY_DISPLAY,
 } from '@/lib/constants/habit-display';
@@ -39,7 +36,6 @@ interface FormErrors {
   description?: string;
   type?: string;
   category?: string;
-  color?: string;
   frequency?: string;
   submit?: string;
 }
@@ -54,7 +50,6 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
   const [description, setDescription] = React.useState('');
   const [type, setType] = React.useState<HabitType | ''>('');
   const [category, setCategory] = React.useState<HabitCategory | ''>('');
-  const [color, setColor] = React.useState<HabitColor | ''>('');
   const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
   const [errors, setErrors] = React.useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -86,11 +81,6 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
       newErrors.category = 'Please select a category';
     }
 
-    // Validate color
-    if (!color) {
-      newErrors.color = 'Please select a color';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -112,7 +102,6 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         description: description.trim() || undefined,
         type: type as HabitType,
         category: category as HabitCategory,
-        color: color as HabitColor,
         frequency: frequency,
       };
 
@@ -124,7 +113,6 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         setDescription('');
         setType('');
         setCategory('');
-        setColor('');
         setFrequency('daily');
         onSuccess?.();
       } else {
@@ -265,49 +253,6 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         {errors.frequency && (
           <p id="habit-frequency-error" className="text-sm text-destructive" data-testid="habit-frequency-error">
             {errors.frequency}
-          </p>
-        )}
-      </div>
-
-      {/* Color Picker Field */}
-      <div className="space-y-2">
-        <Label>
-          Color <span className="text-destructive">*</span>
-        </Label>
-        <div
-          className="flex flex-wrap gap-2"
-          role="radiogroup"
-          aria-label="Habit color"
-          aria-invalid={!!errors.color}
-          aria-describedby={errors.color ? 'habit-color-error' : undefined}
-        >
-          {VALID_HABIT_COLORS.map((c) => (
-            <button
-              key={c}
-              type="button"
-              role="radio"
-              aria-checked={color === c}
-              data-testid={`habit-color-option-${c}`}
-              onClick={() => {
-                setColor(c);
-                clearFieldError('color');
-              }}
-              disabled={isSubmitting}
-              className={cn(
-                'size-8 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                COLOR_DISPLAY[c].bgClass,
-                color === c && 'ring-2 ring-ring ring-offset-2 scale-110',
-                isSubmitting && 'opacity-50 cursor-not-allowed'
-              )}
-              title={COLOR_DISPLAY[c].label}
-            >
-              <span className="sr-only">{COLOR_DISPLAY[c].label}</span>
-            </button>
-          ))}
-        </div>
-        {errors.color && (
-          <p id="habit-color-error" className="text-sm text-destructive" data-testid="habit-color-error">
-            {errors.color}
           </p>
         )}
       </div>

@@ -21,6 +21,9 @@ import type {
 // Types
 // ============================================================================
 
+/** Default color for new habits */
+export const DEFAULT_HABIT_COLOR: HabitColor = 'blue';
+
 /**
  * Input for creating a new habit
  */
@@ -29,7 +32,7 @@ export interface CreateHabitData {
   description?: string;
   type: HabitType;
   category: HabitCategory;
-  color: HabitColor;
+  color?: HabitColor;
   frequency?: HabitFrequency;
 }
 
@@ -269,14 +272,16 @@ export function validateCreateHabitData(data: unknown): HabitServiceError | null
     );
   }
 
-  // Validate color (required)
-  const colorError = validateHabitColor(input.color);
-  if (colorError) {
-    return new HabitServiceError(
-      colorError,
-      HabitServiceErrorCode.VALIDATION_ERROR,
-      'color'
-    );
+  // Validate color (optional, defaults to 'blue')
+  if (input.color !== undefined) {
+    const colorError = validateHabitColor(input.color);
+    if (colorError) {
+      return new HabitServiceError(
+        colorError,
+        HabitServiceErrorCode.VALIDATION_ERROR,
+        'color'
+      );
+    }
   }
 
   // Validate frequency (optional, defaults to 'daily')
@@ -468,7 +473,7 @@ export async function createHabit(
       description: data.description?.trim() ?? '',
       type: data.type,
       category: data.category,
-      color: data.color,
+      color: data.color ?? DEFAULT_HABIT_COLOR,
       frequency: data.frequency ?? 'daily',
       createdAt: now,
       updatedAt: now,
