@@ -7,6 +7,7 @@ import {
   CheckSquare,
   BarChart3,
   Settings,
+  CalendarDays,
   type LucideIcon,
 } from "lucide-react";
 
@@ -29,6 +30,11 @@ const navItems: NavItem[] = [
     label: "Habits",
     href: "/habits",
     icon: CheckSquare,
+  },
+  {
+    label: "Calendar",
+    href: "/calendar",
+    icon: CalendarDays,
   },
   {
     label: "Statistics",
