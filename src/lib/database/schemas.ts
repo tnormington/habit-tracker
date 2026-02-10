@@ -105,6 +105,12 @@ export const habitSchema: RxJsonSchema<HabitDocType> = {
       // Must be one of the defined frequencies
       enum: [...HABIT_FREQUENCIES],
     },
+    targetCount: {
+      type: 'integer',
+      // Target completions per period (1-7 for weekly, 1-30 for monthly, 1 for daily)
+      minimum: 1,
+      maximum: 30,
+    },
     createdAt: {
       type: 'integer',
       // Timestamp in milliseconds since epoch
@@ -129,6 +135,7 @@ export const habitSchema: RxJsonSchema<HabitDocType> = {
     'category',
     'color',
     'frequency',
+    'targetCount',
     'createdAt',
     'updatedAt',
     'isArchived',

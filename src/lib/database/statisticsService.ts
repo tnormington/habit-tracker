@@ -70,6 +70,8 @@ export interface HabitStatistics {
   habitCategory: HabitCategory;
   /** The habit frequency */
   habitFrequency: HabitFrequency;
+  /** Target completions per period (for non-daily habits) */
+  targetCount: number;
   /** Total number of completions */
   totalCompletions: number;
   /** Total number of tracked days/periods (days with any log entry) */
@@ -92,6 +94,8 @@ export interface HabitStatistics {
   lastLogDate: string | null;
   /** Date of last completion */
   lastCompletionDate: string | null;
+  /** Current period progress (for non-daily habits) - how many completions this week/month */
+  currentPeriodCompletions: number;
 }
 
 /**
@@ -464,23 +468,35 @@ function calculateHabitStatsFromLogs(
       ? Math.round((totalCompletions / totalTrackedDays) * 100)
       : 0;
   } else {
-    // For weekly/monthly, count unique periods
+    // For weekly/monthly, count unique periods and check against target count
+    const targetCount = habit.targetCount || 1;
     const trackedPeriods = new Set<string>();
-    const successPeriods = new Set<string>();
+    const periodCompletionCounts = new Map<string, number>();
 
     for (const log of logs) {
       const periodKey = getPeriodKey(log.date, frequency);
       trackedPeriods.add(periodKey);
       if (isSuccess(log.completed, habit.type)) {
-        successPeriods.add(periodKey);
+        periodCompletionCounts.set(
+          periodKey,
+          (periodCompletionCounts.get(periodKey) || 0) + 1
+        );
+      }
+    }
+
+    // A period is successful only if the target count is met
+    let successfulPeriods = 0;
+    for (const [, count] of periodCompletionCounts) {
+      if (count >= targetCount) {
+        successfulPeriods++;
       }
     }
 
     totalTrackedDays = trackedPeriods.size;
     completionRate = totalTrackedDays > 0
-      ? Math.round((successPeriods.size / totalTrackedDays) * 100)
+      ? Math.round((successfulPeriods / totalTrackedDays) * 100)
       : 0;
-    totalCompletions = successPeriods.size;
+    totalCompletions = successfulPeriods;
   }
 
   // Calculate completion rate by day of week
@@ -494,12 +510,31 @@ function calculateHabitStatsFromLogs(
     }
   }
 
+  // Calculate current period completions (for non-daily habits)
+  let currentPeriodCompletions = 0;
+  if (frequency !== 'daily') {
+    const today = getTodayDate();
+    const currentPeriodKey = getPeriodKey(today, frequency);
+    for (const log of logs) {
+      const logPeriodKey = getPeriodKey(log.date, frequency);
+      if (logPeriodKey === currentPeriodKey && isSuccess(log.completed, habit.type)) {
+        currentPeriodCompletions++;
+      }
+    }
+  } else {
+    // For daily, current period completion is just whether completed today
+    const today = getTodayDate();
+    const todayLog = logs.find(l => l.date === today);
+    currentPeriodCompletions = todayLog && isSuccess(todayLog.completed, habit.type) ? 1 : 0;
+  }
+
   return {
     habitId: habit.id,
     habitName: habit.name,
     habitType: habit.type,
     habitCategory: habit.category,
     habitFrequency: frequency,
+    targetCount: habit.targetCount || 1,
     totalCompletions,
     totalTrackedDays,
     completionRate,
@@ -511,6 +546,7 @@ function calculateHabitStatsFromLogs(
     firstLogDate: logs.length > 0 ? logs[0].date : null,
     lastLogDate: logs.length > 0 ? logs[logs.length - 1].date : null,
     lastCompletionDate,
+    currentPeriodCompletions,
   };
 }
 

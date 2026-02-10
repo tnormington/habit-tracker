@@ -65,6 +65,13 @@ export interface HabitDocType {
   color: HabitColor;
   /** How often the habit should be tracked (daily, weekly, monthly) */
   frequency: HabitFrequency;
+  /**
+   * Target number of completions per period for non-daily habits
+   * - For weekly habits: 1-7 times per week
+   * - For monthly habits: 1-30 times per month
+   * - For daily habits: always 1 (not used)
+   */
+  targetCount: number;
   /** Timestamp when the habit was created (ms since epoch) */
   createdAt: number;
   /** Timestamp when the habit was last updated (ms since epoch) */

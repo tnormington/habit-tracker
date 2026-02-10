@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Slider } from '@/components/ui/slider';
 import {
   Dialog,
   DialogContent,
@@ -49,6 +50,7 @@ interface FormErrors {
   type?: string;
   category?: string;
   frequency?: string;
+  targetCount?: string;
   submit?: string;
 }
 
@@ -71,11 +73,36 @@ export function HabitEditFormDialog({
   const [category, setCategory] = React.useState<HabitCategory>('other');
   const [color, setColor] = React.useState<HabitColor>('blue');
   const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
+  const [targetCount, setTargetCount] = React.useState<number>(1);
   const [errors, setErrors] = React.useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isArchiving, setIsArchiving] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = React.useState(false);
+
+  // Get the max target count based on frequency
+  const getMaxTargetCount = (freq: HabitFrequency): number => {
+    switch (freq) {
+      case 'weekly':
+        return 7;
+      case 'monthly':
+        return 30;
+      default:
+        return 1;
+    }
+  };
+
+  // Get label for target count based on frequency
+  const getTargetLabel = (freq: HabitFrequency): string => {
+    switch (freq) {
+      case 'weekly':
+        return 'times per week';
+      case 'monthly':
+        return 'times per month';
+      default:
+        return '';
+    }
+  };
 
   // Populate form when habit changes
   React.useEffect(() => {
@@ -86,9 +113,26 @@ export function HabitEditFormDialog({
       setCategory(habit.category);
       setColor(habit.color);
       setFrequency(habit.frequency || 'daily');
+      setTargetCount(habit.targetCount || 1);
       setErrors({});
     }
   }, [habit]);
+
+  // Handle frequency change - adjust targetCount if needed
+  const handleFrequencyChange = (newFrequency: HabitFrequency) => {
+    setFrequency(newFrequency);
+    clearFieldError('frequency');
+
+    // Adjust targetCount if it exceeds the new maximum
+    const newMax = getMaxTargetCount(newFrequency);
+    if (newFrequency === 'daily') {
+      setTargetCount(1);
+    } else if (targetCount > newMax) {
+      setTargetCount(newMax);
+    } else if (targetCount < 1) {
+      setTargetCount(1);
+    }
+  };
 
   // Validate form on submit
   const validateForm = (): boolean => {
@@ -130,6 +174,7 @@ export function HabitEditFormDialog({
         category,
         color,
         frequency,
+        targetCount: frequency === 'daily' ? 1 : targetCount,
       });
 
       if (result.success) {
@@ -333,10 +378,7 @@ export function HabitEditFormDialog({
               <ChoiceCardGroup
                 options={FREQUENCY_OPTIONS}
                 value={frequency}
-                onChange={(value) => {
-                  setFrequency(value);
-                  clearFieldError('frequency');
-                }}
+                onChange={handleFrequencyChange}
                 disabled={isLoading}
                 aria-label="Habit frequency"
                 data-testid="edit-habit-frequency"
@@ -347,6 +389,32 @@ export function HabitEditFormDialog({
                 </p>
               )}
             </div>
+
+            {/* Target Count Field - only shown for non-daily frequencies */}
+            {frequency !== 'daily' && (
+              <div className="space-y-2">
+                <Label htmlFor="edit-habit-target-count">
+                  Target ({getTargetLabel(frequency)})
+                </Label>
+                <Slider
+                  id="edit-habit-target-count"
+                  value={targetCount}
+                  min={1}
+                  max={getMaxTargetCount(frequency)}
+                  step={1}
+                  onValueChange={setTargetCount}
+                  disabled={isLoading}
+                  formatValue={(v) => `${v}x`}
+                  aria-label={`Target ${getTargetLabel(frequency)}`}
+                  data-testid="edit-habit-target-count"
+                />
+                <p className="text-xs text-muted-foreground">
+                  {targetCount === 1
+                    ? `Complete this habit once ${frequency === 'weekly' ? 'per week' : 'per month'}`
+                    : `Complete this habit ${targetCount} times ${frequency === 'weekly' ? 'per week' : 'per month'}`}
+                </p>
+              </div>
+            )}
 
             {/* Submit Error */}
             {errors.submit && (

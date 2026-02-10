@@ -34,6 +34,13 @@ export interface CreateHabitData {
   category: HabitCategory;
   color?: HabitColor;
   frequency?: HabitFrequency;
+  /**
+   * Target completions per period (for non-daily habits)
+   * - Weekly: 1-7
+   * - Monthly: 1-30
+   * - Daily: always 1 (ignored if provided)
+   */
+  targetCount?: number;
 }
 
 /**
@@ -46,6 +53,13 @@ export interface UpdateHabitData {
   category?: HabitCategory;
   color?: HabitColor;
   frequency?: HabitFrequency;
+  /**
+   * Target completions per period (for non-daily habits)
+   * - Weekly: 1-7
+   * - Monthly: 1-30
+   * - Daily: always 1 (ignored if provided)
+   */
+  targetCount?: number;
   isArchived?: boolean;
 }
 
@@ -220,6 +234,32 @@ export function validateHabitFrequency(frequency: unknown): string | null {
 }
 
 /**
+ * Validate habit target count based on frequency
+ */
+export function validateHabitTargetCount(
+  targetCount: unknown,
+  frequency: HabitFrequency = 'daily'
+): string | null {
+  if (targetCount === undefined || targetCount === null) {
+    return null; // Optional field, defaults to 1
+  }
+  if (typeof targetCount !== 'number' || !Number.isInteger(targetCount)) {
+    return 'Target count must be an integer';
+  }
+  if (targetCount < 1) {
+    return 'Target count must be at least 1';
+  }
+
+  // Validate based on frequency
+  const maxTarget = frequency === 'weekly' ? 7 : frequency === 'monthly' ? 30 : 1;
+  if (targetCount > maxTarget) {
+    return `Target count for ${frequency} habits cannot exceed ${maxTarget}`;
+  }
+
+  return null;
+}
+
+/**
  * Validate create habit input
  */
 export function validateCreateHabitData(data: unknown): HabitServiceError | null {
@@ -292,6 +332,21 @@ export function validateCreateHabitData(data: unknown): HabitServiceError | null
       HabitServiceErrorCode.VALIDATION_ERROR,
       'frequency'
     );
+  }
+
+  // Validate targetCount (optional, defaults to 1)
+  if (input.targetCount !== undefined) {
+    const targetCountError = validateHabitTargetCount(
+      input.targetCount,
+      (input.frequency as HabitFrequency) ?? 'daily'
+    );
+    if (targetCountError) {
+      return new HabitServiceError(
+        targetCountError,
+        HabitServiceErrorCode.VALIDATION_ERROR,
+        'targetCount'
+      );
+    }
   }
 
   return null;
@@ -382,6 +437,21 @@ export function validateUpdateHabitData(data: unknown): HabitServiceError | null
     }
   }
 
+  // Validate targetCount if provided
+  if (input.targetCount !== undefined) {
+    const targetCountError = validateHabitTargetCount(
+      input.targetCount,
+      (input.frequency as HabitFrequency) ?? 'daily'
+    );
+    if (targetCountError) {
+      return new HabitServiceError(
+        targetCountError,
+        HabitServiceErrorCode.VALIDATION_ERROR,
+        'targetCount'
+      );
+    }
+  }
+
   // Validate isArchived if provided
   if (input.isArchived !== undefined && typeof input.isArchived !== 'boolean') {
     return new HabitServiceError(
@@ -467,6 +537,10 @@ export async function createHabit(
     const db = await getDatabaseOrThrow();
     const now = Date.now();
 
+    const frequency = data.frequency ?? 'daily';
+    // Default targetCount based on frequency (1 for daily, or provided value)
+    const targetCount = frequency === 'daily' ? 1 : (data.targetCount ?? 1);
+
     const habitDoc: HabitDocType = {
       id: generateHabitId(),
       name: data.name.trim(),
@@ -474,7 +548,8 @@ export async function createHabit(
       type: data.type,
       category: data.category,
       color: data.color ?? DEFAULT_HABIT_COLOR,
-      frequency: data.frequency ?? 'daily',
+      frequency,
+      targetCount,
       createdAt: now,
       updatedAt: now,
       isArchived: false,
@@ -765,6 +840,15 @@ export async function updateHabit(
     }
     if (data.frequency !== undefined) {
       updates.frequency = data.frequency;
+      // If frequency is set to daily, reset targetCount to 1
+      if (data.frequency === 'daily') {
+        updates.targetCount = 1;
+      }
+    }
+    if (data.targetCount !== undefined) {
+      // Only update targetCount if frequency is not daily
+      const frequency = data.frequency ?? doc.frequency ?? 'daily';
+      updates.targetCount = frequency === 'daily' ? 1 : data.targetCount;
     }
     if (data.isArchived !== undefined) {
       updates.isArchived = data.isArchived;

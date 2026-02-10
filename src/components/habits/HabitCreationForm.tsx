@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ChoiceCardGroup } from '@/components/ui/choice-card';
+import { Slider } from '@/components/ui/slider';
 import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import {
   createHabit,
@@ -37,6 +38,7 @@ interface FormErrors {
   type?: string;
   category?: string;
   frequency?: string;
+  targetCount?: string;
   submit?: string;
 }
 
@@ -51,8 +53,43 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
   const [type, setType] = React.useState<HabitType | ''>('');
   const [category, setCategory] = React.useState<HabitCategory | ''>('');
   const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
+  const [targetCount, setTargetCount] = React.useState<number>(1);
   const [errors, setErrors] = React.useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  // Get the max target count based on frequency
+  const getMaxTargetCount = (freq: HabitFrequency): number => {
+    switch (freq) {
+      case 'weekly':
+        return 7;
+      case 'monthly':
+        return 30;
+      default:
+        return 1;
+    }
+  };
+
+  // Get label for target count based on frequency
+  const getTargetLabel = (freq: HabitFrequency): string => {
+    switch (freq) {
+      case 'weekly':
+        return 'times per week';
+      case 'monthly':
+        return 'times per month';
+      default:
+        return '';
+    }
+  };
+
+  // Reset target count when frequency changes
+  React.useEffect(() => {
+    if (frequency === 'daily') {
+      setTargetCount(1);
+    } else {
+      // Set a reasonable default when switching to weekly/monthly
+      setTargetCount(frequency === 'weekly' ? 3 : 4);
+    }
+  }, [frequency]);
 
   // Validate form on submit
   const validateForm = (): boolean => {
@@ -103,6 +140,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         type: type as HabitType,
         category: category as HabitCategory,
         frequency: frequency,
+        targetCount: frequency === 'daily' ? 1 : targetCount,
       };
 
       const result = await createHabit(habitData);
@@ -114,6 +152,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         setType('');
         setCategory('');
         setFrequency('daily');
+        setTargetCount(1);
         onSuccess?.();
       } else {
         setErrors({
@@ -256,6 +295,32 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
           </p>
         )}
       </div>
+
+      {/* Target Count Field - only shown for non-daily frequencies */}
+      {frequency !== 'daily' && (
+        <div className="space-y-2">
+          <Label htmlFor="habit-target-count">
+            Target ({getTargetLabel(frequency)})
+          </Label>
+          <Slider
+            id="habit-target-count"
+            value={targetCount}
+            min={1}
+            max={getMaxTargetCount(frequency)}
+            step={1}
+            onValueChange={setTargetCount}
+            disabled={isSubmitting}
+            formatValue={(v) => `${v}x`}
+            aria-label={`Target ${getTargetLabel(frequency)}`}
+            data-testid="habit-target-count"
+          />
+          <p className="text-xs text-muted-foreground">
+            {targetCount === 1
+              ? `Complete this habit once ${frequency === 'weekly' ? 'per week' : 'per month'}`
+              : `Complete this habit ${targetCount} times ${frequency === 'weekly' ? 'per week' : 'per month'}`}
+          </p>
+        </div>
+      )}
 
       {/* Submit Error */}
       {errors.submit && (

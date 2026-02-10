@@ -25,6 +25,8 @@ export interface CreateHabitInput {
   category: HabitCategory;
   color: HabitColor;
   frequency?: HabitFrequency;
+  /** Target completions per period (for non-daily habits) */
+  targetCount?: number;
 }
 
 /** Input type for updating a habit */
@@ -35,6 +37,8 @@ export interface UpdateHabitInput {
   category?: HabitCategory;
   color?: HabitColor;
   frequency?: HabitFrequency;
+  /** Target completions per period (for non-daily habits) */
+  targetCount?: number;
   isArchived?: boolean;
 }
 
@@ -198,6 +202,7 @@ export function useHabits(options?: {
       }
 
       const now = Date.now();
+      const frequency = input.frequency ?? 'daily';
       const newHabit: HabitDocType = {
         id: generateId(),
         name: input.name,
@@ -205,7 +210,8 @@ export function useHabits(options?: {
         type: input.type,
         category: input.category,
         color: input.color,
-        frequency: input.frequency ?? 'daily',
+        frequency,
+        targetCount: frequency === 'daily' ? 1 : (input.targetCount ?? 1),
         createdAt: now,
         updatedAt: now,
         isArchived: false,
@@ -327,7 +333,7 @@ export function useHabits(options?: {
 
   return {
     habits,
-    isLoading: isLoading || !isDatabaseReady,
+    isLoading: !dbError && (isLoading || !isDatabaseReady),
     error: error ?? dbError,
     isReady: isDatabaseReady && !isLoading && !error,
     createHabit,
@@ -381,7 +387,7 @@ export function useHabit(id: string | null): {
 
   return {
     habit,
-    isLoading: isLoading || !isDatabaseReady,
+    isLoading: !dbError && (isLoading || !isDatabaseReady),
     error: error ?? dbError,
   };
 }
