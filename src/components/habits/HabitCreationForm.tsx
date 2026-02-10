@@ -17,9 +17,10 @@ import {
   VALID_HABIT_TYPES,
   VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
+  VALID_HABIT_FREQUENCIES,
   type CreateHabitData,
 } from '@/lib/database/habitService';
-import type { HabitType, HabitCategory, HabitColor } from '@/lib/database/types';
+import type { HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
 import { cn } from '@/lib/utils';
 
 // Color display mappings for the color picker
@@ -53,12 +54,20 @@ const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = 
   negative: { label: 'Negative', description: 'A habit you want to break' },
 };
 
+// Frequency display labels
+const FREQUENCY_DISPLAY: Record<HabitFrequency, { label: string; description: string }> = {
+  daily: { label: 'Daily', description: 'Track every day' },
+  weekly: { label: 'Weekly', description: 'Track once per week' },
+  monthly: { label: 'Monthly', description: 'Track once per month' },
+};
+
 interface FormErrors {
   name?: string;
   description?: string;
   type?: string;
   category?: string;
   color?: string;
+  frequency?: string;
   submit?: string;
 }
 
@@ -73,6 +82,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
   const [type, setType] = React.useState<HabitType | ''>('');
   const [category, setCategory] = React.useState<HabitCategory | ''>('');
   const [color, setColor] = React.useState<HabitColor | ''>('');
+  const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
   const [errors, setErrors] = React.useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -130,6 +140,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         type: type as HabitType,
         category: category as HabitCategory,
         color: color as HabitColor,
+        frequency: frequency,
       };
 
       const result = await createHabit(habitData);
@@ -141,6 +152,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         setType('');
         setCategory('');
         setColor('');
+        setFrequency('daily');
         onSuccess?.();
       } else {
         setErrors({
@@ -285,6 +297,43 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         {errors.category && (
           <p id="habit-category-error" className="text-sm text-destructive" data-testid="habit-category-error">
             {errors.category}
+          </p>
+        )}
+      </div>
+
+      {/* Frequency Field */}
+      <div className="space-y-2">
+        <Label htmlFor="habit-frequency">Frequency</Label>
+        <Select
+          value={frequency}
+          onValueChange={(value) => {
+            setFrequency(value as HabitFrequency);
+            clearFieldError('frequency');
+          }}
+          disabled={isSubmitting}
+        >
+          <SelectTrigger
+            id="habit-frequency"
+            data-testid="habit-frequency-select"
+            aria-invalid={!!errors.frequency}
+            aria-describedby={errors.frequency ? 'habit-frequency-error' : undefined}
+          >
+            <SelectValue placeholder="Select frequency" />
+          </SelectTrigger>
+          <SelectContent>
+            {VALID_HABIT_FREQUENCIES.map((f) => (
+              <SelectItem key={f} value={f} data-testid={`habit-frequency-option-${f}`}>
+                <div className="flex flex-col">
+                  <span>{FREQUENCY_DISPLAY[f].label}</span>
+                  <span className="text-xs text-muted-foreground">{FREQUENCY_DISPLAY[f].description}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors.frequency && (
+          <p id="habit-frequency-error" className="text-sm text-destructive" data-testid="habit-frequency-error">
+            {errors.frequency}
           </p>
         )}
       </div>

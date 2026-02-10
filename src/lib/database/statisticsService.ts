@@ -13,6 +13,7 @@ import type {
   HabitTrackerDatabase,
   HabitType,
   HabitCategory,
+  HabitFrequency,
 } from './types';
 import {
   calculateStreakForHabit,
@@ -67,15 +68,17 @@ export interface HabitStatistics {
   habitType: HabitType;
   /** The habit category */
   habitCategory: HabitCategory;
+  /** The habit frequency */
+  habitFrequency: HabitFrequency;
   /** Total number of completions */
   totalCompletions: number;
-  /** Total number of tracked days (days with any log entry) */
+  /** Total number of tracked days/periods (days with any log entry) */
   totalTrackedDays: number;
   /** Completion rate as percentage (0-100) */
   completionRate: number;
-  /** Current streak (days) */
+  /** Current streak (days/weeks/months based on frequency) */
   currentStreak: number;
-  /** Best streak ever (days) */
+  /** Best streak ever (days/weeks/months based on frequency) */
   bestStreak: number;
   /** Whether the streak is currently active */
   isStreakActive: boolean;
@@ -320,6 +323,39 @@ function initDayOfWeekCounts(): Record<DayOfWeek, number> {
   return { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
 }
 
+/**
+ * Get the week number for a date
+ */
+function getWeekKey(dateStr: string): string {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const firstDay = new Date(year, 0, 1);
+  const dayOfYear = Math.floor((date.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  const weekNumber = Math.ceil((dayOfYear + firstDay.getDay()) / 7);
+  return `${year}-W${weekNumber.toString().padStart(2, '0')}`;
+}
+
+/**
+ * Get the month key for a date (YYYY-MM)
+ */
+function getMonthKey(dateStr: string): string {
+  return dateStr.substring(0, 7);
+}
+
+/**
+ * Get the period key for a date based on frequency
+ */
+function getPeriodKey(dateStr: string, frequency: HabitFrequency): string {
+  switch (frequency) {
+    case 'daily':
+      return dateStr;
+    case 'weekly':
+      return getWeekKey(dateStr);
+    case 'monthly':
+      return getMonthKey(dateStr);
+  }
+}
+
 // ============================================================================
 // Statistics Functions
 // ============================================================================
@@ -402,6 +438,7 @@ function calculateHabitStatsFromLogs(
 ): HabitStatistics {
   const completionsByDayOfWeek = initDayOfWeekCounts();
   const trackedDaysByDayOfWeek = initDayOfWeekCounts();
+  const frequency = habit.frequency || 'daily';
 
   let totalCompletions = 0;
   let lastCompletionDate: string | null = null;
@@ -417,10 +454,34 @@ function calculateHabitStatsFromLogs(
     }
   }
 
-  const totalTrackedDays = logs.length;
-  const completionRate = totalTrackedDays > 0
-    ? Math.round((totalCompletions / totalTrackedDays) * 100)
-    : 0;
+  // For weekly/monthly habits, calculate based on periods
+  let totalTrackedDays: number;
+  let completionRate: number;
+
+  if (frequency === 'daily') {
+    totalTrackedDays = logs.length;
+    completionRate = totalTrackedDays > 0
+      ? Math.round((totalCompletions / totalTrackedDays) * 100)
+      : 0;
+  } else {
+    // For weekly/monthly, count unique periods
+    const trackedPeriods = new Set<string>();
+    const successPeriods = new Set<string>();
+
+    for (const log of logs) {
+      const periodKey = getPeriodKey(log.date, frequency);
+      trackedPeriods.add(periodKey);
+      if (isSuccess(log.completed, habit.type)) {
+        successPeriods.add(periodKey);
+      }
+    }
+
+    totalTrackedDays = trackedPeriods.size;
+    completionRate = totalTrackedDays > 0
+      ? Math.round((successPeriods.size / totalTrackedDays) * 100)
+      : 0;
+    totalCompletions = successPeriods.size;
+  }
 
   // Calculate completion rate by day of week
   const completionRateByDayOfWeek = initDayOfWeekCounts();
@@ -438,6 +499,7 @@ function calculateHabitStatsFromLogs(
     habitName: habit.name,
     habitType: habit.type,
     habitCategory: habit.category,
+    habitFrequency: frequency,
     totalCompletions,
     totalTrackedDays,
     completionRate,
@@ -708,19 +770,68 @@ function calculateDashboardStats(
     }
   }
 
-  // Calculate today's stats
+  // Calculate today's stats (only for daily habits, or weekly/monthly if their period includes today)
   const todayLogs = activeLogs.filter((log) => log.date === today);
   let todayCompleted = 0;
+  // Count habits that should be tracked today
+  const todayWeekKey = getWeekKey(today);
+  const todayMonthKey = getMonthKey(today);
+  let todayHabitsTotal = 0;
+
+  for (const habit of activeHabits) {
+    const frequency = habit.frequency || 'daily';
+    // For daily habits, always count
+    if (frequency === 'daily') {
+      todayHabitsTotal++;
+    }
+    // For weekly habits, check if we've logged this week
+    else if (frequency === 'weekly') {
+      todayHabitsTotal++;
+    }
+    // For monthly habits, check if we've logged this month
+    else if (frequency === 'monthly') {
+      todayHabitsTotal++;
+    }
+  }
+
   for (const log of todayLogs) {
     const habit = habitMap.get(log.habitId);
     if (habit && isSuccess(log.completed, habit.type)) {
       todayCompleted++;
     }
   }
+
+  // Also count weekly/monthly habits completed in their respective periods
+  for (const habit of activeHabits) {
+    const frequency = habit.frequency || 'daily';
+    if (frequency === 'weekly') {
+      // Check if habit was completed this week (but not necessarily today)
+      const weekLogs = activeLogs.filter(
+        (log) => log.habitId === habit.id && getWeekKey(log.date) === todayWeekKey
+      );
+      const wasCompletedThisWeek = weekLogs.some((log) => isSuccess(log.completed, habit.type));
+      // Only add if not already counted from today's logs
+      const todayLog = todayLogs.find((log) => log.habitId === habit.id);
+      if (wasCompletedThisWeek && !todayLog) {
+        todayCompleted++;
+      }
+    } else if (frequency === 'monthly') {
+      // Check if habit was completed this month (but not necessarily today)
+      const monthLogs = activeLogs.filter(
+        (log) => log.habitId === habit.id && getMonthKey(log.date) === todayMonthKey
+      );
+      const wasCompletedThisMonth = monthLogs.some((log) => isSuccess(log.completed, habit.type));
+      const todayLog = todayLogs.find((log) => log.habitId === habit.id);
+      if (wasCompletedThisMonth && !todayLog) {
+        todayCompleted++;
+      }
+    }
+  }
+
   const todayStats = {
     completed: todayCompleted,
-    total: activeHabitsCount,
-    rate: activeHabitsCount > 0 ? Math.round((todayCompleted / activeHabitsCount) * 100) : 0,
+    total: todayHabitsTotal,
+    rate: todayHabitsTotal > 0 ? Math.round((todayCompleted / todayHabitsTotal) * 100) : 0,
   };
 
   // Calculate this week's stats

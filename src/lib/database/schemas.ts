@@ -46,6 +46,14 @@ const HABIT_COLORS = [
 ] as const;
 
 /**
+ * Valid frequency options for habits
+ * - daily: Track every day
+ * - weekly: Track once per week
+ * - monthly: Track once per month
+ */
+const HABIT_FREQUENCIES = ['daily', 'weekly', 'monthly'] as const;
+
+/**
  * Habit Schema
  *
  * Defines the structure for habit documents including:
@@ -91,6 +99,11 @@ export const habitSchema: RxJsonSchema<HabitDocType> = {
       // Must be one of the defined colors
       enum: [...HABIT_COLORS],
     },
+    frequency: {
+      type: 'string',
+      // Must be one of the defined frequencies
+      enum: [...HABIT_FREQUENCIES],
+    },
     createdAt: {
       type: 'integer',
       // Timestamp in milliseconds since epoch
@@ -114,6 +127,7 @@ export const habitSchema: RxJsonSchema<HabitDocType> = {
     'type',
     'category',
     'color',
+    'frequency',
     'createdAt',
     'updatedAt',
     'isArchived',
@@ -123,6 +137,7 @@ export const habitSchema: RxJsonSchema<HabitDocType> = {
     'createdAt',      // For sorting by creation date
     'isArchived',     // For filtering active vs archived habits
     'type',           // For filtering by positive/negative
+    'frequency',      // For filtering by frequency
     'category',       // For filtering by category
   ],
 };

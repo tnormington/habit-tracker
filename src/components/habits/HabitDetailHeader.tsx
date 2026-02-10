@@ -9,7 +9,11 @@ import {
   Edit,
   TrendingUp,
   TrendingDown,
+  CalendarDays,
+  CalendarRange,
+  Calendar,
 } from 'lucide-react';
+import type { HabitFrequency } from '@/lib/database/types';
 
 interface HabitDetailHeaderProps {
   habit: HabitDocType;
@@ -39,9 +43,17 @@ const CATEGORY_LABELS: Record<HabitDocType['category'], string> = {
   other: 'Other',
 };
 
+const FREQUENCY_CONFIG: Record<HabitFrequency, { label: string; Icon: typeof CalendarDays }> = {
+  daily: { label: 'Daily', Icon: CalendarDays },
+  weekly: { label: 'Weekly', Icon: CalendarRange },
+  monthly: { label: 'Monthly', Icon: Calendar },
+};
+
 export function HabitDetailHeader({ habit, onEdit }: HabitDetailHeaderProps) {
   const router = useRouter();
   const isPositive = habit.type === 'positive';
+  const frequency = (habit.frequency || 'daily') as HabitFrequency;
+  const FrequencyIcon = FREQUENCY_CONFIG[frequency].Icon;
 
   return (
     <div className="space-y-4" data-testid="habit-detail-header">
@@ -112,6 +124,14 @@ export function HabitDetailHeader({ habit, onEdit }: HabitDetailHeaderProps) {
               data-testid="habit-category-badge"
             >
               {CATEGORY_LABELS[habit.category]}
+            </span>
+
+            <span
+              className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+              data-testid="habit-frequency-badge"
+            >
+              <FrequencyIcon className="size-3" aria-hidden="true" />
+              {FREQUENCY_CONFIG[frequency].label}
             </span>
 
             {habit.isArchived && (

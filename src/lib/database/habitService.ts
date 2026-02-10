@@ -13,6 +13,7 @@ import type {
   HabitType,
   HabitCategory,
   HabitColor,
+  HabitFrequency,
   HabitTrackerDatabase,
 } from './types';
 
@@ -29,6 +30,7 @@ export interface CreateHabitData {
   type: HabitType;
   category: HabitCategory;
   color: HabitColor;
+  frequency?: HabitFrequency;
 }
 
 /**
@@ -40,6 +42,7 @@ export interface UpdateHabitData {
   type?: HabitType;
   category?: HabitCategory;
   color?: HabitColor;
+  frequency?: HabitFrequency;
   isArchived?: boolean;
 }
 
@@ -49,6 +52,7 @@ export interface UpdateHabitData {
 export interface HabitQueryOptions {
   type?: HabitType;
   category?: HabitCategory;
+  frequency?: HabitFrequency;
   isArchived?: boolean;
   sortBy?: 'name' | 'createdAt' | 'updatedAt';
   sortDirection?: 'asc' | 'desc';
@@ -122,6 +126,9 @@ export const VALID_HABIT_COLORS: HabitColor[] = [
   'pink',
   'gray',
 ];
+
+/** Valid habit frequencies */
+export const VALID_HABIT_FREQUENCIES: HabitFrequency[] = ['daily', 'weekly', 'monthly'];
 
 /** Maximum name length */
 const MAX_NAME_LENGTH = 200;
@@ -197,6 +204,19 @@ export function validateHabitColor(color: unknown): string | null {
 }
 
 /**
+ * Validate habit frequency
+ */
+export function validateHabitFrequency(frequency: unknown): string | null {
+  if (frequency === undefined || frequency === null) {
+    return null; // Optional field, defaults to 'daily'
+  }
+  if (!VALID_HABIT_FREQUENCIES.includes(frequency as HabitFrequency)) {
+    return `Frequency must be one of: ${VALID_HABIT_FREQUENCIES.join(', ')}`;
+  }
+  return null;
+}
+
+/**
  * Validate create habit input
  */
 export function validateCreateHabitData(data: unknown): HabitServiceError | null {
@@ -256,6 +276,16 @@ export function validateCreateHabitData(data: unknown): HabitServiceError | null
       colorError,
       HabitServiceErrorCode.VALIDATION_ERROR,
       'color'
+    );
+  }
+
+  // Validate frequency (optional, defaults to 'daily')
+  const frequencyError = validateHabitFrequency(input.frequency);
+  if (frequencyError) {
+    return new HabitServiceError(
+      frequencyError,
+      HabitServiceErrorCode.VALIDATION_ERROR,
+      'frequency'
     );
   }
 
@@ -331,6 +361,18 @@ export function validateUpdateHabitData(data: unknown): HabitServiceError | null
         colorError,
         HabitServiceErrorCode.VALIDATION_ERROR,
         'color'
+      );
+    }
+  }
+
+  // Validate frequency if provided
+  if (input.frequency !== undefined) {
+    const frequencyError = validateHabitFrequency(input.frequency);
+    if (frequencyError) {
+      return new HabitServiceError(
+        frequencyError,
+        HabitServiceErrorCode.VALIDATION_ERROR,
+        'frequency'
       );
     }
   }
@@ -427,6 +469,7 @@ export async function createHabit(
       type: data.type,
       category: data.category,
       color: data.color,
+      frequency: data.frequency ?? 'daily',
       createdAt: now,
       updatedAt: now,
       isArchived: false,
@@ -529,6 +572,9 @@ export async function getHabits(
     }
     if (options?.category !== undefined) {
       selector.category = options.category;
+    }
+    if (options?.frequency !== undefined) {
+      selector.frequency = options.frequency;
     }
     if (options?.isArchived !== undefined) {
       selector.isArchived = options.isArchived;
@@ -712,6 +758,9 @@ export async function updateHabit(
     if (data.color !== undefined) {
       updates.color = data.color;
     }
+    if (data.frequency !== undefined) {
+      updates.frequency = data.frequency;
+    }
     if (data.isArchived !== undefined) {
       updates.isArchived = data.isArchived;
     }
@@ -820,7 +869,7 @@ export async function deleteHabit(
  * @returns Promise with the count
  */
 export async function countHabits(
-  options?: Pick<HabitQueryOptions, 'type' | 'category' | 'isArchived'>
+  options?: Pick<HabitQueryOptions, 'type' | 'category' | 'frequency' | 'isArchived'>
 ): Promise<HabitServiceResult<number>> {
   try {
     const db = await getDatabaseOrThrow();
@@ -833,6 +882,9 @@ export async function countHabits(
     }
     if (options?.category !== undefined) {
       selector.category = options.category;
+    }
+    if (options?.frequency !== undefined) {
+      selector.frequency = options.frequency;
     }
     if (options?.isArchived !== undefined) {
       selector.isArchived = options.isArchived;

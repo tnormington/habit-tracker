@@ -28,8 +28,9 @@ import {
   VALID_HABIT_TYPES,
   VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
+  VALID_HABIT_FREQUENCIES,
 } from '@/lib/database/habitService';
-import type { HabitDocType, HabitType, HabitCategory, HabitColor } from '@/lib/database/types';
+import type { HabitDocType, HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
 import { cn } from '@/lib/utils';
 import { Archive, ArchiveRestore, Trash2 } from 'lucide-react';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
@@ -65,12 +66,20 @@ const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = 
   negative: { label: 'Negative', description: 'A habit you want to break' },
 };
 
+// Frequency display labels
+const FREQUENCY_DISPLAY: Record<HabitFrequency, { label: string; description: string }> = {
+  daily: { label: 'Daily', description: 'Track every day' },
+  weekly: { label: 'Weekly', description: 'Track once per week' },
+  monthly: { label: 'Monthly', description: 'Track once per month' },
+};
+
 interface FormErrors {
   name?: string;
   description?: string;
   type?: string;
   category?: string;
   color?: string;
+  frequency?: string;
   submit?: string;
 }
 
@@ -92,6 +101,7 @@ export function HabitEditFormDialog({
   const [type, setType] = React.useState<HabitType>('positive');
   const [category, setCategory] = React.useState<HabitCategory>('other');
   const [color, setColor] = React.useState<HabitColor>('blue');
+  const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
   const [errors, setErrors] = React.useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isArchiving, setIsArchiving] = React.useState(false);
@@ -106,6 +116,7 @@ export function HabitEditFormDialog({
       setType(habit.type);
       setCategory(habit.category);
       setColor(habit.color);
+      setFrequency(habit.frequency || 'daily');
       setErrors({});
     }
   }, [habit]);
@@ -149,6 +160,7 @@ export function HabitEditFormDialog({
         type,
         category,
         color,
+        frequency,
       });
 
       if (result.success) {
@@ -368,6 +380,43 @@ export function HabitEditFormDialog({
               {errors.category && (
                 <p id="edit-habit-category-error" className="text-sm text-destructive" data-testid="edit-habit-category-error">
                   {errors.category}
+                </p>
+              )}
+            </div>
+
+            {/* Frequency Field */}
+            <div className="space-y-2">
+              <Label htmlFor="edit-habit-frequency">Frequency</Label>
+              <Select
+                value={frequency}
+                onValueChange={(value) => {
+                  setFrequency(value as HabitFrequency);
+                  clearFieldError('frequency');
+                }}
+                disabled={isLoading}
+              >
+                <SelectTrigger
+                  id="edit-habit-frequency"
+                  data-testid="edit-habit-frequency-select"
+                  aria-invalid={!!errors.frequency}
+                  aria-describedby={errors.frequency ? 'edit-habit-frequency-error' : undefined}
+                >
+                  <SelectValue placeholder="Select frequency" />
+                </SelectTrigger>
+                <SelectContent>
+                  {VALID_HABIT_FREQUENCIES.map((f) => (
+                    <SelectItem key={f} value={f} data-testid={`edit-habit-frequency-option-${f}`}>
+                      <div className="flex flex-col">
+                        <span>{FREQUENCY_DISPLAY[f].label}</span>
+                        <span className="text-xs text-muted-foreground">{FREQUENCY_DISPLAY[f].description}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.frequency && (
+                <p id="edit-habit-frequency-error" className="text-sm text-destructive" data-testid="edit-habit-frequency-error">
+                  {errors.frequency}
                 </p>
               )}
             </div>

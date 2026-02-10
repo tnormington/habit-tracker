@@ -46,6 +46,7 @@ export type {
   HabitType,
   HabitCategory,
   HabitColor,
+  HabitFrequency,
   HabitDocType,
   HabitCompletionDocType,
   HabitLogDocType,
@@ -89,12 +90,14 @@ export {
   validateHabitType,
   validateHabitCategory,
   validateHabitColor,
+  validateHabitFrequency,
   validateCreateHabitData,
   validateUpdateHabitData,
   // Constants
   VALID_HABIT_TYPES,
   VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
+  VALID_HABIT_FREQUENCIES,
   // Error class and codes
   HabitServiceError,
   HabitServiceErrorCode,

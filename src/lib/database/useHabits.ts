@@ -13,6 +13,7 @@ import type {
   HabitType,
   HabitCategory,
   HabitColor,
+  HabitFrequency,
 } from './types';
 import type { RxQuery, MangoQuery } from 'rxdb';
 
@@ -23,6 +24,7 @@ export interface CreateHabitInput {
   type: HabitType;
   category: HabitCategory;
   color: HabitColor;
+  frequency?: HabitFrequency;
 }
 
 /** Input type for updating a habit */
@@ -32,6 +34,7 @@ export interface UpdateHabitInput {
   type?: HabitType;
   category?: HabitCategory;
   color?: HabitColor;
+  frequency?: HabitFrequency;
   isArchived?: boolean;
 }
 
@@ -202,6 +205,7 @@ export function useHabits(options?: {
         type: input.type,
         category: input.category,
         color: input.color,
+        frequency: input.frequency ?? 'daily',
         createdAt: now,
         updatedAt: now,
         isArchived: false,

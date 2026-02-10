@@ -40,6 +40,14 @@ export type HabitColor =
   | 'pink'
   | 'gray';
 
+/**
+ * Habit frequency - determines how often the habit should be tracked
+ * - daily: Track every day
+ * - weekly: Track once per week
+ * - monthly: Track once per month
+ */
+export type HabitFrequency = 'daily' | 'weekly' | 'monthly';
+
 // Habit document type
 export interface HabitDocType {
   /** Unique identifier for the habit */
@@ -54,6 +62,8 @@ export interface HabitDocType {
   category: HabitCategory;
   /** Color for visual identification */
   color: HabitColor;
+  /** How often the habit should be tracked (daily, weekly, monthly) */
+  frequency: HabitFrequency;
   /** Timestamp when the habit was created (ms since epoch) */
   createdAt: number;
   /** Timestamp when the habit was last updated (ms since epoch) */

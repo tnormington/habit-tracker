@@ -12,6 +12,9 @@ import {
   TrendingUp,
   TrendingDown,
   ChevronRight,
+  CalendarDays,
+  CalendarRange,
+  Calendar,
 } from 'lucide-react';
 
 interface HabitCardProps {
@@ -44,6 +47,12 @@ const CATEGORY_LABELS: Record<HabitDocType['category'], string> = {
   other: 'Other',
 };
 
+const FREQUENCY_CONFIG = {
+  daily: { label: 'Daily', Icon: CalendarDays },
+  weekly: { label: 'Weekly', Icon: CalendarRange },
+  monthly: { label: 'Monthly', Icon: Calendar },
+} as const;
+
 export function HabitCard({
   habit,
   onComplete,
@@ -51,6 +60,8 @@ export function HabitCard({
   onEdit,
 }: HabitCardProps) {
   const isPositive = habit.type === 'positive';
+  const frequency = habit.frequency || 'daily';
+  const FrequencyIcon = FREQUENCY_CONFIG[frequency].Icon;
 
   return (
     <Card
@@ -129,6 +140,17 @@ export function HabitCard({
             >
               {CATEGORY_LABELS[habit.category]}
             </span>
+
+            {/* Frequency badge (only show for non-daily) */}
+            {frequency !== 'daily' && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                data-testid="habit-frequency-badge"
+              >
+                <FrequencyIcon className="size-3" aria-hidden="true" />
+                {FREQUENCY_CONFIG[frequency].label}
+              </span>
+            )}
           </div>
 
           {/* Quick action buttons */}
