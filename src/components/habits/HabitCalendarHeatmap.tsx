@@ -302,8 +302,8 @@ export function HabitCalendarHeatmap({
                       <span className={cn(
                         'text-sm',
                         isToday && 'font-bold',
-                        hasLog && success && 'text-green-900 dark:text-green-100',
-                        hasLog && !success && 'text-red-900 dark:text-red-100'
+                        hasLog && success && 'text-green-950 dark:text-green-50',
+                        hasLog && !success && 'text-red-950 dark:text-red-50'
                       )}>
                         {date.getDate()}
                       </span>

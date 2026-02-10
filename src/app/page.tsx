@@ -65,10 +65,10 @@ interface StreakItemProps {
 
 function StreakItem({ habitName, streak, rank }: StreakItemProps) {
   const getBadgeColor = (rank: number) => {
-    if (rank === 1) return 'bg-yellow-500';
-    if (rank === 2) return 'bg-gray-400';
-    if (rank === 3) return 'bg-amber-600';
-    return 'bg-muted';
+    if (rank === 1) return 'bg-yellow-500 text-yellow-950';
+    if (rank === 2) return 'bg-gray-500 text-white';
+    if (rank === 3) return 'bg-amber-600 text-amber-950';
+    return 'bg-muted text-muted-foreground';
   };
 
   return (
@@ -76,7 +76,7 @@ function StreakItem({ habitName, streak, rank }: StreakItemProps) {
       <div className="flex items-center gap-3">
         <div
           className={cn(
-            'flex size-6 items-center justify-center rounded-full text-xs font-bold text-white',
+            'flex size-6 items-center justify-center rounded-full text-xs font-bold',
             getBadgeColor(rank)
           )}
         >
