@@ -212,25 +212,31 @@ export function NotificationSettings() {
 
       {/* Test Notification */}
       {settings?.enabled && permissionStatus === "granted" && (
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleTestNotification}
-            disabled={testSent}
-          >
-            {testSent ? (
-              <>
-                <Check className="mr-1.5 size-4" />
-                Sent!
-              </>
-            ) : (
-              "Send Test Notification"
-            )}
-          </Button>
-          <span className="text-xs text-muted-foreground">
-            Test that notifications are working
-          </span>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleTestNotification}
+              disabled={testSent}
+            >
+              {testSent ? (
+                <>
+                  <Check className="mr-1.5 size-4" />
+                  Sent!
+                </>
+              ) : (
+                "Send Test Notification"
+              )}
+            </Button>
+            <span className="text-xs text-muted-foreground">
+              Test that notifications are working
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            <strong>Firefox users:</strong> If notifications don&apos;t appear, check that notifications are allowed in your browser settings (click the lock icon in the address bar → Permissions → Notifications).
+            Also check Windows Focus Assist / Do Not Disturb settings.
+          </p>
         </div>
       )}
     </div>
