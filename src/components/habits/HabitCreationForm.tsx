@@ -12,12 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { ChoiceCardGroup } from '@/components/ui/choice-card';
+import { CalendarDays, CalendarRange, Calendar } from 'lucide-react';
 import {
   createHabit,
   VALID_HABIT_TYPES,
   VALID_HABIT_CATEGORIES,
   VALID_HABIT_COLORS,
-  VALID_HABIT_FREQUENCIES,
   type CreateHabitData,
 } from '@/lib/database/habitService';
 import type { HabitType, HabitCategory, HabitColor, HabitFrequency } from '@/lib/database/types';
@@ -54,12 +55,12 @@ const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = 
   negative: { label: 'Negative', description: 'A habit you want to break' },
 };
 
-// Frequency display labels
-const FREQUENCY_DISPLAY: Record<HabitFrequency, { label: string; description: string }> = {
-  daily: { label: 'Daily', description: 'Track every day' },
-  weekly: { label: 'Weekly', description: 'Track once per week' },
-  monthly: { label: 'Monthly', description: 'Track once per month' },
-};
+// Frequency options for choice cards
+const FREQUENCY_OPTIONS: Array<{ value: HabitFrequency; label: string; description: string; icon: React.ReactNode }> = [
+  { value: 'daily', label: 'Daily', description: 'Every day', icon: <CalendarDays className="size-5" /> },
+  { value: 'weekly', label: 'Weekly', description: 'Once per week', icon: <CalendarRange className="size-5" /> },
+  { value: 'monthly', label: 'Monthly', description: 'Once per month', icon: <Calendar className="size-5" /> },
+];
 
 interface FormErrors {
   name?: string;
@@ -303,34 +304,18 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
 
       {/* Frequency Field */}
       <div className="space-y-2">
-        <Label htmlFor="habit-frequency">Frequency</Label>
-        <Select
+        <Label>Frequency</Label>
+        <ChoiceCardGroup
+          options={FREQUENCY_OPTIONS}
           value={frequency}
-          onValueChange={(value) => {
-            setFrequency(value as HabitFrequency);
+          onChange={(value) => {
+            setFrequency(value);
             clearFieldError('frequency');
           }}
           disabled={isSubmitting}
-        >
-          <SelectTrigger
-            id="habit-frequency"
-            data-testid="habit-frequency-select"
-            aria-invalid={!!errors.frequency}
-            aria-describedby={errors.frequency ? 'habit-frequency-error' : undefined}
-          >
-            <SelectValue placeholder="Select frequency" />
-          </SelectTrigger>
-          <SelectContent>
-            {VALID_HABIT_FREQUENCIES.map((f) => (
-              <SelectItem key={f} value={f} data-testid={`habit-frequency-option-${f}`}>
-                <div className="flex flex-col">
-                  <span>{FREQUENCY_DISPLAY[f].label}</span>
-                  <span className="text-xs text-muted-foreground">{FREQUENCY_DISPLAY[f].description}</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          aria-label="Habit frequency"
+          data-testid="habit-frequency"
+        />
         {errors.frequency && (
           <p id="habit-frequency-error" className="text-sm text-destructive" data-testid="habit-frequency-error">
             {errors.frequency}
