@@ -50,7 +50,7 @@ interface HabitCreationFormProps {
 export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProps) {
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const [type, setType] = React.useState<HabitType | ''>('');
+  const [type, setType] = React.useState<HabitType>('positive');
   const [category, setCategory] = React.useState<HabitCategory | ''>('');
   const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
   const [targetCount, setTargetCount] = React.useState<number>(1);
@@ -149,7 +149,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         // Reset form
         setName('');
         setDescription('');
-        setType('');
+        setType('positive');
         setCategory('');
         setFrequency('daily');
         setTargetCount(1);
@@ -233,7 +233,7 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
         </Label>
         <ChoiceCardGroup
           options={TYPE_OPTIONS}
-          value={type || 'positive'}
+          value={type}
           onChange={(value) => {
             setType(value);
             clearFieldError('type');
