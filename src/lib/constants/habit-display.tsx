@@ -20,6 +20,9 @@ import {
   CalendarDays,
   CalendarRange,
   Calendar,
+  TrendingUp,
+  Minus,
+  TrendingDown,
 } from 'lucide-react';
 import type { HabitCategory, HabitColor, HabitType, HabitFrequency } from '@/lib/database/types';
 
@@ -71,11 +74,24 @@ export const COLOR_DISPLAY: Record<HabitColor, { label: string; bgClass: string 
 };
 
 /**
- * Type display configuration
+ * Type display configuration with icons
  */
-export const TYPE_DISPLAY: Record<HabitType, { label: string; description: string }> = {
-  positive: { label: 'Positive', description: 'A habit you want to build' },
-  negative: { label: 'Negative', description: 'A habit you want to break' },
+export const TYPE_DISPLAY: Record<
+  HabitType,
+  { label: string; description: string; icon: React.ReactNode }
+> = {
+  positive: { label: 'Positive', description: 'A habit to build', icon: <TrendingUp className="size-5" /> },
+  neutral: { label: 'Neutral', description: 'Track without judgment', icon: <Minus className="size-5" /> },
+  negative: { label: 'Negative', description: 'A habit to break', icon: <TrendingDown className="size-5" /> },
+};
+
+/**
+ * Get type icon component for custom sizing
+ */
+export const TYPE_ICONS: Record<HabitType, React.ComponentType<{ className?: string }>> = {
+  positive: TrendingUp,
+  neutral: Minus,
+  negative: TrendingDown,
 };
 
 /**

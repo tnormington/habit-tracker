@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { HabitType, HabitCategory } from '@/lib/database/types';
-import { TrendingUp, TrendingDown, X } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, X } from 'lucide-react';
 
 export interface HabitFiltersState {
   type: HabitType | null;
@@ -66,6 +66,20 @@ export function HabitFilters({ filters, onFiltersChange }: HabitFiltersProps) {
         >
           <TrendingUp className="size-3" />
           Build
+        </Button>
+        <Button
+          variant={filters.type === 'neutral' ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => handleTypeChange('neutral')}
+          className={cn(
+            'gap-1',
+            filters.type === 'neutral' &&
+              'bg-gray-600 hover:bg-gray-700 text-white'
+          )}
+          data-testid="filter-type-neutral"
+        >
+          <Minus className="size-3" />
+          Track
         </Button>
         <Button
           variant={filters.type === 'negative' ? 'default' : 'outline'}

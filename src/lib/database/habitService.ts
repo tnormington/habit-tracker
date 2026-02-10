@@ -100,7 +100,7 @@ export enum HabitServiceErrorCode {
 // ============================================================================
 
 /** Valid habit types */
-export const VALID_HABIT_TYPES: HabitType[] = ['positive', 'negative'];
+export const VALID_HABIT_TYPES: HabitType[] = ['positive', 'neutral', 'negative'];
 
 /** Valid habit categories */
 export const VALID_HABIT_CATEGORIES: HabitCategory[] = [

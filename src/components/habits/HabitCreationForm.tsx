@@ -5,18 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ChoiceCardGroup } from '@/components/ui/choice-card';
 import { CategoryIconGrid } from '@/components/habits/CategoryIconGrid';
 import {
   createHabit,
-  VALID_HABIT_TYPES,
   VALID_HABIT_COLORS,
   type CreateHabitData,
 } from '@/lib/database/habitService';
@@ -27,6 +19,13 @@ import {
   TYPE_DISPLAY,
   FREQUENCY_DISPLAY,
 } from '@/lib/constants/habit-display';
+
+// Type options for choice cards
+const TYPE_OPTIONS: Array<{ value: HabitType; label: string; description: string; icon: React.ReactNode }> = [
+  { value: 'positive', ...TYPE_DISPLAY.positive },
+  { value: 'neutral', ...TYPE_DISPLAY.neutral },
+  { value: 'negative', ...TYPE_DISPLAY.negative },
+];
 
 // Frequency options for choice cards
 const FREQUENCY_OPTIONS: Array<{ value: HabitFrequency; label: string; description: string; icon: React.ReactNode }> = [
@@ -202,36 +201,22 @@ export function HabitCreationForm({ onSuccess, onCancel }: HabitCreationFormProp
 
       {/* Type Field */}
       <div className="space-y-2">
-        <Label htmlFor="habit-type">
+        <Label>
           Type <span className="text-destructive">*</span>
         </Label>
-        <Select
-          value={type}
-          onValueChange={(value) => {
-            setType(value as HabitType);
+        <ChoiceCardGroup
+          options={TYPE_OPTIONS}
+          value={type || 'positive'}
+          onChange={(value) => {
+            setType(value);
             clearFieldError('type');
           }}
           disabled={isSubmitting}
-        >
-          <SelectTrigger
-            id="habit-type"
-            data-testid="habit-type-select"
-            aria-invalid={!!errors.type}
-            aria-describedby={errors.type ? 'habit-type-error' : undefined}
-          >
-            <SelectValue placeholder="Select a type" />
-          </SelectTrigger>
-          <SelectContent>
-            {VALID_HABIT_TYPES.map((t) => (
-              <SelectItem key={t} value={t} data-testid={`habit-type-option-${t}`}>
-                <div className="flex flex-col">
-                  <span>{TYPE_DISPLAY[t].label}</span>
-                  <span className="text-xs text-muted-foreground">{TYPE_DISPLAY[t].description}</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          aria-label="Habit type"
+          aria-invalid={!!errors.type}
+          aria-describedby={errors.type ? 'habit-type-error' : undefined}
+          data-testid="habit-type"
+        />
         {errors.type && (
           <p id="habit-type-error" className="text-sm text-destructive" data-testid="habit-type-error">
             {errors.type}

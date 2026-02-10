@@ -12,9 +12,10 @@ import type { HabitDocType, HabitCompletionDocType, HabitLogDocType } from './ty
 /**
  * Valid habit types
  * - positive: Habits you want to build
+ * - neutral: Habits you want to track without judgment
  * - negative: Habits you want to break
  */
-const HABIT_TYPES = ['positive', 'negative'] as const;
+const HABIT_TYPES = ['positive', 'neutral', 'negative'] as const;
 
 /**
  * Valid habit categories for organization

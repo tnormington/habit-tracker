@@ -6,11 +6,12 @@
 import type { RxDatabase, RxCollection, RxDocument } from 'rxdb';
 
 /**
- * Habit type - determines if completing the habit is positive or negative
+ * Habit type - determines if completing the habit is positive, negative, or neutral
  * - positive: Habits you want to build (e.g., exercise, reading)
+ * - neutral: Habits you want to track without judgment (e.g., hours slept, meals eaten)
  * - negative: Habits you want to break (e.g., smoking, excessive screen time)
  */
-export type HabitType = 'positive' | 'negative';
+export type HabitType = 'positive' | 'neutral' | 'negative';
 
 /**
  * Pre-defined habit categories for organization
