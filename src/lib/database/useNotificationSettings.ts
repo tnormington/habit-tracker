@@ -109,6 +109,17 @@ export function useNotificationSettings(): UseNotificationSettingsResult {
         doc = await database.notification_settings.insert(defaultSettings);
       }
 
+      // Sync permission status with browser on initial load
+      const currentPermission = getNotificationPermission();
+      const browserPermissionGranted = currentPermission === 'granted';
+      const currentSettings = doc.toJSON() as NotificationSettingsDocType;
+      if (currentSettings.permissionGranted !== browserPermissionGranted) {
+        await doc.patch({
+          permissionGranted: browserPermissionGranted,
+          updatedAt: Date.now(),
+        });
+      }
+
       // Subscribe to settings changes
       const subscription = database.notification_settings
         .findOne('default')
@@ -178,9 +189,12 @@ export function useNotificationSettings(): UseNotificationSettingsResult {
         }
         setPermissionStatus('granted');
       }
+      // Always update both enabled and permissionGranted when enabling
+      // This ensures the scheduler sees the correct state
+      await updateSettings({ enabled: newEnabled, permissionGranted: true });
+    } else {
+      await updateSettings({ enabled: newEnabled });
     }
-
-    await updateSettings({ enabled: newEnabled });
   }, [settings, updateSettings]);
 
   // Request permission
