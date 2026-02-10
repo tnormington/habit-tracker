@@ -199,3 +199,45 @@ export type {
   UseActiveStreaksResult,
   UseBestStreakResult,
 } from './useStreak';
+
+// Statistics Service Functions
+export {
+  // Single habit statistics
+  getHabitStatistics,
+  getStatisticsForHabits,
+  // Dashboard statistics
+  getDashboardStatistics,
+  // Trends
+  getWeeklyTrends,
+  // Date-specific stats
+  getCompletionStatsForDate,
+  // Constants
+  DAY_NAMES,
+  DAY_NAMES_SHORT,
+  // Error class and codes
+  StatisticsServiceError,
+  StatisticsServiceErrorCode,
+} from './statisticsService';
+
+export type {
+  DayOfWeek,
+  HabitStatistics,
+  DashboardStatistics,
+  WeeklyTrendPoint,
+  StatisticsServiceResult,
+} from './statisticsService';
+
+// React hooks - Statistics
+export {
+  useHabitStatistics,
+  useDashboardStatistics,
+  useWeeklyTrends,
+  useDateCompletionStats,
+} from './useStatistics';
+
+export type {
+  UseHabitStatisticsResult,
+  UseDashboardStatisticsResult,
+  UseWeeklyTrendsResult,
+  UseDateCompletionStatsResult,
+} from './useStatistics';
