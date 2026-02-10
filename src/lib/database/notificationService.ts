@@ -251,10 +251,14 @@ export function showTestNotification(): NotificationServiceResult<boolean> {
 
   try {
     console.log('[Notification] Creating notification...');
+    // Use unique tag with timestamp to avoid conflicts with previous notifications
+    const uniqueTag = `habit-tracker-test-${Date.now()}`;
+    console.log('[Notification] Using tag:', uniqueTag);
     const notification = new Notification('Habit Tracker', {
       body: 'Daily reminder notifications are working!',
       icon: '/icon-192x192.png',
-      tag: 'habit-tracker-test',
+      tag: uniqueTag,
+      requireInteraction: true, // Prevent auto-dismiss on Firefox
     });
 
     // Add event listeners to debug notification lifecycle
