@@ -154,3 +154,48 @@ export type {
   BulkCreateLogInput,
   HabitLogServiceResult,
 } from './habitLogService';
+
+// Streak Service Functions
+export {
+  // Core streak calculation
+  calculateStreakForHabit,
+  calculateStreaksForHabits,
+  calculateStreaksForAllActiveHabits,
+  // Streak history
+  getStreakHistory,
+  // Statistics
+  getBestStreakEver,
+  getHabitsWithActiveStreaks,
+  calculateCompletionRate,
+  // Helper functions
+  getTodayDateString,
+  getYesterdayDateString,
+  // Error class and codes
+  StreakServiceError,
+  StreakServiceErrorCode,
+} from './streakService';
+
+export type {
+  StreakData,
+  StreakPeriod,
+  StreakHistory,
+  StreakServiceResult,
+} from './streakService';
+
+// React hooks - Streaks
+export {
+  useStreak,
+  useStreaks,
+  useAllActiveStreaks,
+  useStreakHistory,
+  useActiveStreaks,
+  useBestStreak,
+} from './useStreak';
+
+export type {
+  UseStreakResult,
+  UseStreaksResult,
+  UseStreakHistoryResult,
+  UseActiveStreaksResult,
+  UseBestStreakResult,
+} from './useStreak';
