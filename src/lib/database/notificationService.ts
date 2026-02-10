@@ -181,7 +181,11 @@ export function getNotificationPermission(): NotificationPermission | 'unsupport
  * Request notification permission from the user
  */
 export async function requestNotificationPermission(): Promise<NotificationServiceResult<boolean>> {
+  console.log('[Notification] requestNotificationPermission called');
+  console.log('[Notification] Current permission status:', typeof window !== 'undefined' ? Notification.permission : 'N/A (SSR)');
+
   if (!isNotificationSupported()) {
+    console.warn('[Notification] Browser notifications not supported');
     return {
       success: false,
       error: new NotificationServiceError(
@@ -192,7 +196,9 @@ export async function requestNotificationPermission(): Promise<NotificationServi
   }
 
   try {
+    console.log('[Notification] Requesting permission...');
     const permission = await Notification.requestPermission();
+    console.log('[Notification] Permission result:', permission);
     const granted = permission === 'granted';
 
     // Update the stored permission status
@@ -200,6 +206,7 @@ export async function requestNotificationPermission(): Promise<NotificationServi
 
     return { success: true, data: granted };
   } catch (error) {
+    console.error('[Notification] Failed to request permission:', error);
     return {
       success: false,
       error: new NotificationServiceError(
@@ -216,7 +223,12 @@ export async function requestNotificationPermission(): Promise<NotificationServi
  * Show a test notification
  */
 export function showTestNotification(): NotificationServiceResult<boolean> {
+  console.log('[Notification] showTestNotification called');
+  console.log('[Notification] isNotificationSupported:', isNotificationSupported());
+  console.log('[Notification] Notification.permission:', typeof window !== 'undefined' ? Notification.permission : 'N/A (SSR)');
+
   if (!isNotificationSupported()) {
+    console.warn('[Notification] Browser notifications not supported');
     return {
       success: false,
       error: new NotificationServiceError(
@@ -227,6 +239,7 @@ export function showTestNotification(): NotificationServiceResult<boolean> {
   }
 
   if (Notification.permission !== 'granted') {
+    console.warn('[Notification] Permission not granted, current status:', Notification.permission);
     return {
       success: false,
       error: new NotificationServiceError(
@@ -237,13 +250,23 @@ export function showTestNotification(): NotificationServiceResult<boolean> {
   }
 
   try {
-    new Notification('Habit Tracker', {
+    console.log('[Notification] Creating notification...');
+    const notification = new Notification('Habit Tracker', {
       body: 'Daily reminder notifications are working!',
       icon: '/icon-192x192.png',
       tag: 'habit-tracker-test',
     });
+
+    // Add event listeners to debug notification lifecycle
+    notification.onshow = () => console.log('[Notification] Notification shown');
+    notification.onclick = () => console.log('[Notification] Notification clicked');
+    notification.onclose = () => console.log('[Notification] Notification closed');
+    notification.onerror = (e) => console.error('[Notification] Notification error:', e);
+
+    console.log('[Notification] Notification created successfully');
     return { success: true, data: true };
   } catch (error) {
+    console.error('[Notification] Failed to create notification:', error);
     return {
       success: false,
       error: new NotificationServiceError(
@@ -260,7 +283,12 @@ export function showTestNotification(): NotificationServiceResult<boolean> {
  * Show the daily reminder notification
  */
 export function showReminderNotification(): NotificationServiceResult<boolean> {
+  console.log('[Notification] showReminderNotification called');
+  console.log('[Notification] isNotificationSupported:', isNotificationSupported());
+  console.log('[Notification] Notification.permission:', typeof window !== 'undefined' ? Notification.permission : 'N/A (SSR)');
+
   if (!isNotificationSupported()) {
+    console.warn('[Notification] Browser notifications not supported');
     return {
       success: false,
       error: new NotificationServiceError(
@@ -271,6 +299,7 @@ export function showReminderNotification(): NotificationServiceResult<boolean> {
   }
 
   if (Notification.permission !== 'granted') {
+    console.warn('[Notification] Permission not granted, current status:', Notification.permission);
     return {
       success: false,
       error: new NotificationServiceError(
@@ -281,14 +310,24 @@ export function showReminderNotification(): NotificationServiceResult<boolean> {
   }
 
   try {
-    new Notification('Time to Update Your Habits!', {
+    console.log('[Notification] Creating reminder notification...');
+    const notification = new Notification('Time to Update Your Habits!', {
       body: "Don't forget to track your habits for today.",
       icon: '/icon-192x192.png',
       tag: 'habit-tracker-reminder',
       requireInteraction: true,
     });
+
+    // Add event listeners to debug notification lifecycle
+    notification.onshow = () => console.log('[Notification] Reminder notification shown');
+    notification.onclick = () => console.log('[Notification] Reminder notification clicked');
+    notification.onclose = () => console.log('[Notification] Reminder notification closed');
+    notification.onerror = (e) => console.error('[Notification] Reminder notification error:', e);
+
+    console.log('[Notification] Reminder notification created successfully');
     return { success: true, data: true };
   } catch (error) {
+    console.error('[Notification] Failed to create reminder notification:', error);
     return {
       success: false,
       error: new NotificationServiceError(

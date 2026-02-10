@@ -209,7 +209,12 @@ export function useNotificationSettings(): UseNotificationSettingsResult {
 
   // Send test notification
   const sendTestNotification = useCallback((): boolean => {
+    console.log('[Notification Hook] sendTestNotification called');
     const result = showTestNotification();
+    console.log('[Notification Hook] showTestNotification result:', result);
+    if (!result.success && result.error) {
+      console.error('[Notification Hook] Error:', result.error.message, result.error.code);
+    }
     return result.success && !!result.data;
   }, []);
 
