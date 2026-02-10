@@ -11,4 +11,6 @@ export { HabitDetailHeader } from './HabitDetailHeader';
 export { HabitStatsCard } from './HabitStatsCard';
 export { HabitStreakCard } from './HabitStreakCard';
 export { HabitCalendar } from './HabitCalendar';
+export { HabitCalendarHeatmap } from './HabitCalendarHeatmap';
 export { HabitRecentLogs } from './HabitRecentLogs';
+export { LogEditDialog } from './LogEditDialog';

@@ -7,7 +7,7 @@ import {
   HabitDetailHeader,
   HabitStatsCard,
   HabitStreakCard,
-  HabitCalendar,
+  HabitCalendarHeatmap,
   HabitRecentLogs,
   HabitEditFormDialog,
 } from '@/components/habits';
@@ -127,8 +127,8 @@ export default function HabitDetailPage() {
         <HabitStreakCard habitId={habitId} />
       </div>
 
-      {/* Calendar */}
-      <HabitCalendar habitId={habitId} habitType={habit.type} />
+      {/* Calendar Heatmap */}
+      <HabitCalendarHeatmap habitId={habitId} habitType={habit.type} habitColor={habit.color} />
 
       {/* Recent Logs */}
       <HabitRecentLogs habitId={habitId} habitType={habit.type} />
