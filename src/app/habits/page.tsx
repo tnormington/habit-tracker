@@ -9,19 +9,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { HabitListView, HabitCreationForm } from '@/components/habits';
+import { HabitListView, HabitCreationForm, HabitEditFormDialog } from '@/components/habits';
 import { PlusCircle } from 'lucide-react';
+import type { HabitDocType } from '@/lib/database/types';
 
 export default function HabitsPage() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
+  const [editingHabit, setEditingHabit] = React.useState<HabitDocType | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
 
   const handleCreateHabit = () => {
     setIsCreateDialogOpen(true);
   };
 
-  const handleEditHabit = (habit: { id: string; name: string }) => {
-    // This will open an edit habit dialog/modal in the future
-    console.log('Edit habit:', habit.id);
+  const handleEditHabit = (habit: HabitDocType) => {
+    setEditingHabit(habit);
+    setIsEditDialogOpen(true);
   };
 
   const handleCreateSuccess = () => {
@@ -30,6 +33,11 @@ export default function HabitsPage() {
 
   const handleCreateCancel = () => {
     setIsCreateDialogOpen(false);
+  };
+
+  const handleEditSuccess = () => {
+    setIsEditDialogOpen(false);
+    setEditingHabit(null);
   };
 
   return (
@@ -69,6 +77,14 @@ export default function HabitsPage() {
           />
         </DialogContent>
       </Dialog>
+
+      {/* Edit Habit Dialog */}
+      <HabitEditFormDialog
+        habit={editingHabit}
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        onSuccess={handleEditSuccess}
+      />
     </div>
   );
 }

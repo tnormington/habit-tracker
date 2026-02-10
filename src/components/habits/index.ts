@@ -1,5 +1,7 @@
 export { HabitCard } from './HabitCard';
 export { HabitCreationForm } from './HabitCreationForm';
+export { HabitEditFormDialog } from './HabitEditFormDialog';
+export { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
 export { HabitFilters, type HabitFiltersState } from './HabitFilters';
 export { HabitSearch } from './HabitSearch';
 export { HabitEmptyState } from './HabitEmptyState';
