@@ -162,6 +162,57 @@ export interface WeeklyTrendPoint {
 }
 
 /**
+ * Time period for filtering statistics
+ */
+export type StatisticsPeriod = 'week' | 'month' | 'year' | 'all';
+
+/**
+ * Statistics for a time period
+ */
+export interface PeriodStatistics {
+  /** The time period */
+  period: StatisticsPeriod;
+  /** Start date of the period */
+  startDate: string;
+  /** End date of the period */
+  endDate: string;
+  /** Total completions in the period */
+  totalCompletions: number;
+  /** Total possible completions */
+  totalPossible: number;
+  /** Completion rate (0-100) */
+  completionRate: number;
+  /** Completions by day of week */
+  completionsByDayOfWeek: Record<DayOfWeek, number>;
+  /** Tracked days by day of week */
+  trackedDaysByDayOfWeek: Record<DayOfWeek, number>;
+  /** Best performing habits */
+  bestPerformingHabits: Array<{
+    habitId: string;
+    habitName: string;
+    completionRate: number;
+    totalCompletions: number;
+    totalTracked: number;
+  }>;
+  /** Worst performing habits (for improvement) */
+  needsImprovementHabits: Array<{
+    habitId: string;
+    habitName: string;
+    completionRate: number;
+    totalCompletions: number;
+    totalTracked: number;
+  }>;
+  /** Habits by category performance */
+  categoryPerformance: Record<HabitCategory, { completions: number; total: number; rate: number }>;
+  /** Daily completion trend */
+  dailyTrend: Array<{ date: string; completions: number; total: number; rate: number }>;
+  /** Total active days (days with any activity) */
+  totalActiveDays: number;
+  /** Average daily completion rate */
+  avgDailyCompletionRate: number;
+}
+
+/**
  * Result of a statistics service operation
  */
 export interface StatisticsServiceResult<T> {
@@ -894,6 +945,225 @@ export async function getCompletionStatsForDate(
       success: false,
       error: new StatisticsServiceError(
         'Failed to get completion stats for date',
+        StatisticsServiceErrorCode.OPERATION_FAILED,
+        error
+      ),
+    };
+  }
+}
+
+/**
+ * Get the start date for a given period
+ */
+function getPeriodStartDate(period: StatisticsPeriod): string {
+  const now = new Date();
+
+  switch (period) {
+    case 'week': {
+      const dayOfWeek = now.getDay();
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - dayOfWeek);
+      return startOfWeek.toISOString().split('T')[0];
+    }
+    case 'month': {
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      return startOfMonth.toISOString().split('T')[0];
+    }
+    case 'year': {
+      const startOfYear = new Date(now.getFullYear(), 0, 1);
+      return startOfYear.toISOString().split('T')[0];
+    }
+    case 'all':
+    default:
+      return '1970-01-01';
+  }
+}
+
+/**
+ * Get the number of days in the period (for calculating possible completions)
+ */
+function getDaysInPeriod(period: StatisticsPeriod, startDate: string, endDate: string): number {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  return Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+}
+
+/**
+ * Get statistics for a specific time period
+ *
+ * @param period - The time period to calculate statistics for
+ * @returns Promise with period statistics
+ */
+export async function getPeriodStatistics(
+  period: StatisticsPeriod
+): Promise<StatisticsServiceResult<PeriodStatistics>> {
+  try {
+    const db = await getDatabaseOrThrow();
+    const today = getTodayDate();
+    const startDate = period === 'all' ? '' : getPeriodStartDate(period);
+    const endDate = today;
+
+    // Get active habits
+    const activeHabits = await db.habits
+      .find({ selector: { isArchived: false } })
+      .exec();
+    const habitsData = activeHabits.map((doc) => doc.toJSON() as HabitDocType);
+    const habitMap = new Map<string, HabitDocType>();
+    for (const habit of habitsData) {
+      habitMap.set(habit.id, habit);
+    }
+
+    // Get logs for the period
+    const logsQuery = period === 'all'
+      ? db.habit_logs.find()
+      : db.habit_logs.find({
+          selector: {
+            date: {
+              $gte: startDate,
+              $lte: endDate,
+            },
+          },
+        });
+
+    const logs = await logsQuery.exec();
+    const logsData = logs.map((doc) => doc.toJSON() as HabitLogDocType);
+
+    // Filter logs for active habits only
+    const activeHabitIds = new Set(habitsData.map((h) => h.id));
+    const activeLogs = logsData.filter((log) => activeHabitIds.has(log.habitId));
+
+    // Calculate statistics
+    const completionsByDayOfWeek = initDayOfWeekCounts();
+    const trackedDaysByDayOfWeek = initDayOfWeekCounts();
+    const habitStats = new Map<string, { completions: number; total: number }>();
+    const categoryStats = new Map<HabitCategory, { completions: number; total: number }>();
+    const dailyStats = new Map<string, { completions: number; total: number }>();
+    const activeDates = new Set<string>();
+
+    let totalCompletions = 0;
+
+    for (const log of activeLogs) {
+      const habit = habitMap.get(log.habitId);
+      if (!habit) continue;
+
+      const dayOfWeek = getDayOfWeek(log.date);
+      trackedDaysByDayOfWeek[dayOfWeek]++;
+      activeDates.add(log.date);
+
+      // Habit stats
+      const hs = habitStats.get(log.habitId) ?? { completions: 0, total: 0 };
+      hs.total++;
+
+      // Category stats
+      const cs = categoryStats.get(habit.category) ?? { completions: 0, total: 0 };
+      cs.total++;
+
+      // Daily stats
+      const ds = dailyStats.get(log.date) ?? { completions: 0, total: 0 };
+      ds.total++;
+
+      if (isSuccess(log.completed, habit.type)) {
+        totalCompletions++;
+        completionsByDayOfWeek[dayOfWeek]++;
+        hs.completions++;
+        cs.completions++;
+        ds.completions++;
+      }
+
+      habitStats.set(log.habitId, hs);
+      categoryStats.set(habit.category, cs);
+      dailyStats.set(log.date, ds);
+    }
+
+    // Calculate total possible and completion rate
+    const actualStartDate = period === 'all'
+      ? (activeLogs.length > 0 ? activeLogs.reduce((min, l) => l.date < min ? l.date : min, activeLogs[0].date) : today)
+      : startDate;
+    const totalPossible = activeLogs.length;
+    const completionRate = totalPossible > 0 ? Math.round((totalCompletions / totalPossible) * 100) : 0;
+
+    // Calculate best and worst performing habits
+    const habitPerformance = Array.from(habitStats.entries())
+      .map(([habitId, stats]) => ({
+        habitId,
+        habitName: habitMap.get(habitId)?.name ?? 'Unknown',
+        completionRate: stats.total > 0 ? Math.round((stats.completions / stats.total) * 100) : 0,
+        totalCompletions: stats.completions,
+        totalTracked: stats.total,
+      }))
+      .filter((h) => h.totalTracked >= 1);
+
+    const bestPerformingHabits = [...habitPerformance]
+      .sort((a, b) => b.completionRate - a.completionRate || b.totalCompletions - a.totalCompletions)
+      .slice(0, 5);
+
+    const needsImprovementHabits = [...habitPerformance]
+      .sort((a, b) => a.completionRate - b.completionRate || a.totalCompletions - b.totalCompletions)
+      .slice(0, 5);
+
+    // Calculate category performance
+    const categoryPerformance: Record<HabitCategory, { completions: number; total: number; rate: number }> = {
+      health: { completions: 0, total: 0, rate: 0 },
+      fitness: { completions: 0, total: 0, rate: 0 },
+      productivity: { completions: 0, total: 0, rate: 0 },
+      mindfulness: { completions: 0, total: 0, rate: 0 },
+      learning: { completions: 0, total: 0, rate: 0 },
+      social: { completions: 0, total: 0, rate: 0 },
+      finance: { completions: 0, total: 0, rate: 0 },
+      creativity: { completions: 0, total: 0, rate: 0 },
+      other: { completions: 0, total: 0, rate: 0 },
+    };
+
+    for (const [category, stats] of categoryStats.entries()) {
+      categoryPerformance[category] = {
+        completions: stats.completions,
+        total: stats.total,
+        rate: stats.total > 0 ? Math.round((stats.completions / stats.total) * 100) : 0,
+      };
+    }
+
+    // Calculate daily trend
+    const dailyTrend = Array.from(dailyStats.entries())
+      .map(([date, stats]) => ({
+        date,
+        completions: stats.completions,
+        total: stats.total,
+        rate: stats.total > 0 ? Math.round((stats.completions / stats.total) * 100) : 0,
+      }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    // Calculate average daily completion rate
+    const avgDailyCompletionRate = dailyTrend.length > 0
+      ? Math.round(dailyTrend.reduce((sum, d) => sum + d.rate, 0) / dailyTrend.length)
+      : 0;
+
+    return {
+      success: true,
+      data: {
+        period,
+        startDate: actualStartDate,
+        endDate,
+        totalCompletions,
+        totalPossible,
+        completionRate,
+        completionsByDayOfWeek,
+        trackedDaysByDayOfWeek,
+        bestPerformingHabits,
+        needsImprovementHabits,
+        categoryPerformance,
+        dailyTrend,
+        totalActiveDays: activeDates.size,
+        avgDailyCompletionRate,
+      },
+    };
+  } catch (error) {
+    if (error instanceof StatisticsServiceError) {
+      return { success: false, error };
+    }
+    return {
+      success: false,
+      error: new StatisticsServiceError(
+        'Failed to get period statistics',
         StatisticsServiceErrorCode.OPERATION_FAILED,
         error
       ),

@@ -211,6 +211,8 @@ export {
   getWeeklyTrends,
   // Date-specific stats
   getCompletionStatsForDate,
+  // Period statistics
+  getPeriodStatistics,
   // Constants
   DAY_NAMES,
   DAY_NAMES_SHORT,
@@ -225,6 +227,8 @@ export type {
   DashboardStatistics,
   WeeklyTrendPoint,
   StatisticsServiceResult,
+  StatisticsPeriod,
+  PeriodStatistics,
 } from './statisticsService';
 
 // React hooks - Statistics
@@ -233,6 +237,7 @@ export {
   useDashboardStatistics,
   useWeeklyTrends,
   useDateCompletionStats,
+  usePeriodStatistics,
 } from './useStatistics';
 
 export type {
@@ -240,4 +245,5 @@ export type {
   UseDashboardStatisticsResult,
   UseWeeklyTrendsResult,
   UseDateCompletionStatsResult,
+  UsePeriodStatisticsResult,
 } from './useStatistics';

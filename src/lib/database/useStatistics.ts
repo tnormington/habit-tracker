@@ -12,9 +12,12 @@ import {
   getDashboardStatistics,
   getWeeklyTrends,
   getCompletionStatsForDate,
+  getPeriodStatistics,
   type HabitStatistics,
   type DashboardStatistics,
   type WeeklyTrendPoint,
+  type StatisticsPeriod,
+  type PeriodStatistics,
 } from './statisticsService';
 
 // ============================================================================
@@ -62,6 +65,17 @@ export interface UseDateCompletionStatsResult {
     rate: number;
     habits: Array<{ habitId: string; habitName: string; completed: boolean }>;
   } | null;
+  /** Whether the data is loading */
+  isLoading: boolean;
+  /** Error if any occurred */
+  error: Error | null;
+  /** Manually refresh the data */
+  refresh: () => Promise<void>;
+}
+
+export interface UsePeriodStatisticsResult {
+  /** Statistics for the selected period */
+  statistics: PeriodStatistics | null;
   /** Whether the data is loading */
   isLoading: boolean;
   /** Error if any occurred */
@@ -406,4 +420,91 @@ export function useDateCompletionStats(
   }, [database, isReady, targetDate, refresh]);
 
   return { stats, isLoading, error, refresh };
+}
+
+/**
+ * Hook to get statistics for a specific time period
+ *
+ * @param period - The time period ('week', 'month', 'year', 'all')
+ * @returns Period statistics, loading state, error, and refresh function
+ *
+ * @example
+ * ```tsx
+ * function PeriodStatsDisplay() {
+ *   const [period, setPeriod] = useState<StatisticsPeriod>('month');
+ *   const { statistics, isLoading, error } = usePeriodStatistics(period);
+ *
+ *   if (isLoading) return <div>Loading...</div>;
+ *   if (error) return <div>Error: {error.message}</div>;
+ *   if (!statistics) return null;
+ *
+ *   return (
+ *     <div>
+ *       <span>Completion rate: {statistics.completionRate}%</span>
+ *       <span>Total completions: {statistics.totalCompletions}</span>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
+export function usePeriodStatistics(
+  period: StatisticsPeriod
+): UsePeriodStatisticsResult {
+  const { database, isReady } = useDatabase();
+  const [statistics, setStatistics] = useState<PeriodStatistics | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const refresh = useCallback(async () => {
+    if (!isReady || !database) {
+      setStatistics(null);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await getPeriodStatistics(period);
+      if (result.success && result.data) {
+        setStatistics(result.data);
+      } else {
+        setError(result.error ?? new Error('Failed to get period statistics'));
+        setStatistics(null);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+      setStatistics(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isReady, database, period]);
+
+  // Initial load
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  // Subscribe to habit and habit log changes
+  useEffect(() => {
+    if (!database || !isReady) return;
+
+    // Subscribe to habit changes
+    const habitsSubscription = database.habits.find().$.subscribe(() => {
+      refresh();
+    });
+
+    // Subscribe to habit log changes
+    const logsSubscription = database.habit_logs.find().$.subscribe(() => {
+      refresh();
+    });
+
+    return () => {
+      habitsSubscription.unsubscribe();
+      logsSubscription.unsubscribe();
+    };
+  }, [database, isReady, refresh]);
+
+  return { statistics, isLoading, error, refresh };
 }
