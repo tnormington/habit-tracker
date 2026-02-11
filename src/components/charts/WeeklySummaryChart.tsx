@@ -98,15 +98,15 @@ function ChartSkeleton() {
   );
 }
 
-// Color scale from light to dark based on value intensity
+// Color scale from light to dark blue based on value intensity
 function getBarColor(value: number, maxValue: number): string {
-  if (maxValue === 0) return 'hsl(var(--muted))';
+  if (maxValue === 0) return 'oklch(0.269 0 0)'; // muted gray
   const intensity = value / maxValue;
-  // Using primary color with varying opacity effect through different hues
-  if (intensity > 0.75) return 'hsl(var(--primary))';
-  if (intensity > 0.5) return 'hsl(var(--primary) / 0.8)';
-  if (intensity > 0.25) return 'hsl(var(--primary) / 0.6)';
-  return 'hsl(var(--primary) / 0.4)';
+  // Using blue colors with varying intensity for better visibility
+  if (intensity > 0.75) return 'oklch(0.488 0.243 264.376)'; // blue-700 - darkest blue
+  if (intensity > 0.5) return 'oklch(0.546 0.245 262.881)'; // blue-600
+  if (intensity > 0.25) return 'oklch(0.623 0.214 259.815)'; // blue-500
+  return 'oklch(0.707 0.165 254.624)'; // blue-400 - lightest blue
 }
 
 export function WeeklySummaryChart({
