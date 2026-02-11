@@ -59,7 +59,6 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
             disabled={disabled}
             className={cn(
               'w-full h-2 appearance-none rounded-full cursor-pointer',
-              'bg-secondary',
               '[&::-webkit-slider-thumb]:appearance-none',
               '[&::-webkit-slider-thumb]:w-5',
               '[&::-webkit-slider-thumb]:h-5',
