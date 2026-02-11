@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_specification>
+  <project_name>Habit Tracker</project_name>
+
+  <overview>
+    A simple, minimalistic habit tracking application designed to help users build positive habits and break negative ones. The app enables users to track habits they want to do more of (positive habits) or stop doing altogether (negative habits). Built with a focus on simplicity and ease of use, it features persistent local data storage ensuring user data remains private and accessible offline. The application follows a clean, modern design philosophy with an intuitive user interface for daily habit logging, progress visualization, and habit management.
+  </overview>
+
+  <technology_stack>
+    <technology>Next.js 16+ (React framework with App Router)</technology>
+    <technology>TypeScript</technology>
+    <technology>shadcn/ui (UI component library)</technology>
+    <technology>Tailwind CSS (utility-first CSS framework)</technology>
+    <technology>RxDB (reactive database for persistent local storage)</technology>
+    <technology>IndexedDB (browser storage backend for RxDB)</technology>
+    <technology>React hooks for state management</technology>
+    <technology>Lucide React (icon library)</technology>
+    <technology>Recharts (charting library)</technology>
+  </technology_stack>
+
+  <core_capabilities>
+    <capability>Create and manage habits with customizable names, descriptions, and categories</capability>
+    <capability>Track habits as 'positive' (do more), 'neutral', or 'negative' (stop doing)</capability>
+    <capability>Support for daily, weekly, and monthly habit frequencies with target counts</capability>
+    <capability>Daily habit check-in and logging system</capability>
+    <capability>Visual progress tracking with streaks and completion rates</capability>
+    <capability>Persistent offline-first data storage using RxDB and IndexedDB</capability>
+    <capability>Clean, minimalistic user interface with shadcn components</capability>
+    <capability>Responsive design for desktop and mobile use</capability>
+    <capability>Habit statistics and insights dashboard</capability>
+    <capability>Dark/light theme support</capability>
+    <capability>Browser notification reminders</capability>
+    <capability>Archive and restore habits</capability>
+  </core_capabilities>
+
+  <implemented_features>
+    <feature>
+      <name>Project Setup</name>
+      <description>Next.js 16+ project with TypeScript, Tailwind CSS, shadcn/ui components, and all necessary dependencies installed</description>
+      <file_locations>
+        <location>package.json</location>
+        <location>tsconfig.json</location>
+        <location>next.config.ts</location>
+        <location>tailwind.config.ts</location>
+        <location>src/app/layout.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Database Layer with RxDB</name>
+      <description>Complete RxDB database setup with IndexedDB adapter, comprehensive schemas for habits, habit logs, and notification settings. Includes full CRUD operations, validation, and error handling.</description>
+      <file_locations>
+        <location>src/lib/database/database.ts</location>
+        <location>src/lib/database/schemas.ts</location>
+        <location>src/lib/database/types.ts</location>
+        <location>src/lib/database/habitService.ts</location>
+        <location>src/lib/database/habitLogService.ts</location>
+        <location>src/lib/database/index.ts</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>React Hooks for Data Access</name>
+      <description>Custom React hooks for database operations including useHabits, useHabitLogs, useStreak, useStatistics, and useNotificationSettings with real-time updates</description>
+      <file_locations>
+        <location>src/lib/database/useDatabase.ts</location>
+        <location>src/lib/database/useHabits.ts</location>
+        <location>src/lib/database/useHabitLogs.ts</location>
+        <location>src/lib/database/useStreak.ts</location>
+        <location>src/lib/database/useStatistics.ts</location>
+        <location>src/lib/database/useNotificationSettings.ts</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Habit Management (CRUD)</name>
+      <description>Complete habit creation, editing, archiving, restoration, and deletion with form dialogs, validation, and confirmation prompts</description>
+      <file_locations>
+        <location>src/components/habits/HabitCreationForm.tsx</location>
+        <location>src/components/habits/HabitEditFormDialog.tsx</location>
+        <location>src/components/habits/DeleteConfirmationDialog.tsx</location>
+        <location>src/components/habits/HabitCard.tsx</location>
+        <location>src/components/habits/HabitListView.tsx</location>
+        <location>src/app/habits/page.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Habit Types and Frequencies</name>
+      <description>Support for positive, neutral, and negative habit types with daily, weekly, and monthly frequencies. Target counts for weekly/monthly habits with period progress tracking.</description>
+      <file_locations>
+        <location>src/lib/database/types.ts</location>
+        <location>src/lib/database/schemas.ts</location>
+        <location>src/components/habits/DailyCheckIn.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Habit Categories and Colors</name>
+      <description>Nine predefined categories (health, fitness, productivity, mindfulness, learning, social, finance, creativity, other) and eight color options for visual identification</description>
+      <file_locations>
+        <location>src/lib/database/types.ts</location>
+        <location>src/lib/constants/habit-display.tsx</location>
+        <location>src/components/habits/CategoryIconGrid.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Daily Check-In Interface</name>
+      <description>Interactive daily habit tracking with checkbox toggles, progress summary, grouped by positive/negative habits, with period progress indicators for weekly/monthly habits</description>
+      <file_locations>
+        <location>src/components/habits/DailyCheckIn.tsx</location>
+        <location>src/app/page.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Dashboard with Statistics</name>
+      <description>Homepage dashboard showing today's progress, active streaks leaderboard, weekly stats, motivational messages, and quick access to habits</description>
+      <file_locations>
+        <location>src/app/page.tsx</location>
+        <location>src/lib/database/statisticsService.ts</location>
+        <location>src/lib/database/useStatistics.ts</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Streak Tracking System</name>
+      <description>Comprehensive streak calculation for consecutive habit completions with active streak detection, best streak records, and streak history</description>
+      <file_locations>
+        <location>src/lib/database/streakService.ts</location>
+        <location>src/lib/database/useStreak.ts</location>
+        <location>src/components/habits/HabitStreakCard.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Statistics Dashboard</name>
+      <description>Comprehensive statistics page with completion rates, trends, charts (weekly/monthly summaries, completion trends, category distribution), top performers, and motivational insights</description>
+      <file_locations>
+        <location>src/app/statistics/page.tsx</location>
+        <location>src/lib/database/statisticsService.ts</location>
+        <location>src/components/charts/CompletionTrendsChart.tsx</location>
+        <location>src/components/charts/WeeklySummaryChart.tsx</location>
+        <location>src/components/charts/MonthlySummaryChart.tsx</location>
+        <location>src/components/charts/CategoryDistributionChart.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Calendar View</name>
+      <description>Monthly calendar view showing completion rates for each day with color-coded heatmap, monthly statistics summary, and navigation</description>
+      <file_locations>
+        <location>src/app/calendar/page.tsx</location>
+        <location>src/components/habits/HabitCalendar.tsx</location>
+        <location>src/components/habits/HabitCalendarHeatmap.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Habit Detail Page</name>
+      <description>Individual habit detail view with statistics card, streak information, calendar heatmap, and recent logs with edit capability</description>
+      <file_locations>
+        <location>src/app/habits/detail/page.tsx</location>
+        <location>src/components/habits/HabitDetailHeader.tsx</location>
+        <location>src/components/habits/HabitStatsCard.tsx</location>
+        <location>src/components/habits/HabitStreakCard.tsx</location>
+        <location>src/components/habits/HabitCalendarHeatmap.tsx</location>
+        <location>src/components/habits/HabitRecentLogs.tsx</location>
+        <location>src/components/habits/LogEditDialog.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Habit Search and Filters</name>
+      <description>Search habits by name with filtering by type, category, frequency, and archived status</description>
+      <file_locations>
+        <location>src/components/habits/HabitSearch.tsx</location>
+        <location>src/components/habits/HabitFilters.tsx</location>
+        <location>src/components/habits/HabitListView.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Archived Habits View</name>
+      <description>Toggle to view archived habits with ability to restore or permanently delete</description>
+      <file_locations>
+        <location>src/components/habits/HabitListView.tsx</location>
+        <location>src/lib/database/habitService.ts</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Theme Toggle (Dark/Light Mode)</name>
+      <description>System, light, and dark theme support with theme provider and toggle component</description>
+      <file_locations>
+        <location>src/components/theme/theme-provider.tsx</location>
+        <location>src/components/theme/theme-toggle.tsx</location>
+        <location>src/app/settings/page.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Notification Settings</name>
+      <description>Browser notification reminders with configurable time, permission handling, and scheduling system</description>
+      <file_locations>
+        <location>src/lib/database/notificationService.ts</location>
+        <location>src/lib/database/useNotificationSettings.ts</location>
+        <location>src/components/notifications/NotificationSettings.tsx</location>
+        <location>src/components/notifications/NotificationScheduler.tsx</location>
+        <location>src/components/notifications/NotificationProvider.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Settings Page</name>
+      <description>Settings page with appearance (theme toggle) and notification configuration sections</description>
+      <file_locations>
+        <location>src/app/settings/page.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>App Layout and Navigation</name>
+      <description>Responsive layout with sidebar navigation for desktop and mobile navigation sheet, consistent header and structure</description>
+      <file_locations>
+        <location>src/components/layout/app-layout.tsx</location>
+        <location>src/components/layout/sidebar.tsx</location>
+        <location>src/components/layout/mobile-nav.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>UI Components</name>
+      <description>Full set of shadcn/ui components including Button, Card, Dialog, Sheet, Input, Label, Checkbox, Select, Textarea, Slider, and custom ChoiceCard</description>
+      <file_locations>
+        <location>src/components/ui/button.tsx</location>
+        <location>src/components/ui/card.tsx</location>
+        <location>src/components/ui/dialog.tsx</location>
+        <location>src/components/ui/sheet.tsx</location>
+        <location>src/components/ui/input.tsx</location>
+        <location>src/components/ui/label.tsx</location>
+        <location>src/components/ui/checkbox.tsx</location>
+        <location>src/components/ui/select.tsx</location>
+        <location>src/components/ui/textarea.tsx</location>
+        <location>src/components/ui/slider.tsx</location>
+        <location>src/components/ui/choice-card.tsx</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Admin/Dev Tools</name>
+      <description>Admin bar and service for development tasks including creating dummy data, clearing data, and viewing database statistics</description>
+      <file_locations>
+        <location>src/components/admin/AdminBar.tsx</location>
+        <location>src/lib/database/adminService.ts</location>
+      </file_locations>
+    </feature>
+
+    <feature>
+      <name>Empty States</name>
+      <description>Friendly empty state components for when no habits exist with call-to-action to create habits</description>
+      <file_locations>
+        <location>src/components/habits/HabitEmptyState.tsx</location>
+      </file_locations>
+    </feature>
+  </implemented_features>
+
+  <additional_requirements>
+    <requirement>Node.js 18+ runtime environment</requirement>
+    <requirement>Modern browser with IndexedDB support (Chrome, Firefox, Safari, Edge)</requirement>
+    <requirement>No backend server required - fully client-side application</requirement>
+    <requirement>Local storage permissions for data persistence</requirement>
+    <requirement>Notification permissions for browser reminders (optional)</requirement>
+  </additional_requirements>
+
+  <development_guidelines>
+    <guideline>Use TypeScript strict mode for type safety</guideline>
+    <guideline>Follow Next.js App Router conventions and best practices</guideline>
+    <guideline>Implement components using shadcn/ui patterns and Tailwind CSS</guideline>
+    <guideline>Use RxDB schemas for data validation and type generation</guideline>
+    <guideline>Maintain separation of concerns with dedicated hooks for database operations</guideline>
+    <guideline>Write accessible components following WCAG guidelines</guideline>
+    <guideline>Keep the UI minimal and distraction-free</guideline>
+    <guideline>Implement optimistic UI updates for better user experience</guideline>
+  </development_guidelines>
+
+  <implementation_roadmap>
+    <phase>
+      <name>Project Setup</name>
+      <status>completed</status>
+      <description>Initialize Next.js project with TypeScript, configure Tailwind CSS, install and set up shadcn/ui components</description>
+    </phase>
+    <phase>
+      <name>Database Layer</name>
+      <status>completed</status>
+      <description>Set up RxDB with IndexedDB adapter, define habit and log schemas, create database service and React hooks</description>
+    </phase>
+    <phase>
+      <name>Core Habit Management</name>
+      <status>completed</status>
+      <description>Implement habit CRUD operations, create habit list and detail views, build habit creation/editing forms</description>
+    </phase>
+    <phase>
+      <name>Daily Tracking</name>
+      <status>completed</status>
+      <description>Build daily check-in interface, implement habit completion toggle, add streak tracking logic</description>
+    </phase>
+    <phase>
+      <name>Progress Visualization</name>
+      <status>completed</status>
+      <description>Create statistics dashboard, implement progress charts and graphs, add streak and completion rate displays</description>
+    </phase>
+    <phase>
+      <name>Data Management</name>
+      <status>pending</status>
+      <description>Implement data export/import functionality, add backup and restore features</description>
+    </phase>
+    <phase>
+      <name>Polish and Optimization</name>
+      <status>completed</status>
+      <description>Add responsive design refinements, implement loading states and animations, optimize performance</description>
+    </phase>
+  </implementation_roadmap>
+</project_specification>
