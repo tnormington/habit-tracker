@@ -173,17 +173,19 @@ export function MonthlySummaryChart({
                 />
                 <XAxis
                   dataKey="month"
-                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
+                  tick={{ fontSize: 12 }}
                   tickLine={false}
                   axisLine={false}
+                  className="fill-foreground"
                 />
                 <YAxis
                   domain={[0, 100]}
-                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
+                  tick={{ fontSize: 12 }}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(value) => `${value}%`}
                   width={45}
+                  className="fill-foreground"
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="rate" radius={[4, 4, 0, 0]} maxBarSize={60}>

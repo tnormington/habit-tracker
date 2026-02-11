@@ -152,16 +152,18 @@ export function WeeklySummaryChart({
                 />
                 <XAxis
                   dataKey="day"
-                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
+                  tick={{ fontSize: 12 }}
                   tickLine={false}
                   axisLine={false}
+                  className="fill-foreground"
                 />
                 <YAxis
-                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
+                  tick={{ fontSize: 12 }}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={showCompletionRate ? (value) => `${value}%` : undefined}
                   width={showCompletionRate ? 45 : 35}
+                  className="fill-foreground"
                 />
                 <Tooltip content={<CustomTooltip showRate={showCompletionRate} />} />
                 <Bar
