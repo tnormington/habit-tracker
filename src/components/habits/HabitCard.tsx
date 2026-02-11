@@ -51,7 +51,9 @@ export function HabitCard({
   return (
     <Card
       className={cn(
-        'relative overflow-hidden transition-shadow hover:shadow-md p-0',
+        'relative overflow-hidden p-0',
+        'transition-all duration-200 ease-out',
+        'hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20',
         habit.isArchived && 'opacity-60'
       )}
       data-testid="habit-card"
@@ -69,7 +71,7 @@ export function HabitCard({
           <CategoryIcon className="size-8" aria-hidden="true" />
         </div>
 
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 items-between">
           <CardHeader className="pb-3 pt-3">
             <div className="flex items-start justify-between gap-2">
               <Link
