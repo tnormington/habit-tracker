@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, I would like to select an amount per week or month for habits. Provide a slider when the frequency is not daily for times-per-week/month. For example 1-7 for weekly, 1-30 for monthly. Update the statistics to account for this new data subset.",
+  "title": "Add frequency-based habit amount slider with statistics",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770747082552-qnwmgq76ndm",
+  "descriptionHistory": [
+    {
+      "description": "As a user, I would like to select an amount per week or month for habits. Provide a slider when the frequency is not daily for times-per-week/month. For example 1-7 for weekly, 1-30 for monthly. Update the statistics to account for this new data subset.",
+      "timestamp": "2026-02-10T18:11:22.670Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T18:11:27.903Z",
+  "updatedAt": "2026-02-10T18:27:03.277Z",
+  "justFinishedAt": "2026-02-10T18:27:03.264Z",
+  "summary": "## Summary: Add target count for weekly/monthly habits\n\n### Changes Implemented\n- Added `targetCount` field to `HabitDocType` to track target completions per period (1-7 for weekly, 1-30 for monthly)\n- Created a custom `Slider` UI component (`src/components/ui/slider.tsx`) for selecting target count\n- Updated `HabitCreationForm` to show slider when frequency is weekly or monthly, with dynamic range based on frequency\n- Updated `HabitEditFormDialog` to allow editing target count for existing habits\n- Added validation for `targetCount` in `habitService` based on frequency limits\n- Updated `statisticsService` to calculate completion rate based on meeting target count within periods\n- Added `currentPeriodCompletions` to `HabitStatistics` interface for tracking progress\n- Updated `DailyCheckIn` component to display period progress badge (e.g., \"2/3 this week\") with visual highlighting when target is reached\n\n### Files Modified\n- `src/lib/database/types.ts` - Added targetCount field to HabitDocType\n- `src/lib/database/schemas.ts` - Added targetCount to RxDB schema\n- `src/components/ui/slider.tsx` - New file: custom slider component\n- `src/components/habits/HabitCreationForm.tsx` - Added slider for non-daily frequencies\n- `src/components/habits/HabitEditFormDialog.tsx` - Added slider for editing target count\n- `src/lib/database/habitService.ts` - Added validation and CRUD support for targetCount\n- `src/lib/database/statisticsService.ts` - Updated completion rate calculation to use targetCount\n- `src/lib/database/useHabits.ts` - Updated CreateHabitInput/UpdateHabitInput interfaces\n- `src/components/habits/DailyCheckIn.tsx` - Added period progress display with visual indicators\n\n### Notes for Developer\n- For weekly habits, target count can be 1-7 (times per week)\n- For monthly habits, target count can be 1-30 (times per month)\n- Daily habits always have targetCount = 1 (field is hidden in UI)\n- The DailyCheckIn component now shows a badge with current period progress (e.g., \"2/3 this week\")\n- The badge turns green when the target is reached for the period\n- Statistics completion rate now considers a period \"successful\" only if the target count is met"
+}

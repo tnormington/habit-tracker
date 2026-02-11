@@ -1,0 +1,16 @@
+{
+  "id": "habit-statistics",
+  "category": "Core",
+  "title": "Habit Statistics Calculator",
+  "description": "Create service to calculate habit statistics including completion rate, total completions, best streak, current streak, and completion patterns by day of week. Generate aggregated data for dashboard display.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [
+    "streak-calculation"
+  ],
+  "createdAt": "2026-02-09T18:27:51.106Z",
+  "updatedAt": "2026-02-10T02:38:33.051Z",
+  "startedAt": "2026-02-10T02:30:36.802Z",
+  "descriptionHistory": []
+}

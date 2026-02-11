@@ -1,0 +1,16 @@
+{
+  "id": "calendar-heatmap",
+  "category": "UI",
+  "title": "Habit Completion Calendar",
+  "description": "Implement calendar heatmap visualization showing habit completion over time with color intensity based on completion status. Support month/year navigation and clickable dates to view/edit logs.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": [
+    "habit-detail-view"
+  ],
+  "createdAt": "2026-02-09T18:27:51.110Z",
+  "updatedAt": "2026-02-10T03:05:12.635Z",
+  "startedAt": "2026-02-10T02:49:42.212Z",
+  "descriptionHistory": []
+}

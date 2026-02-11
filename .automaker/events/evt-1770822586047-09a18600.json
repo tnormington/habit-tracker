@@ -1,0 +1,11 @@
+{
+  "id": "evt-1770822586047-09a18600",
+  "trigger": "feature_error",
+  "timestamp": "2026-02-11T15:09:46.047Z",
+  "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker",
+  "projectName": "habit-tracker",
+  "featureId": "feature-1770822418866-yhlx803zrr",
+  "featureName": "",
+  "error": "Claude Code process exited with code 1",
+  "errorType": "execution"
+}

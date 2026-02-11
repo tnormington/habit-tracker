@@ -1,0 +1,17 @@
+{
+  "id": "habit-statistics",
+  "category": "Core",
+  "title": "Habit Statistics Calculator",
+  "description": "Create service to calculate habit statistics including completion rate, total completions, best streak, current streak, and completion patterns by day of week. Generate aggregated data for dashboard display.",
+  "status": "completed",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [
+    "streak-calculation"
+  ],
+  "createdAt": "2026-02-09T18:27:51.106Z",
+  "updatedAt": "2026-02-10T02:38:33.068Z",
+  "startedAt": "2026-02-10T02:30:36.802Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Create service to calculate habit statistics\n\n### Changes Implemented\n- Created `statisticsService.ts` with comprehensive statistics calculation functions:\n  - `getHabitStatistics()` - Get statistics for a single habit\n  - `getStatisticsForHabits()` - Get statistics for multiple habits\n  - `getDashboardStatistics()` - Get aggregated dashboard statistics\n  - `getWeeklyTrends()` - Get weekly trend data for visualization\n  - `getCompletionStatsForDate()` - Get completion stats for a specific date\n- Added type definitions for:\n  - `HabitStatistics` - Individual habit statistics\n  - `DashboardStatistics` - Aggregated dashboard data\n  - `WeeklyTrendPoint` - Weekly trend data point\n  - `DayOfWeek` and day name constants\n- Created `useStatistics.ts` React hooks:\n  - `useHabitStatistics()` - Hook for single habit statistics\n  - `useDashboardStatistics()` - Hook for dashboard statistics with real-time updates\n  - `useWeeklyTrends()` - Hook for weekly trend data\n  - `useDateCompletionStats()` - Hook for date-specific completion stats\n- Updated `index.ts` to export all statistics service functions, types, and hooks\n- Updated `statistics/page.tsx` to display real data with:\n  - Overview stat cards (completion rate, total completions, active streaks, active habits)\n  - Period stat cards (today, this week, this month)\n  - Day of week completion distribution bar chart\n  - Weekly trends bar chart\n  - Longest streaks card\n  - Most consistent habit card\n  - Loading states with skeleton placeholders\n  - Error handling\n\n### Files Modified\n- `src/lib/database/statisticsService.ts` (new file - 618 lines)\n- `src/lib/database/useStatistics.ts` (new file - 235 lines)\n- `src/lib/database/index.ts` (added exports for statistics service and hooks)\n- `src/app/statistics/page.tsx` (complete rewrite with real data display)\n\n### Verification Status\n- Created and ran Playwright verification test that confirmed:\n  - Statistics page loads correctly\n  - All stat cards display (Completion Rate, Total Completions, Active Streaks, Active Habits)\n  - Period cards display (Today, This Week, This Month)\n  - Chart sections render (Completions by Day, Weekly Trends)\n  - Streak and consistency cards render (Longest Streaks, Most Consistent)\n  - Day of week labels appear in chart\n  - No error states are shown\n  - Percentage values display correctly\n- Test file was deleted after successful verification as per requirements\n\n### Notes for Developer\n- Statistics are calculated based on habit logs and respect habit type (positive habits track completions, negative habits track avoided days)\n- Dashboard statistics update in real-time when habits or logs change via RxDB subscriptions\n- Most consistent habit requires at least 7 tracked days to appear\n- Weekly trends default to showing the last 8 weeks but can be configured up to 52 weeks"
+}

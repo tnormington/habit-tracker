@@ -1,0 +1,16 @@
+{
+  "id": "habit-edit-form",
+  "category": "UI",
+  "title": "Habit Edit Interface",
+  "description": "Build edit form dialog for updating existing habits, pre-populated with current values. Include archive/unarchive and delete confirmation dialog. Reuse form components from habit creation with update logic.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "simple",
+  "dependencies": [
+    "habit-creation-form"
+  ],
+  "createdAt": "2026-02-09T18:27:51.102Z",
+  "updatedAt": "2026-02-10T02:35:09.793Z",
+  "startedAt": "2026-02-10T02:27:31.374Z",
+  "descriptionHistory": []
+}

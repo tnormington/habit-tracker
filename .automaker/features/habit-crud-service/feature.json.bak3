@@ -1,0 +1,16 @@
+{
+  "id": "habit-crud-service",
+  "category": "Core",
+  "title": "Habit CRUD Operations",
+  "description": "Implement service functions for creating, reading, updating, and deleting habits. Include validation, error handling, and TypeScript types for all operations with proper RxDB query methods.",
+  "status": "in_progress",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": [
+    "database-hooks"
+  ],
+  "createdAt": "2026-02-09T18:27:51.098Z",
+  "updatedAt": "2026-02-09T20:53:51.766Z",
+  "startedAt": "2026-02-09T20:53:51.565Z",
+  "descriptionHistory": []
+}

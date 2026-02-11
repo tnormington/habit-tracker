@@ -1,0 +1,16 @@
+{
+  "id": "main-layout",
+  "category": "UI",
+  "title": "Application Layout and Navigation",
+  "description": "Build main application layout with navigation sidebar/header using shadcn components. Include navigation links for Dashboard, Habits, Statistics, and Settings. Implement responsive mobile navigation drawer.",
+  "status": "in_progress",
+  "priority": 2,
+  "complexity": "simple",
+  "dependencies": [
+    "tailwind-shadcn-setup"
+  ],
+  "createdAt": "2026-02-09T18:27:51.097Z",
+  "updatedAt": "2026-02-09T20:48:49.470Z",
+  "startedAt": "2026-02-09T20:48:49.276Z",
+  "descriptionHistory": []
+}

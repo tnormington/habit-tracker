@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "The \"todays progress\" bar is not calculating the habits to break correctly",
+  "title": "Fix todays progress bar habit calculations",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770777044489-46s9irolmhy",
+  "descriptionHistory": [
+    {
+      "description": "The \"todays progress\" bar is not calculating the habits to break correctly",
+      "timestamp": "2026-02-11T02:30:44.603Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T02:34:37.326Z",
+  "updatedAt": "2026-02-11T02:35:43.637Z",
+  "summary": "## Summary: Fix Today's Progress Bar Calculation for Habits to Break\n\n### Changes Implemented\n- Fixed the \"Today's Progress\" bar calculation in `DailyCheckIn.tsx` to properly count successes for negative habits (habits to break)\n- Previously, the progress bar was counting all habits with `completed: true` as successes\n- Now the calculation correctly handles:\n  - **Positive/neutral habits**: Success when completed (checkbox checked)\n  - **Negative habits**: Success when avoided (has a log entry with `completed: false`)\n- Added `todayLogMap` memoized map to track the completion status of each habit\n- Replaced `completedCount` with `successCount` that properly evaluates success based on habit type\n\n### Files Modified\n- `src/components/habits/DailyCheckIn.tsx` (lines 337-374)\n\n### Notes for Developer\n- The fix ensures the progress percentage accurately reflects how well the user is doing across all habit types\n- For negative habits (habits to break), users need to explicitly mark them as \"avoided\" (unchecked) for them to count toward progress\n- The fix follows the same logic pattern used in the period progress calculation for weekly/monthly habits (lines 269-274) and the statistics service's `isSuccess()` function",
+  "justFinishedAt": "2026-02-11T02:35:43.637Z"
+}

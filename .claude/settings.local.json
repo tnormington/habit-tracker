@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(cmd //c \"rmdir /s /q node_modules\")",
+      "Bash(npx --yes rimraf node_modules)",
+      "Bash(npx:*)",
+      "Bash(mcp list-tools:*)",
+      "Bash(node:*)",
+      "Bash(timeout 15 tail:*)",
+      "Bash(sort:*)",
+      "WebSearch",
+      "Bash(claude mcp add:*)",
+      "Bash(tasklist:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

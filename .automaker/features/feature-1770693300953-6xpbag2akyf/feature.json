@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "As an accessibility expert, review the app front-end for any font contrast issues or other UX issues that might be present. Check both light and dark mode theme.",
+  "title": "Review app accessibility and contrast in themes",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770693300953-6xpbag2akyf",
+  "descriptionHistory": [
+    {
+      "description": "As an accessibility expert, review the app front-end for any font contrast issues or other UX issues that might be present. Check both light and dark mode theme.",
+      "timestamp": "2026-02-10T03:15:01.080Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T03:15:07.091Z",
+  "updatedAt": "2026-02-10T03:20:37.609Z",
+  "justFinishedAt": "2026-02-10T03:20:37.594Z",
+  "summary": "## Summary: Accessibility Review - Font Contrast and UX Issues\n\n### Changes Implemented\n- **Improved muted-foreground contrast in light mode**: Changed from `oklch(0.556 0 0)` to `oklch(0.45 0 0)` - This darkens the muted text color to meet WCAG AA contrast requirements against white backgrounds\n- **Enhanced dark mode ring (focus) visibility**: Changed from `oklch(0.439 0 0)` to `oklch(0.55 0 0)` - Focus indicators are now more visible in dark mode\n- **Fixed streak rank badges text contrast**: \n  - Gold badge: Added `text-yellow-950` for dark text on yellow background\n  - Silver badge: Changed from `bg-gray-400` to `bg-gray-500` with white text\n  - Bronze badge: Added `text-amber-950` for dark text on amber background\n  - Default badge: Added `text-muted-foreground` for proper contrast\n- **Improved calendar heatmap text contrast**: Changed text colors from `green-900/red-900` to `green-950/red-950` in light mode and `green-100/red-100` to `green-50/red-50` in dark mode for better readability\n- **Increased select dropdown chevron opacity**: Changed from 50% to 70% opacity for better visibility\n\n### Files Modified\n- `src/app/globals.css` - Updated CSS custom properties for muted-foreground and ring colors\n- `src/app/page.tsx` - Fixed streak rank badge color contrast\n- `src/components/habits/HabitCalendarHeatmap.tsx` - Improved heatmap date text contrast\n- `src/components/ui/select.tsx` - Increased chevron icon visibility\n\n### Notes for Developer\n- All changes follow WCAG 2.1 Level AA contrast requirements (4.5:1 for normal text)\n- The app uses OKLch color space which provides perceptually uniform colors - adjustments maintain visual consistency\n- Existing shadcn/ui components use proper semantic color tokens, ensuring theme consistency\n- The dialog close button already had proper opacity (70%) - no changes needed\n- Icons using color (like yellow trophy icons) are decorative and don't require contrast fixes since they're accompanied by text\n- The theme toggle, sidebar, and other components use proper foreground/background color pairing from the design system"
+}

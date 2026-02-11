@@ -1,0 +1,30 @@
+{
+  "category": "Uncategorized",
+  "description": "Fix Habit Reset Logic to Respect User Timezone\n\nCorrect the habit completion tracking system to properly handle day boundaries based on the user's local timezone rather than server time or UTC.\n\nRequirements:\n- Identify where habit completion timestamps are currently being stored and compared\n- Ensure all date/time comparisons use the user's timezone, not server/UTC time\n- Implement proper \"start of day\" calculation based on user's timezone (e.g., midnight in user's local time)\n- Reset habit completion status when a new day begins in the user's timezone\n- Handle edge cases:\n  * Users traveling across timezones\n  * Daylight saving time transitions\n  * Users changing their timezone settings\n  * Habits completed near midnight boundary\n- Verify that habits checked yesterday appear unchecked today in the user's local time\n- Ensure the fix works consistently across different timezone offsets (+/- UTC)\n- Test with users in various timezones (PST, EST, GMT, JST, etc.) to confirm correct behavior\n\nTechnical Considerations:\n- Store timestamps in UTC but convert to user timezone for display and reset logic\n- Retrieve and apply user's timezone preference from their profile/settings\n- Update any scheduled tasks or cron jobs to account for per-user timezone differences",
+  "title": "Fix habit reset logic for user timezone",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "in_progress",
+  "id": "feature-1770822912501-uiolgvl07k",
+  "descriptionHistory": [
+    {
+      "description": "Fix Habit Reset Logic to Respect User Timezone\n\nCorrect the habit completion tracking system to properly handle day boundaries based on the user's local timezone rather than server time or UTC.\n\nRequirements:\n- Identify where habit completion timestamps are currently being stored and compared\n- Ensure all date/time comparisons use the user's timezone, not server/UTC time\n- Implement proper \"start of day\" calculation based on user's timezone (e.g., midnight in user's local time)\n- Reset habit completion status when a new day begins in the user's timezone\n- Handle edge cases:\n  * Users traveling across timezones\n  * Daylight saving time transitions\n  * Users changing their timezone settings\n  * Habits completed near midnight boundary\n- Verify that habits checked yesterday appear unchecked today in the user's local time\n- Ensure the fix works consistently across different timezone offsets (+/- UTC)\n- Test with users in various timezones (PST, EST, GMT, JST, etc.) to confirm correct behavior\n\nTechnical Considerations:\n- Store timestamps in UTC but convert to user timezone for display and reset logic\n- Retrieve and apply user's timezone preference from their profile/settings\n- Update any scheduled tasks or cron jobs to account for per-user timezone differences",
+      "timestamp": "2026-02-11T15:15:12.622Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T15:15:17.237Z",
+  "updatedAt": "2026-02-11T15:15:17.352Z"
+}

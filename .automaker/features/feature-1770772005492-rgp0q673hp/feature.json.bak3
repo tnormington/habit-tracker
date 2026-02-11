@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "In the habit page, swap out the ellipsis icon with an edit icon. Swap the archive habit with a delete icon and make it red. Change the background color of the category icon based on the type of the habit: red = break, green = build, grey = track",
+  "title": "Update habit page icons and category colors",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770772005492-rgp0q673hp",
+  "descriptionHistory": [
+    {
+      "description": "In the habit page, swap out the ellipsis icon with an edit icon. Swap the archive habit with a delete icon and make it red. Change the background color of the category icon based on the type of the habit: red = break, green = build, grey = track",
+      "timestamp": "2026-02-11T01:06:45.613Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:06:51.213Z",
+  "updatedAt": "2026-02-11T01:08:22.284Z",
+  "justFinishedAt": "2026-02-11T01:08:22.284Z"
+}

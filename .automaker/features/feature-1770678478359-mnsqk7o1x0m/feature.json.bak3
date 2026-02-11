@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Add a darkmode theme, and give the user the option to switch between light/dark in the settings. Use the system default at first.",
+  "title": "Add dark mode theme with system default preference",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770678478359-mnsqk7o1x0m",
+  "descriptionHistory": [
+    {
+      "description": "Add a darkmode theme, and give the user the option to switch between light/dark in the settings. Use the system default at first.",
+      "timestamp": "2026-02-09T23:07:58.518Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T02:25:40.319Z",
+  "updatedAt": "2026-02-10T02:28:11.558Z",
+  "justFinishedAt": "2026-02-10T02:28:11.558Z"
+}

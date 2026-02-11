@@ -1,0 +1,30 @@
+{
+  "category": "Uncategorized",
+  "description": "As an admin, I would like access to an admin bar that allows me to do various admin & dev related tasks. For example, trigger a test notification, create/remove dummy data, etc.",
+  "title": "Add admin bar with dev tools and utilities",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770745715014-n255skq2bu",
+  "descriptionHistory": [
+    {
+      "description": "As an admin, I would like access to an admin bar that allows me to do various admin & dev related tasks. For example, trigger a test notification, create/remove dummy data, etc.",
+      "timestamp": "2026-02-10T17:48:35.137Z",
+      "source": "initial"
+    }
+  ],
+  "updatedAt": "2026-02-10T17:52:11.847Z",
+  "justFinishedAt": "2026-02-10T17:52:11.847Z"
+}

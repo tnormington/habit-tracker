@@ -1,0 +1,17 @@
+{
+  "id": "dashboard-overview",
+  "category": "UI",
+  "title": "Dashboard Overview Page",
+  "description": "Build main dashboard showing today's habits, current streaks, completion summary, and motivational insights. Display active habit count, overall completion rate, and quick access to check-in interface.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [
+    "daily-checkin-interface",
+    "habit-statistics"
+  ],
+  "createdAt": "2026-02-09T18:27:51.107Z",
+  "updatedAt": "2026-02-10T02:41:15.558Z",
+  "startedAt": "2026-02-10T02:37:59.471Z",
+  "descriptionHistory": []
+}

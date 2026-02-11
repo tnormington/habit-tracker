@@ -1,0 +1,18 @@
+{
+  "id": "habit-creation-form",
+  "category": "UI",
+  "title": "Habit Creation Form",
+  "description": "Build form component for creating new habits with fields for name, description, type selection (positive/negative), category, and color picker. Use shadcn Form, Input, Textarea, Select, and validation with proper error messages.",
+  "status": "verified",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": [
+    "habit-crud-service",
+    "tailwind-shadcn-setup"
+  ],
+  "createdAt": "2026-02-09T18:27:51.099Z",
+  "updatedAt": "2026-02-10T01:59:17.698Z",
+  "startedAt": "2026-02-09T23:04:46.732Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Build form component for creating new habits\n\n### Changes Implemented\n- Created `HabitCreationForm` component with all required fields:\n  - Name input (required, max 200 chars)\n  - Description textarea (optional, max 1000 chars)\n  - Type selection dropdown (positive/negative)\n  - Category selection dropdown (health, fitness, productivity, mindfulness, learning, social, finance, creativity, other)\n  - Color picker with 8 color options (red, orange, yellow, green, blue, purple, pink, gray)\n- Implemented form validation with proper error messages:\n  - Required field validation for name, type, category, and color\n  - Character limit validation for name and description\n  - Errors clear when user starts typing/selecting\n- Integrated form into habits page with Dialog component\n- Form submits to the existing `createHabit` service function\n- Form resets and dialog closes on successful submission\n- Added proper accessibility attributes (aria-invalid, aria-describedby, role=\"radiogroup\")\n- Added comprehensive data-testid attributes for testing\n- Created `Select` UI component using @radix-ui/react-select\n- Created `Textarea` UI component following shadcn conventions\n- Updated playwright.config.ts to use pnpm for dev server\n\n### Files Modified\n- `src/components/habits/HabitCreationForm.tsx` (created)\n- `src/components/habits/index.ts` (updated to export HabitCreationForm)\n- `src/app/habits/page.tsx` (integrated Dialog with HabitCreationForm)\n- `src/components/ui/select.tsx` (created)\n- `src/components/ui/textarea.tsx` (created)\n- `playwright.config.ts` (updated to use pnpm)\n\n### Verification Status\n- Created and ran 6 Playwright tests covering:\n  - Opening the create habit dialog\n  - Displaying all form fields correctly\n  - Validation error messages on empty form submission\n  - Cancel button closes the dialog\n  - Complete form fill and submission\n  - Clearing validation errors when user types\n- All 6 tests passed successfully\n- Verification test file was deleted after successful testing\n\n### Notes for Developer\n- The form integrates with the existing `createHabit` service from `@/lib/database/habitService`\n- The color picker uses accessible radio button semantics with visual color swatches\n- Form state management uses React's useState for simplicity\n- Error handling includes both field-level validation and submit-level error display\n- The dialog uses the existing Dialog UI component from shadcn/ui"
+}

@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Use a ChoiceCard for the \"type\" of a habit, and add a third middle option for a neutral habit.",
+  "title": "Add ChoiceCard for habit type with neutral option",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770742687586-rnydcf2339o",
+  "descriptionHistory": [
+    {
+      "description": "Use a ChoiceCard for the \"type\" of a habit, and add a third middle option for a neutral habit.",
+      "timestamp": "2026-02-10T16:58:07.721Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T16:58:12.722Z",
+  "updatedAt": "2026-02-10T17:02:03.493Z",
+  "justFinishedAt": "2026-02-10T17:02:03.482Z",
+  "summary": "## Summary: Use ChoiceCard for habit type with neutral option\n\n### Changes Implemented\n- Added 'neutral' as a third habit type option for tracking habits without judgment (e.g., hours slept, meals eaten)\n- Replaced the Select dropdown with ChoiceCardGroup component for habit type selection in both the creation and edit forms\n- Added appropriate icons for each habit type: TrendingUp (positive), Minus (neutral), TrendingDown (negative)\n- Updated the HabitFilters component to include a neutral type filter button with consistent styling\n- Updated TYPE_DISPLAY constant to include icons and updated descriptions for all three types\n\n### Files Modified\n- `src/lib/database/types.ts` - Added 'neutral' to HabitType union type\n- `src/lib/database/schemas.ts` - Added 'neutral' to HABIT_TYPES constant array\n- `src/lib/database/habitService.ts` - Added 'neutral' to VALID_HABIT_TYPES array\n- `src/lib/constants/habit-display.tsx` - Updated TYPE_DISPLAY with icons and added TYPE_ICONS export\n- `src/components/habits/HabitCreationForm.tsx` - Replaced Select with ChoiceCardGroup for type field\n- `src/components/habits/HabitEditFormDialog.tsx` - Replaced Select with ChoiceCardGroup for type field\n- `src/components/habits/HabitFilters.tsx` - Added neutral type filter button\n\n### Notes for Developer\n- The neutral habit type is positioned between positive and negative in the UI for logical ordering\n- The ChoiceCard component displays icons, labels, and descriptions for each type option\n- Existing habits with 'positive' or 'negative' types will continue to work normally\n- The build passes successfully with all changes"
+}

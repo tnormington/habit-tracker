@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, I would like to view my archived habits. Remove the delete icon button from the card, change the edit pen back to an ellipsis icon",
+  "title": "Update archived habits view with ellipsis menu",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770772934090-95o7c6tl1ka",
+  "descriptionHistory": [
+    {
+      "description": "As a user, I would like to view my archived habits. Remove the delete icon button from the card, change the edit pen back to an ellipsis icon",
+      "timestamp": "2026-02-11T01:22:14.132Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:22:19.814Z",
+  "updatedAt": "2026-02-11T01:26:47.439Z",
+  "justFinishedAt": "2026-02-11T01:26:47.439Z"
+}

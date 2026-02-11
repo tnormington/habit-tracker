@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Use a ChoiceCard for the \"type\" of a habit, and add a third middle option for a neutral habit.",
+  "title": "Add ChoiceCard for habit type with neutral option",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770742687586-rnydcf2339o",
+  "descriptionHistory": [
+    {
+      "description": "Use a ChoiceCard for the \"type\" of a habit, and add a third middle option for a neutral habit.",
+      "timestamp": "2026-02-10T16:58:07.721Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T16:58:12.722Z",
+  "updatedAt": "2026-02-10T17:02:03.482Z",
+  "justFinishedAt": "2026-02-10T17:02:03.482Z"
+}

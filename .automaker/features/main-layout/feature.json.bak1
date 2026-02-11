@@ -1,0 +1,17 @@
+{
+  "id": "main-layout",
+  "category": "UI",
+  "title": "Application Layout and Navigation",
+  "description": "Build main application layout with navigation sidebar/header using shadcn components. Include navigation links for Dashboard, Habits, Statistics, and Settings. Implement responsive mobile navigation drawer.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "simple",
+  "dependencies": [
+    "tailwind-shadcn-setup"
+  ],
+  "createdAt": "2026-02-09T18:27:51.097Z",
+  "updatedAt": "2026-02-09T20:53:29.241Z",
+  "startedAt": "2026-02-09T20:48:49.276Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Build main application layout with navigation sidebar/header\n\n### Changes Implemented\n- Created sidebar navigation component (`Sidebar`) with navigation links for Dashboard, Habits, Statistics, and Settings\n- Created mobile navigation drawer component (`MobileNav`) using shadcn Sheet component for responsive mobile experience\n- Created main app layout component (`AppLayout`) that integrates sidebar (desktop) and mobile nav (mobile header with hamburger menu)\n- Added Sheet UI component from shadcn/ui patterns for the mobile drawer\n- Updated root layout to wrap content with AppLayout\n- Updated home page to be a Dashboard page with overview cards\n- Created placeholder pages for Habits, Statistics, and Settings routes\n- Updated Playwright config to reuse existing dev server\n\n### Files Modified\n- `src/components/layout/sidebar.tsx` - New sidebar navigation component\n- `src/components/layout/mobile-nav.tsx` - New mobile navigation drawer component\n- `src/components/layout/app-layout.tsx` - New main layout component\n- `src/components/layout/index.ts` - Export file for layout components\n- `src/components/ui/sheet.tsx` - New Sheet component for mobile drawer\n- `src/app/layout.tsx` - Modified to use AppLayout\n- `src/app/page.tsx` - Modified to be Dashboard page\n- `src/app/habits/page.tsx` - New placeholder Habits page\n- `src/app/statistics/page.tsx` - New placeholder Statistics page\n- `src/app/settings/page.tsx` - New placeholder Settings page\n- `playwright.config.ts` - Modified to reuse existing dev server\n\n### Verification Status\n- Created and ran Playwright verification tests covering:\n  - Desktop sidebar visibility and navigation links\n  - Navigation between all pages using sidebar\n  - Mobile navigation drawer visibility on smaller screens\n  - Mobile navigation functionality\n  - Content verification for all pages (Dashboard, Habits, Statistics, Settings)\n- All 8 tests passed successfully\n- Verification test file deleted after successful testing\n\n### Notes for Developer\n- The sidebar uses the existing shadcn Button component for navigation links\n- Navigation is active-state aware using `usePathname` hook\n- Mobile breakpoint is at `md` (768px) - sidebar hidden below this, mobile header shown\n- The Sheet component follows shadcn/ui patterns and uses Radix UI Dialog primitives\n- All navigation links work and pages are properly rendered"
+}

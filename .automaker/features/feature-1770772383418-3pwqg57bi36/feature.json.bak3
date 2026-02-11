@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Add a subtle modern hover effect to the habit card.",
+  "title": "Add subtle modern hover effect to habit cards",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770772383418-3pwqg57bi36",
+  "descriptionHistory": [
+    {
+      "description": "Add a subtle modern hover effect to the habit card.",
+      "timestamp": "2026-02-11T01:13:03.538Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:13:14.698Z",
+  "updatedAt": "2026-02-11T01:13:56.229Z",
+  "justFinishedAt": "2026-02-11T01:13:56.229Z"
+}

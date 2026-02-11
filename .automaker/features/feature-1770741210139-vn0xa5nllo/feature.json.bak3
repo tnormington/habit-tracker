@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, I would like to select an icon from a grid to represent the habit category.",
+  "title": "Add icon picker grid for habit categories",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770741210139-vn0xa5nllo",
+  "descriptionHistory": [
+    {
+      "description": "As a user, I would like to select an icon from a grid to represent the habit category.",
+      "timestamp": "2026-02-10T16:33:30.250Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T16:33:35.745Z",
+  "updatedAt": "2026-02-10T16:38:44.152Z",
+  "justFinishedAt": "2026-02-10T16:38:44.152Z"
+}

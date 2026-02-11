@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "In the habits page, add a badge with the frequency to all habits. Daily, 1-7 times a week, or 1-30 times a month.",
+  "title": "Add frequency badges to habits display",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770773204946-obk8aq6pn8q",
+  "descriptionHistory": [
+    {
+      "description": "In the habits page, add a badge with the frequency to all habits. Daily, 1-7 times a week, or 1-30 times a month.",
+      "timestamp": "2026-02-11T01:26:45.064Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:26:49.644Z",
+  "updatedAt": "2026-02-11T01:28:59.420Z",
+  "justFinishedAt": "2026-02-11T01:28:59.410Z",
+  "summary": "## Summary: Add frequency badge to all habits\n\n### Changes Implemented\n- Modified the `HabitCard` component to show a frequency badge on **all** habits (previously only showed for non-daily habits)\n- Created `getFrequencyLabel()` function that returns appropriate labels:\n  - Daily habits: \"Daily\"\n  - Weekly habits: \"Nx/week\" (e.g., \"3x/week\" for a habit with targetCount of 3)\n  - Monthly habits: \"Nx/month\" (e.g., \"5x/month\" for a habit with targetCount of 5)\n- Removed the conditional check that hid the badge for daily habits\n- Badge uses the existing blue styling and includes appropriate calendar icons for each frequency type\n\n### Files Modified\n- `src/components/habits/HabitCard.tsx` - Added `getFrequencyLabel()` function and updated badge to always display with target count information\n\n### Notes for Developer\n- The badge styling remains consistent with the existing design (blue rounded pill with icon)\n- The `targetCount` property is used to display how many times per week/month the habit should be completed\n- Falls back to `1` if `targetCount` is not set\n- TypeScript check passed with no errors"
+}

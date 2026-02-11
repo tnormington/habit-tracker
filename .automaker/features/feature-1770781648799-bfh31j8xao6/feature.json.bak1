@@ -1,0 +1,39 @@
+{
+  "category": "Uncategorized",
+  "description": "Habits to break should say 3/3 avoided when they are unchecked",
+  "title": "Mark avoided habit count when unchecked",
+  "images": [],
+  "imagePaths": [
+    {
+      "id": "img-1770781606962-tz9jyztzo",
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770781648799-bfh31j8xao6\\images\\pasted-image-2026-02-11T03-46-46-952Z-1770781606960.png",
+      "filename": "pasted-image-2026-02-11T03-46-46-952Z.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770781648799-bfh31j8xao6",
+  "descriptionHistory": [
+    {
+      "description": "Habits to break should say 3/3 avoided when they are unchecked",
+      "timestamp": "2026-02-11T03:47:28.925Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T03:47:32.943Z",
+  "updatedAt": "2026-02-11T03:49:01.418Z",
+  "justFinishedAt": "2026-02-11T03:49:01.405Z",
+  "summary": "## Summary: Habits to break should say 3/3 avoided when unchecked\n\n### Changes Implemented\n- Fixed the \"Habits to Break\" section to correctly display the avoided count\n- For negative habits (habits to break), unchecked habits now count as \"avoided\" (success)\n- Previously the counter was showing 0/3 avoided even when all habits were unchecked, because it was counting habits where `completedHabitIds.has(h.id)` which only includes checked habits\n- Now the logic correctly inverts for negative habits: `!completedHabitIds.has(h.id)` counts unchecked habits as avoided\n\n### Files Modified\n- `src/components/habits/DailyCheckIn.tsx` - Updated `HabitGroup` component to correctly calculate `successCount` based on habit type (positive vs negative)\n\n### Notes for Developer\n- For positive habits: success = checked (completed)\n- For negative habits: success = unchecked (avoided)\n- The fix follows the existing pattern used in `periodProgressMap` and overall progress calculation in the same file"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "evt-1770670428862-0d49b2d4",
+  "trigger": "feature_error",
+  "timestamp": "2026-02-09T20:53:48.862Z",
+  "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker",
+  "projectName": "habit-tracker",
+  "featureId": "habit-crud-service",
+  "featureName": "Habit CRUD Operations",
+  "error": "Operation was cancelled",
+  "errorType": "cancellation"
+}

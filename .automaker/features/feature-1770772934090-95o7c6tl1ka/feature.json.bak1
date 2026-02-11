@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, I would like to view my archived habits. Remove the delete icon button from the card, change the edit pen back to an ellipsis icon",
+  "title": "Update archived habits view with ellipsis menu",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770772934090-95o7c6tl1ka",
+  "descriptionHistory": [
+    {
+      "description": "As a user, I would like to view my archived habits. Remove the delete icon button from the card, change the edit pen back to an ellipsis icon",
+      "timestamp": "2026-02-11T01:22:14.132Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:22:19.814Z",
+  "updatedAt": "2026-02-11T01:26:47.450Z",
+  "justFinishedAt": "2026-02-11T01:26:47.439Z",
+  "summary": "## Summary: View Archived Habits and Update Card Icons\n\n### Changes Implemented\n- Added Active/Archived toggle buttons in `HabitListView` to allow users to switch between viewing active habits and archived habits\n- Removed the delete (trash) icon button from `HabitCard`\n- Changed the edit pen icon to an ellipsis (more options) icon on `HabitCard`\n- Added a restore button (RotateCcw icon) that appears on archived habit cards to allow users to restore them\n- Added a new 'no-archived' empty state message for when no archived habits exist\n- Removed the `onArchive` prop from `HabitCard` since archiving will be handled elsewhere (through the options menu)\n\n### Files Modified\n- `src/components/habits/HabitCard.tsx` - Updated icons (MoreHorizontal, RotateCcw), removed onArchive prop, added onRestore prop\n- `src/components/habits/HabitListView.tsx` - Added showArchived state and toggle buttons, added handleRestore function\n- `src/components/habits/HabitEmptyState.tsx` - Added 'no-archived' empty state type with Archive icon\n\n### Notes for Developer\n- The ellipsis button now calls `onEdit` to open the options menu (same behavior as before)\n- Archived habits display with reduced opacity (60%) as before\n- The restore functionality uses `updateHabit` with `{ isArchived: false }` to restore habits\n- Users can now view their archived habits by clicking the \"Archived\" toggle button in the habits list view"
+}

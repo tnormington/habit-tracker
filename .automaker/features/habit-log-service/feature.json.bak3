@@ -1,0 +1,17 @@
+{
+  "id": "habit-log-service",
+  "category": "Core",
+  "title": "Habit Logging Service",
+  "description": "Implement service for creating and updating daily habit logs. Handle toggling completion status, adding notes to logs, and querying logs by date range. Include bulk operations for multiple habits.",
+  "status": "in_progress",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": [
+    "habit-log-schema",
+    "database-hooks"
+  ],
+  "createdAt": "2026-02-09T18:27:51.104Z",
+  "updatedAt": "2026-02-09T20:53:47.341Z",
+  "startedAt": "2026-02-09T20:53:47.159Z",
+  "descriptionHistory": []
+}

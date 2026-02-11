@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "As an admin, I would like access to an admin bar that allows me to do various admin & dev related tasks. For example, trigger a test notification, create/remove dummy data, etc.",
+  "title": "Add admin bar with dev tools and utilities",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770745715014-n255skq2bu",
+  "descriptionHistory": [
+    {
+      "description": "As an admin, I would like access to an admin bar that allows me to do various admin & dev related tasks. For example, trigger a test notification, create/remove dummy data, etc.",
+      "timestamp": "2026-02-10T17:48:35.137Z",
+      "source": "initial"
+    }
+  ],
+  "updatedAt": "2026-02-10T17:52:11.858Z",
+  "justFinishedAt": "2026-02-10T17:52:11.847Z",
+  "summary": "## Summary: Admin Bar for Dev Tasks\n\n### Changes Implemented\n- Created AdminBar component with a floating button in the bottom-right corner and a slide-out sheet panel\n- Added admin service with functions for creating dummy data, deleting all habits, clearing database, and getting stats\n- Implemented the following admin actions:\n  - Test Notification: Triggers a test browser notification\n  - Create Dummy Data: Creates 5 sample habits with 30 days of completion history\n  - Delete All Habits: Removes all habits and their logs (with confirmation)\n  - Clear Database: Completely removes the database and refreshes the page (with confirmation)\n- Added database stats display showing habits count, logs count, and archived count\n- The admin bar only appears in development mode (hidden in production builds)\n- Uses confirmation flow for destructive actions\n- Shows recent action results with success/error indicators\n\n### Files Modified\n- `src/components/layout/app-layout.tsx` - Added AdminBar import and component\n\n### Files Created\n- `src/components/admin/AdminBar.tsx` - Main admin bar component with UI and action handlers\n- `src/components/admin/index.ts` - Export barrel file\n- `src/lib/database/adminService.ts` - Admin service with data management functions\n\n### Notes for Developer\n- The admin bar appears as a wrench icon floating in the bottom-right corner\n- Destructive actions (delete, clear) require clicking twice to confirm\n- The dummy data includes a mix of positive, neutral, and negative habits across different categories\n- Stats refresh automatically when opening the admin panel"
+}

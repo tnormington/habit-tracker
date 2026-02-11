@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Add links to the calendar pages in the sidebar",
+  "title": "Add calendar page links to sidebar",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770693854689-vq6xzq0ox7",
+  "descriptionHistory": [
+    {
+      "description": "Add links to the calendar pages in the sidebar",
+      "timestamp": "2026-02-10T03:24:14.738Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T03:24:18.971Z",
+  "updatedAt": "2026-02-10T03:26:57.889Z",
+  "justFinishedAt": "2026-02-10T03:26:57.889Z"
+}

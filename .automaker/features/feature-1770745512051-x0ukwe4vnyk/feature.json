@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "I would like to setup a notification system that sends the user a daily notification at a specified time. This is to prompt the user to update their habits for that day.",
+  "title": "Implement daily habit reminder notifications at custom times",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": false,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770745512051-x0ukwe4vnyk",
+  "descriptionHistory": [
+    {
+      "description": "I would like to setup a notification system that sends the user a daily notification at a specified time. This is to prompt the user to update their habits for that day.",
+      "timestamp": "2026-02-10T17:45:12.481Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T17:45:16.980Z",
+  "updatedAt": "2026-02-10T18:01:55.892Z",
+  "summary": "## Summary: Daily Notification System for Habit Reminders\n\n### Changes Implemented\n- Added `notification_settings` collection to RxDB database with schema for storing user preferences\n- Created `NotificationSettingsDocType` with fields: `id`, `enabled`, `reminderTime`, `timezone`, `permissionGranted`, `updatedAt`\n- Implemented `notificationService.ts` with:\n  - Browser notification API integration (`isNotificationSupported`, `getNotificationPermission`, `requestNotificationPermission`)\n  - Test and reminder notification functions (`showTestNotification`, `showReminderNotification`)\n  - Settings CRUD operations (`getNotificationSettings`, `updateNotificationSettings`, `enableNotifications`, `disableNotifications`)\n  - Time format validation and conversion utilities\n- Created `useNotificationSettings` React hook with reactive state management and CRUD operations\n- Created `useNotificationScheduler` hook that schedules notifications at the configured time\n- Built `NotificationSettings` UI component with:\n  - Toggle button to enable/disable daily reminders\n  - Time picker for configuring reminder time\n  - Permission request and status handling\n  - Test notification button\n- Added `NotificationProvider` wrapper component that initializes the scheduler app-wide\n- Updated Settings page to include the NotificationSettings component\n- Updated root layout to wrap the app with NotificationProvider\n\n### Files Modified\n- `src/lib/database/types.ts` - Added `NotificationSettingsDocType` and related types\n- `src/lib/database/schemas.ts` - Added `notificationSettingsSchema`\n- `src/lib/database/database.ts` - Added `notification_settings` collection + automatic DB recovery\n- `src/lib/database/index.ts` - Exported notification-related functions and types\n- `src/app/settings/page.tsx` - Added NotificationSettings component\n- `src/app/layout.tsx` - Added NotificationProvider wrapper\n\n### Files Created\n- `src/lib/database/notificationService.ts` - Notification service layer\n- `src/lib/database/useNotificationSettings.ts` - React hooks for notification settings\n- `src/components/notifications/NotificationSettings.tsx` - Settings UI component\n- `src/components/notifications/NotificationScheduler.tsx` - Scheduler component\n- `src/components/notifications/NotificationProvider.tsx` - App-wide provider\n- `src/components/notifications/index.ts` - Module exports\n\n### Notes for Developer\n- Notifications are triggered when the app is open in the browser (requires PWA service worker for background notifications)\n- Settings are persisted in IndexedDB via RxDB\n- Default reminder time is 9:00 AM in the user's local timezone\n- The notification scheduler runs a timer that fires at the configured time each day\n- Browser notification permission must be granted for notifications to work\n\n### Verification Status\n- Created Playwright tests that verified:\n  - Notification settings card displays correctly\n  - Toggle button shows in default state\n  - Notifications can be toggled on and off\n  - Time picker appears when notifications are enabled\n  - Test notification button appears when enabled\n  - Settings persist across page reloads\n- All 6 tests passed successfully\n- Test file deleted after verification as per instructions"
+}

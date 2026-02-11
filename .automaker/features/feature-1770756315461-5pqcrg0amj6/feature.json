@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "When the notifications are tested with playwright, I can see them appearing in the bottom right of the screen. But when I test the notifications myself in FF, they are not showing up at all. Debug this.",
+  "title": "Debug notification display issue in Firefox",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770756315461-5pqcrg0amj6",
+  "descriptionHistory": [
+    {
+      "description": "When the notifications are tested with playwright, I can see them appearing in the bottom right of the screen. But when I test the notifications myself in FF, they are not showing up at all. Debug this.",
+      "timestamp": "2026-02-10T20:45:15.574Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T20:52:19.166Z",
+  "updatedAt": "2026-02-10T20:53:15.213Z",
+  "summary": "## Summary: Debug Firefox Notification Display Issue\n\n### Changes Implemented\n- Added comprehensive debug logging throughout the notification service (`notificationService.ts`) to track:\n  - Permission request flow with status logging\n  - Notification creation with success/failure logging\n  - Notification lifecycle events (onshow, onclick, onclose, onerror)\n- Added debug logging in `useNotificationSettings.ts` hook for test notifications\n- Added Firefox-specific troubleshooting hint in the Notification Settings UI\n\n### Files Modified\n- `src/lib/database/notificationService.ts` - Added console logging to `requestNotificationPermission()`, `showTestNotification()`, and `showReminderNotification()` functions\n- `src/lib/database/useNotificationSettings.ts` - Added console logging to `sendTestNotification` callback\n- `src/components/notifications/NotificationSettings.tsx` - Added Firefox troubleshooting hint text\n\n### Notes for Developer\n1. **Root Cause Analysis**: The issue is likely one of:\n   - **Firefox browser settings**: Notifications may be blocked for localhost. Check by clicking the lock icon in address bar → Permissions → Notifications → Allow\n   - **Windows Focus Assist**: If \"Do Not Disturb\" or Focus Assist is enabled, notifications are suppressed at the OS level\n   - **Firefox 72+ requirements**: Notifications must be triggered from a user gesture (the current implementation does this correctly via button click)\n\n2. **How to Debug**: Open the browser console (F12) and click \"Send Test Notification\". Look for `[Notification]` prefixed log messages to see:\n   - Whether permissions are granted\n   - Whether the notification was created successfully\n   - Any errors from the `onerror` event\n\n3. **Playwright vs Firefox Difference**: Playwright uses Chromium which grants permissions automatically during tests. Firefox requires explicit user permission and may have different OS-level notification handling.\n\nSources:\n- [Firefox Web Push Notifications Help](https://support.mozilla.org/en-US/kb/push-notifications-firefox)\n- [Using the Notifications API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)\n- [Notification API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Notification)",
+  "justFinishedAt": "2026-02-10T20:53:15.213Z"
+}

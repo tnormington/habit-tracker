@@ -1,0 +1,17 @@
+{
+  "id": "habit-detail-view",
+  "category": "UI",
+  "title": "Individual Habit Detail Page",
+  "description": "Create detailed view for individual habits showing full statistics, streak information, completion history calendar, and recent logs with notes. Include edit and delete actions.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [
+    "habit-statistics",
+    "habit-edit-form"
+  ],
+  "createdAt": "2026-02-09T18:27:51.108Z",
+  "updatedAt": "2026-02-10T02:51:34.816Z",
+  "startedAt": "2026-02-10T02:41:20.829Z",
+  "descriptionHistory": []
+}

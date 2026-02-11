@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Install and Configure Leva GUI Controls Library\n\nIntegrate Leva (https://github.com/pmndrs/leva) into the application to provide a GUI panel for tweaking parameters during development and runtime.\n\nRequirements:\n- Install the leva package and its dependencies via npm/yarn\n- Set up the Leva provider/wrapper in the application entry point\n- Verify Leva panel renders correctly in the browser\n- Configure initial controls for key adjustable parameters (e.g., colors, positions, scaling factors, animation speeds)\n- Ensure Leva panel is accessible and functional in development environment\n- Position the Leva panel appropriately in the UI (typically pinned to corner or edge)\n- Test that control changes properly update the corresponding values in the application\n- Document which parameters are exposed via Leva and how to add new controls\n- Consider whether Leva should be conditionally loaded (dev-only) or available in production\n- Handle any TypeScript type definitions if using TypeScript",
+  "title": "Integrate Leva GUI panel for runtime parameter tweaking",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770823482362-iobbbr1oz5h",
+  "descriptionHistory": [
+    {
+      "description": "Install and Configure Leva GUI Controls Library\n\nIntegrate Leva (https://github.com/pmndrs/leva) into the application to provide a GUI panel for tweaking parameters during development and runtime.\n\nRequirements:\n- Install the leva package and its dependencies via npm/yarn\n- Set up the Leva provider/wrapper in the application entry point\n- Verify Leva panel renders correctly in the browser\n- Configure initial controls for key adjustable parameters (e.g., colors, positions, scaling factors, animation speeds)\n- Ensure Leva panel is accessible and functional in development environment\n- Position the Leva panel appropriately in the UI (typically pinned to corner or edge)\n- Test that control changes properly update the corresponding values in the application\n- Document which parameters are exposed via Leva and how to add new controls\n- Consider whether Leva should be conditionally loaded (dev-only) or available in production\n- Handle any TypeScript type definitions if using TypeScript",
+      "timestamp": "2026-02-11T15:24:42.468Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T15:56:32.335Z",
+  "updatedAt": "2026-02-11T15:58:58.484Z",
+  "summary": "## Summary: Install and Configure Leva GUI Controls Library\n\n### Changes Implemented\n- Installed leva package (v0.10.1) via pnpm\n- Created `LevaProvider` component that renders the Leva GUI panel only in development mode\n- Created `useLevaControls` hook with pre-configured controls organized into folders:\n  - **Animations**: Animation speed slider (0.1-3x) and enable/disable toggle\n  - **Streaks**: Flame color picker and minimum days for streak slider\n  - **Layout**: Card border radius and content padding sliders\n  - **Debug**: Show debug info and log renders toggles (collapsed by default)\n- Created `useComponentControls` helper hook for component-specific controls\n- Integrated LevaProvider into the root layout (`src/app/layout.tsx`)\n- Configured Leva to be conditionally loaded (dev-only) via `process.env.NODE_ENV` check\n\n### Files Modified\n- `package.json` - Added leva dependency\n- `pnpm-lock.yaml` - Updated lockfile with leva and its dependencies\n- `src/app/layout.tsx` - Added LevaProvider import and component\n- `src/components/dev/LevaProvider.tsx` - New file: Leva panel wrapper component\n- `src/components/dev/index.ts` - New file: Export for dev components\n- `src/lib/hooks/useLevaControls.ts` - New file: Leva controls hooks with documentation\n- `src/lib/hooks/index.ts` - New file: Export for hooks\n\n### Notes for Developer\n- The Leva panel appears in the top-right corner in development mode only\n- To use the pre-configured controls, import `useLevaControls` from `@/lib/hooks`\n- For component-specific controls, use `useComponentControls(\"ComponentName\", schema)`\n- The control values are reactive and will update components when changed\n- Documentation for adding new controls is included in the `useLevaControls.ts` file\n- The panel is automatically hidden in production builds",
+  "justFinishedAt": "2026-02-11T15:58:58.484Z"
+}

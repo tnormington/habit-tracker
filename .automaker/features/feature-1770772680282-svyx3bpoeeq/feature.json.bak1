@@ -1,0 +1,38 @@
+{
+  "category": "Uncategorized",
+  "description": "Review the stats page graph colors and text colors for the cards in both light and dark mode. Some of these are not readable due to low contrast with the background color.",
+  "title": "Fix low contrast text and graph colors in stats page",
+  "images": [],
+  "imagePaths": [
+    {
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770772680282-svyx3bpoeeq\\images\\pasted-image-2026-02-11T01-34-23-429Z-1770773663437.png",
+      "filename": "pasted-image-2026-02-11T01-34-23-429Z-1770773663437.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770772680282-svyx3bpoeeq",
+  "descriptionHistory": [
+    {
+      "description": "Review the stats page graph colors and text colors for the cards in both light and dark mode. Some of these are not readable due to low contrast with the background color.",
+      "timestamp": "2026-02-11T01:18:00.396Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:34:32.642Z",
+  "updatedAt": "2026-02-11T01:35:29.349Z",
+  "summary": "## Summary: Review the stats page graph colors and text colors for th...\n\n### Changes Implemented\n- Fixed chart axis tick text colors in all four chart components to use theme-aware HSL CSS variables (`hsl(var(--muted-foreground))`) via the `fill` property, ensuring proper text contrast in both light and dark modes\n- Updated the `MonthlySummaryChart` bar colors from HSL to OKLCH color values that provide better contrast and perceptual uniformity in both light and dark modes\n- Updated the `CategoryDistributionChart` pie chart category colors from HSL to OKLCH color values for consistent readability across themes\n- Removed redundant `className=\"text-muted-foreground\"` attributes from chart axes since the fill color is now explicitly set\n\n### Files Modified\n- `src/components/charts/CompletionTrendsChart.tsx` - Fixed axis tick fill colors for AreaChart and LineChart\n- `src/components/charts/WeeklySummaryChart.tsx` - Fixed axis tick fill colors for BarChart\n- `src/components/charts/MonthlySummaryChart.tsx` - Fixed axis tick fill colors and updated `getBarColor()` function with OKLCH colors\n- `src/components/charts/CategoryDistributionChart.tsx` - Updated `CATEGORY_CONFIG` colors to use OKLCH for better contrast\n\n### Notes for Developer\n- The OKLCH color format provides perceptually uniform colors that maintain better contrast ratios across different background colors\n- The chart axis text now properly inherits the theme's muted-foreground color via CSS variables, ensuring readability in both light and dark modes\n- The muted/gray fallback color in `getBarColor()` still uses `hsl(var(--muted))` to remain theme-aware",
+  "justFinishedAt": "2026-02-11T01:35:29.349Z"
+}

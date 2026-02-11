@@ -1,0 +1,38 @@
+{
+  "category": "Uncategorized",
+  "description": "When creating a habit, the type appears selected but submitting the form returns this error message. The default state for this field doesn't seem to be connected correctly. Debug this.",
+  "title": "Fix habit type selection default state bug",
+  "images": [],
+  "imagePaths": [
+    {
+      "id": "img-1770757085591-pibcddnp8",
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770757138622-j7s597ps57a\\images\\Screenshot_2026-02-10_155750-1770757085589.png",
+      "filename": "Screenshot_2026-02-10_155750.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770757138622-j7s597ps57a",
+  "descriptionHistory": [
+    {
+      "description": "When creating a habit, the type appears selected but submitting the form returns this error message. The default state for this field doesn't seem to be connected correctly. Debug this.",
+      "timestamp": "2026-02-10T20:58:58.752Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T20:59:03.385Z",
+  "updatedAt": "2026-02-10T21:00:51.372Z",
+  "justFinishedAt": "2026-02-10T21:00:51.372Z"
+}

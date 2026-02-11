@@ -1,0 +1,17 @@
+{
+  "id": "statistics-dashboard",
+  "category": "UI",
+  "title": "Statistics and Insights Page",
+  "description": "Build comprehensive statistics page displaying overall habit performance, best performing habits, patterns and trends, and motivational insights. Include time period filters (week, month, year, all-time).",
+  "status": "in_progress",
+  "priority": 3,
+  "complexity": "moderate",
+  "dependencies": [
+    "progress-charts",
+    "habit-statistics"
+  ],
+  "createdAt": "2026-02-09T18:27:51.112Z",
+  "updatedAt": "2026-02-10T02:51:44.137Z",
+  "startedAt": "2026-02-10T02:51:43.973Z",
+  "descriptionHistory": []
+}

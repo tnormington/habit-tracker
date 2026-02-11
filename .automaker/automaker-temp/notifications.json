@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "notifications": [
+    {
+      "id": "d12b2373-9fc4-4907-87da-f351422108bf",
+      "type": "spec_regeneration_complete",
+      "title": "Spec Generation Complete",
+      "message": "Created 20 features from the project specification.",
+      "createdAt": "2026-02-09T18:27:51.114Z",
+      "read": false,
+      "dismissed": false,
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    }
+  ]
+}

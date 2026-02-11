@@ -1,0 +1,18 @@
+{
+  "id": "habit-detail-view",
+  "category": "UI",
+  "title": "Individual Habit Detail Page",
+  "description": "Create detailed view for individual habits showing full statistics, streak information, completion history calendar, and recent logs with notes. Include edit and delete actions.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [
+    "habit-statistics",
+    "habit-edit-form"
+  ],
+  "createdAt": "2026-02-09T18:27:51.108Z",
+  "updatedAt": "2026-02-10T02:51:34.828Z",
+  "startedAt": "2026-02-10T02:41:20.829Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Create detailed view for individual habits showing full statistics\n\n### Changes Implemented\n- Created habit detail page route at `/habits/[id]` with dynamic routing\n- Built `HabitDetailHeader` component displaying habit name, description, type badge (Building/Breaking), category badge, color indicator, and archived status with Back and Edit action buttons\n- Built `HabitStatsCard` component showing completion rate, total completions, days tracked, best day, and a visual day-of-week breakdown chart\n- Built `HabitStreakCard` component displaying current streak with active indicator, longest streak with date range, and a list of streak history periods\n- Built `HabitCalendar` component with monthly navigation, completion status indicators (success/failure based on habit type), and notes indicator dots\n- Built `HabitRecentLogs` component showing recent activity with date labels (Today, Yesterday, or formatted date), success/failure status, and notes display\n- Updated `HabitCard` component to include navigation link to detail page with hover effect showing chevron icon\n- Added proper event propagation prevention on HabitCard action buttons to avoid triggering navigation\n\n### Files Modified\n- `src/app/habits/[id]/page.tsx` (new) - Detail page with all integrated components\n- `src/components/habits/HabitDetailHeader.tsx` (new) - Header component with habit info and actions\n- `src/components/habits/HabitStatsCard.tsx` (new) - Statistics display component\n- `src/components/habits/HabitStreakCard.tsx` (new) - Streak information component\n- `src/components/habits/HabitCalendar.tsx` (new) - Monthly calendar with completion history\n- `src/components/habits/HabitRecentLogs.tsx` (new) - Recent activity logs display\n- `src/components/habits/HabitCard.tsx` (modified) - Added Link navigation to detail page\n- `src/components/habits/index.ts` (modified) - Exported new components\n\n### Verification Status\n- Feature verified with Playwright tests covering:\n  - Navigation to detail page from habit cards\n  - All sections displaying correctly (header, stats, streaks, calendar, recent logs)\n  - Back and Edit button functionality\n  - Calendar month navigation (prev/next/today)\n  - Statistics card data elements visibility\n  - Streak card data elements visibility\n- All 5 tests passed successfully\n\n### Notes for Developer\n- The detail page uses existing hooks (`useHabit`, `useHabitStatistics`, `useStreak`, `useStreakHistory`, `useHabitLogsForHabit`) for reactive data\n- Calendar success/failure logic respects habit type (positive habits: completed=success, negative habits: not completed=success)\n- Edit dialog is reused from existing `HabitEditFormDialog` component\n- Auto-redirect to `/habits` when habit is deleted from detail page"
+}

@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "In the habit page, swap out the ellipsis icon with an edit icon. Swap the archive habit with a delete icon and make it red. Change the background color of the category icon based on the type of the habit: red = break, green = build, grey = track",
+  "title": "Update habit page icons and category colors",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770772005492-rgp0q673hp",
+  "descriptionHistory": [
+    {
+      "description": "In the habit page, swap out the ellipsis icon with an edit icon. Swap the archive habit with a delete icon and make it red. Change the background color of the category icon based on the type of the habit: red = break, green = build, grey = track",
+      "timestamp": "2026-02-11T01:06:45.613Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:06:51.213Z",
+  "updatedAt": "2026-02-11T01:08:22.295Z",
+  "justFinishedAt": "2026-02-11T01:08:22.284Z",
+  "summary": "## Summary: Update HabitCard icons and type-based coloring\n\n### Changes Implemented\n- Replaced the ellipsis icon (MoreVertical) with a pencil icon (Pencil) for the edit button\n- Replaced the archive icon (Archive) with a red delete icon (Trash2) with `text-red-500` class\n- Added type-based background coloring for the category icon:\n  - Positive (build habits): green background (`bg-green-100 text-green-700` / dark: `bg-green-900/30 text-green-400`)\n  - Negative (break habits): red background (`bg-red-100 text-red-700` / dark: `bg-red-900/30 text-red-400`)\n  - Neutral (track habits): grey background (`bg-gray-100 text-gray-700` / dark: `bg-gray-800 text-gray-400`)\n- Updated aria-labels and titles to reflect \"Delete\" instead of \"Archive\"\n\n### Files Modified\n- `src/components/habits/HabitCard.tsx`\n\n### Notes for Developer\n- The implementation uses the existing `cn` utility for conditional class merging\n- Added `TYPE_BG_COLORS` constant mapping habit types to Tailwind CSS classes\n- The background colors include dark mode variants for consistent theming\n- Falls back to neutral (grey) if habit type is undefined"
+}

@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "In the habits page, add a badge with the frequency to all habits. Daily, 1-7 times a week, or 1-30 times a month.",
+  "title": "Add frequency badges to habits display",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770773204946-obk8aq6pn8q",
+  "descriptionHistory": [
+    {
+      "description": "In the habits page, add a badge with the frequency to all habits. Daily, 1-7 times a week, or 1-30 times a month.",
+      "timestamp": "2026-02-11T01:26:45.064Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:26:49.644Z",
+  "updatedAt": "2026-02-11T01:28:59.410Z",
+  "justFinishedAt": "2026-02-11T01:28:59.410Z"
+}

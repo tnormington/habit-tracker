@@ -1,0 +1,18 @@
+{
+  "id": "statistics-dashboard",
+  "category": "UI",
+  "title": "Statistics and Insights Page",
+  "description": "Build comprehensive statistics page displaying overall habit performance, best performing habits, patterns and trends, and motivational insights. Include time period filters (week, month, year, all-time).",
+  "status": "verified",
+  "priority": 3,
+  "complexity": "moderate",
+  "dependencies": [
+    "progress-charts",
+    "habit-statistics"
+  ],
+  "createdAt": "2026-02-09T18:27:51.112Z",
+  "updatedAt": "2026-02-10T03:02:06.659Z",
+  "startedAt": "2026-02-10T02:51:43.973Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Build comprehensive statistics page displaying overall habit performance\n\n### Changes Implemented\n- Extended statistics service with time period filtering (week, month, year, all-time)\n- Created `getPeriodStatistics` function that calculates comprehensive period-based statistics\n- Added `PeriodStatistics` interface with detailed metrics including:\n  - Best/worst performing habits with completion rates\n  - Category performance breakdown\n  - Daily completion trends\n  - Active days and average daily completion rate\n  - Completions by day of week\n- Created `usePeriodStatistics` hook for reactive period-based statistics\n- Enhanced statistics page with:\n  - Period selector dropdown UI (week/month/year/all-time)\n  - Overview stats cards showing completion rate, total completions, active days, and active streaks\n  - Best Performing Habits section (Top Performers) showing top 5 habits by completion rate\n  - Needs Improvement section showing habits with completion rate below 50%\n  - Motivational Insights section with personalized messages based on performance data\n  - Streak Records card showing all-time best and current best streaks\n  - Consistency Champion card showing most reliable habit\n  - Integration with existing chart components (completion trends, weekly summary, monthly summary, category distribution)\n\n### Files Modified\n- `src/lib/database/statisticsService.ts` - Added StatisticsPeriod type, PeriodStatistics interface, and getPeriodStatistics function\n- `src/lib/database/useStatistics.ts` - Added usePeriodStatistics hook and UsePeriodStatisticsResult type\n- `src/lib/database/index.ts` - Exported new types and functions\n- `src/app/statistics/page.tsx` - Complete rewrite with comprehensive statistics dashboard\n\n### Notes for Developer\n- The period filter defaults to \"This Month\" and can be changed to \"This Week\", \"This Year\", or \"All Time\"\n- Best performing habits shows top 5 habits sorted by completion rate\n- Needs improvement section only shows habits with completion rate below 50%\n- Motivational insights are dynamically generated based on current performance metrics\n- All data is reactive and updates automatically when habits or logs change\n\n### Verification Status\n- Verified with Playwright tests (5 tests passed):\n  - Page loads with all required sections\n  - Period selector works (can change between week/month/year/all-time)\n  - Category distribution chart displays\n  - Overview stats display correctly\n  - Page loads without errors\n- Test file deleted after verification as requested"
+}

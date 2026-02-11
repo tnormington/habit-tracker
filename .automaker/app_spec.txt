@@ -45,7 +45,6 @@
         <location>src/app/layout.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Database Layer with RxDB</name>
       <description>Complete RxDB database setup with IndexedDB adapter, comprehensive schemas for habits, habit logs, and notification settings. Includes full CRUD operations, validation, and error handling.</description>
@@ -58,7 +57,6 @@
         <location>src/lib/database/index.ts</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>React Hooks for Data Access</name>
       <description>Custom React hooks for database operations including useHabits, useHabitLogs, useStreak, useStatistics, and useNotificationSettings with real-time updates</description>
@@ -71,7 +69,6 @@
         <location>src/lib/database/useNotificationSettings.ts</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Habit Management (CRUD)</name>
       <description>Complete habit creation, editing, archiving, restoration, and deletion with form dialogs, validation, and confirmation prompts</description>
@@ -84,7 +81,6 @@
         <location>src/app/habits/page.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Habit Types and Frequencies</name>
       <description>Support for positive, neutral, and negative habit types with daily, weekly, and monthly frequencies. Target counts for weekly/monthly habits with period progress tracking.</description>
@@ -94,7 +90,6 @@
         <location>src/components/habits/DailyCheckIn.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Habit Categories and Colors</name>
       <description>Nine predefined categories (health, fitness, productivity, mindfulness, learning, social, finance, creativity, other) and eight color options for visual identification</description>
@@ -104,7 +99,6 @@
         <location>src/components/habits/CategoryIconGrid.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Daily Check-In Interface</name>
       <description>Interactive daily habit tracking with checkbox toggles, progress summary, grouped by positive/negative habits, with period progress indicators for weekly/monthly habits</description>
@@ -113,17 +107,15 @@
         <location>src/app/page.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Dashboard with Statistics</name>
-      <description>Homepage dashboard showing today's progress, active streaks leaderboard, weekly stats, motivational messages, and quick access to habits</description>
+      <description>Homepage dashboard showing today&apos;s progress, active streaks leaderboard, weekly stats, motivational messages, and quick access to habits</description>
       <file_locations>
         <location>src/app/page.tsx</location>
         <location>src/lib/database/statisticsService.ts</location>
         <location>src/lib/database/useStatistics.ts</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Streak Tracking System</name>
       <description>Comprehensive streak calculation for consecutive habit completions with active streak detection, best streak records, and streak history</description>
@@ -133,7 +125,6 @@
         <location>src/components/habits/HabitStreakCard.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Statistics Dashboard</name>
       <description>Comprehensive statistics page with completion rates, trends, charts (weekly/monthly summaries, completion trends, category distribution), top performers, and motivational insights</description>
@@ -146,7 +137,6 @@
         <location>src/components/charts/CategoryDistributionChart.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Calendar View</name>
       <description>Monthly calendar view showing completion rates for each day with color-coded heatmap, monthly statistics summary, and navigation</description>
@@ -156,7 +146,6 @@
         <location>src/components/habits/HabitCalendarHeatmap.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Habit Detail Page</name>
       <description>Individual habit detail view with statistics card, streak information, calendar heatmap, and recent logs with edit capability</description>
@@ -170,7 +159,6 @@
         <location>src/components/habits/LogEditDialog.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Habit Search and Filters</name>
       <description>Search habits by name with filtering by type, category, frequency, and archived status</description>
@@ -180,7 +168,6 @@
         <location>src/components/habits/HabitListView.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Archived Habits View</name>
       <description>Toggle to view archived habits with ability to restore or permanently delete</description>
@@ -189,7 +176,6 @@
         <location>src/lib/database/habitService.ts</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Theme Toggle (Dark/Light Mode)</name>
       <description>System, light, and dark theme support with theme provider and toggle component</description>
@@ -199,7 +185,6 @@
         <location>src/app/settings/page.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Notification Settings</name>
       <description>Browser notification reminders with configurable time, permission handling, and scheduling system</description>
@@ -211,7 +196,6 @@
         <location>src/components/notifications/NotificationProvider.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Settings Page</name>
       <description>Settings page with appearance (theme toggle) and notification configuration sections</description>
@@ -219,7 +203,6 @@
         <location>src/app/settings/page.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>App Layout and Navigation</name>
       <description>Responsive layout with sidebar navigation for desktop and mobile navigation sheet, consistent header and structure</description>
@@ -229,7 +212,6 @@
         <location>src/components/layout/mobile-nav.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>UI Components</name>
       <description>Full set of shadcn/ui components including Button, Card, Dialog, Sheet, Input, Label, Checkbox, Select, Textarea, Slider, and custom ChoiceCard</description>
@@ -247,7 +229,6 @@
         <location>src/components/ui/choice-card.tsx</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Admin/Dev Tools</name>
       <description>Admin bar and service for development tasks including creating dummy data, clearing data, and viewing database statistics</description>
@@ -256,13 +237,228 @@
         <location>src/lib/database/adminService.ts</location>
       </file_locations>
     </feature>
-
     <feature>
       <name>Empty States</name>
       <description>Friendly empty state components for when no habits exist with call-to-action to create habits</description>
       <file_locations>
         <location>src/components/habits/HabitEmptyState.tsx</location>
       </file_locations>
+    </feature>
+    <feature>
+      <name>Add frequency-based habit amount slider with statistics</name>
+      <description>As a user, I would like to select an amount per week or month for habits. Provide a slider when the frequency is not daily for times-per-week/month. For example 1-7 for weekly, 1-30 for monthly. Update the statistics to account for this new data subset.</description>
+    </feature>
+    <feature>
+      <name>Debug notification display issue in Firefox</name>
+      <description>When the notifications are tested with playwright, I can see them appearing in the bottom right of the screen. But when I test the notifications myself in FF, they are not showing up at all. Debug this.</description>
+    </feature>
+    <feature>
+      <name>Fix habit type selection default state bug</name>
+      <description>When creating a habit, the type appears selected but submitting the form returns this error message. The default state for this field doesn&apos;t seem to be connected correctly. Debug this.</description>
+    </feature>
+    <feature>
+      <name>Add habit type icon, remove complete button</name>
+      <description>In the habits page, remove the &quot;mark as complete&quot; button. Add a large icon for the habit type to the left of the card.</description>
+    </feature>
+    <feature>
+      <name>Update habit page icons and category colors</name>
+      <description>In the habit page, swap out the ellipsis icon with an edit icon. Swap the archive habit with a delete icon and make it red. Change the background color of the category icon based on the type of the habit: red = break, green = build, grey = track</description>
+    </feature>
+    <feature>
+      <name>Add subtle modern hover effect to habit cards</name>
+      <description>Add a subtle modern hover effect to the habit card.</description>
+    </feature>
+    <feature>
+      <name>Fix low contrast text and graph colors in stats page</name>
+      <description>Review the stats page graph colors and text colors for the cards in both light and dark mode. Some of these are not readable due to low contrast with the background color.</description>
+    </feature>
+    <feature>
+      <name>Update archived habits view with ellipsis menu</name>
+      <description>As a user, I would like to view my archived habits. Remove the delete icon button from the card, change the edit pen back to an ellipsis icon</description>
+    </feature>
+    <feature>
+      <name>Add frequency badges to habits display</name>
+      <description>In the habits page, add a badge with the frequency to all habits. Daily, 1-7 times a week, or 1-30 times a month.</description>
+    </feature>
+    <feature>
+      <name>Update app_spec.txt to reflect current app state</name>
+      <description>Update the app_spec.txt progress to properly represent the app state</description>
+    </feature>
+    <feature>
+      <name>Fix todays progress bar habit calculations</name>
+      <description>The &quot;todays progress&quot; bar is not calculating the habits to break correctly</description>
+    </feature>
+    <feature>
+      <name>Update slider track background to blue</name>
+      <description>Update the target slider track background color to blue</description>
+    </feature>
+    <feature>
+      <name>Fix calendar day display off-by-one error</name>
+      <description>Correct Calendar Day Display Error
+
+The calendar component is incorrectly displaying Wednesday as the current day when today is actually Tuesday. Fix the date calculation or display logic to show the correct current day.
+
+Requirements:
+- Identify where the calendar determines and displays the current day
+- Check for timezone-related issues that might cause off-by-one day errors
+- Verify the date source (client system time vs server time vs hardcoded value)
+- Ensure the day calculation accounts for locale and timezone settings
+- Test that the current day indicator updates correctly at midnight
+- Verify the fix works across different timezones
+- Confirm other calendar functionality (date selection, navigation) still works correctly
+
+Edge cases to consider:
+- Users in different timezones viewing the calendar
+- Daylight saving time transitions
+- Date rollover at midnight
+- Server and client time mismatches</description>
+    </feature>
+    <feature>
+      <name>Remove frequency field from negative habits</name>
+      <description>Remove Frequency Field from Negative Habits
+
+Modify the habit tracking system to remove the frequency field from negative habits and automatically treat them as daily habits in all statistical calculations.
+
+Requirements:
+- Remove frequency field from the UI when creating or editing negative habits
+- Ensure frequency field remains visible and functional for positive habits
+- Update database schema or data handling to exclude frequency for negative habits
+- Modify statistics calculation logic to automatically use daily frequency for negative habits
+- Migrate existing negative habits: set or default their frequency to daily
+- Update any validation rules that check frequency requirements for negative habits
+- Ensure habit display, filtering, and sorting still work correctly without frequency field for negative habits
+- Verify that streak calculations and progress tracking use daily frequency for negative habits
+- Test that analytics and reports correctly treat negative habits as daily occurrences
+
+Edge cases to consider:
+- Existing negative habits with non-daily frequencies need proper migration
+- Ensure import/export functionality handles negative habits correctly without frequency
+- Consider how this affects any habit comparison or grouping features</description>
+    </feature>
+    <feature>
+      <name>Implement daily habit reminder notifications at custom times</name>
+      <description>I would like to setup a notification system that sends the user a daily notification at a specified time. This is to prompt the user to update their habits for that day.</description>
+    </feature>
+    <feature>
+      <name>Update category badge with icon</name>
+      <description>Remove Blue Square Placeholder and Replace with Proper Icon in Category Badge
+
+Update the category badge component to display the appropriate icon instead of the current blue square placeholder.
+
+Requirements:
+- Locate and remove the blue square element from the category badge component
+- Add the correct icon to the category badge in the same position
+- Ensure the icon is properly sized and aligned within the badge
+- Verify the icon color matches the design system or category theme
+- Maintain consistent spacing and padding around the icon
+- Test across different category types to ensure all badges display their respective icons correctly
+- Verify the change is responsive and works across different screen sizes
+
+Edge cases to consider:
+- Categories without an assigned icon (fallback behavior)
+- Very long category names paired with icons
+- Accessibility: ensure icons have appropriate alt text or ARIA labels</description>
+    </feature>
+    <feature>
+      <name>Add admin bar with dev tools and utilities</name>
+      <description>As an admin, I would like access to an admin bar that allows me to do various admin &amp; dev related tasks. For example, trigger a test notification, create/remove dummy data, etc.</description>
+    </feature>
+    <feature>
+      <name>Remove color selection from habit form</name>
+      <description>Remove the color selection on the habit form</description>
+    </feature>
+    <feature>
+      <name>Fix missing notifications in app and admin</name>
+      <description>Debug the notifications feature, I am not seeing any notifications when tested through the app or the admin bar.</description>
+    </feature>
+    <feature>
+      <name>Habit CRUD Operations</name>
+      <description>Implement service functions for creating, reading, updating, and deleting habits. Include validation, error handling, and TypeScript types for all operations with proper RxDB query methods.</description>
+    </feature>
+    <feature>
+      <name>Habit Statistics Calculator</name>
+      <description>Create service to calculate habit statistics including completion rate, total completions, best streak, current streak, and completion patterns by day of week. Generate aggregated data for dashboard display.</description>
+    </feature>
+    <feature>
+      <name>Habit Logging Service</name>
+      <description>Implement service for creating and updating daily habit logs. Handle toggling completion status, adding notes to logs, and querying logs by date range. Include bulk operations for multiple habits.</description>
+    </feature>
+    <feature>
+      <name>Next.js Project Initialization</name>
+      <description>Initialize Next.js 14+ project with TypeScript, configure App Router, and set up project structure with necessary directories (app, components, lib, types). Install core dependencies including TypeScript types and configure tsconfig.json with strict mode.</description>
+    </feature>
+    <feature>
+      <name>Mark avoided habit count when unchecked</name>
+      <description>Habits to break should say 3/3 avoided when they are unchecked</description>
+    </feature>
+    <feature>
+      <name>Update graph text color for dark mode</name>
+      <description>Update the graph text to be white in dark mode</description>
+    </feature>
+    <feature>
+      <name>Fix habit reset logic for user timezone</name>
+      <description>Fix Habit Reset Logic to Respect User Timezone
+
+Correct the habit completion tracking system to properly handle day boundaries based on the user&apos;s local timezone rather than server time or UTC.
+
+Requirements:
+- Identify where habit completion timestamps are currently being stored and compared
+- Ensure all date/time comparisons use the user&apos;s timezone, not server/UTC time
+- Implement proper &quot;start of day&quot; calculation based on user&apos;s timezone (e.g., midnight in user&apos;s local time)
+- Reset habit completion status when a new day begins in the user&apos;s timezone
+- Handle edge cases:
+  * Users traveling across timezones
+  * Daylight saving time transitions
+  * Users changing their timezone settings
+  * Habits completed near midnight boundary
+- Verify that habits checked yesterday appear unchecked today in the user&apos;s local time
+- Ensure the fix works consistently across different timezone offsets (+/- UTC)
+- Test with users in various timezones (PST, EST, GMT, JST, etc.) to confirm correct behavior
+
+Technical Considerations:
+- Store timestamps in UTC but convert to user timezone for display and reset logic
+- Retrieve and apply user&apos;s timezone preference from their profile/settings
+- Update any scheduled tasks or cron jobs to account for per-user timezone differences</description>
+    </feature>
+    <feature>
+      <name>Integrate Leva GUI panel for runtime parameter tweaking</name>
+      <description>Install and Configure Leva GUI Controls Library
+
+Integrate Leva (https://github.com/pmndrs/leva) into the application to provide a GUI panel for tweaking parameters during development and runtime.
+
+Requirements:
+- Install the leva package and its dependencies via npm/yarn
+- Set up the Leva provider/wrapper in the application entry point
+- Verify Leva panel renders correctly in the browser
+- Configure initial controls for key adjustable parameters (e.g., colors, positions, scaling factors, animation speeds)
+- Ensure Leva panel is accessible and functional in development environment
+- Position the Leva panel appropriately in the UI (typically pinned to corner or edge)
+- Test that control changes properly update the corresponding values in the application
+- Document which parameters are exposed via Leva and how to add new controls
+- Consider whether Leva should be conditionally loaded (dev-only) or available in production
+- Handle any TypeScript type definitions if using TypeScript</description>
+    </feature>
+    <feature>
+      <name>Add click-to-toggle functionality to card component</name>
+      <description>Implement Click-to-Toggle Functionality on Card Component
+
+Add click event handling to the entire card component so users can toggle its checked state by clicking anywhere on the card, not just the checkbox.
+
+Requirements:
+- Make the entire card clickable and interactive
+- Toggle the checked/unchecked state on card click
+- Update visual styling to reflect checked vs unchecked states
+- Provide visual feedback on hover to indicate the card is clickable (e.g., cursor pointer, subtle highlight)
+- Ensure the checkbox state stays synchronized with the card&apos;s checked state
+- Handle accessibility: ensure keyboard navigation works (Space/Enter to toggle when focused)
+- Add appropriate ARIA attributes for screen readers
+- Prevent unintended toggles if the card contains other interactive elements (buttons, links) - clicking those should not toggle the card
+- Consider adding a subtle animation/transition when toggling states
+
+Edge Cases:
+- Card is disabled - should not be clickable
+- Multiple rapid clicks - prevent race conditions
+- Touch devices - ensure touch events work properly</description>
     </feature>
   </implemented_features>
 
@@ -323,3 +519,4 @@
     </phase>
   </implementation_roadmap>
 </project_specification>
+tion>

@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Add links to the calendar pages in the sidebar",
+  "title": "Add calendar page links to sidebar",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770693854689-vq6xzq0ox7",
+  "descriptionHistory": [
+    {
+      "description": "Add links to the calendar pages in the sidebar",
+      "timestamp": "2026-02-10T03:24:14.738Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T03:24:18.971Z",
+  "updatedAt": "2026-02-10T03:26:57.903Z",
+  "justFinishedAt": "2026-02-10T03:26:57.889Z",
+  "summary": "## Summary: Add links to the calendar pages in the sidebar\n\n### Changes Implemented\n- Created a new `/calendar` page (`src/app/calendar/page.tsx`) that displays a unified calendar view of all habits\n- Added a \"Calendar\" navigation item to the sidebar between \"Habits\" and \"Statistics\" with the `CalendarDays` icon\n- The calendar page includes:\n  - Monthly navigation (previous/next month, today button)\n  - Color-coded days based on completion rate (red to green gradient)\n  - Monthly stats summary (completion rate, completed count, perfect days, active habits)\n  - A legend explaining the color scale\n  - Responsive design matching existing app patterns\n\n### Files Modified\n- `src/app/calendar/page.tsx` (new file - 327 lines)\n- `src/components/layout/sidebar.tsx` (added CalendarDays import and Calendar nav item)\n\n### Notes for Developer\n- The calendar shows completion data for all active habits aggregated by day\n- Days are color-coded from red (0%) to green (100%) based on completion rate\n- Future dates are grayed out and don't show data\n- The page follows existing patterns in the codebase (uses same hooks, components, and styling)\n- Commit: `b7d07c8` - \"feat(navigation): Add calendar page with unified habit view\""
+}

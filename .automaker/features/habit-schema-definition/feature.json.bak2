@@ -1,0 +1,16 @@
+{
+  "id": "habit-schema-definition",
+  "category": "Database",
+  "title": "Habit Data Schema",
+  "description": "Define RxDB schema for habits including fields: id, name, description, type (positive/negative), category, color, createdAt, updatedAt, isArchived. Include TypeScript types generation from schema and validation rules.",
+  "status": "verified",
+  "priority": 1,
+  "complexity": "simple",
+  "dependencies": [
+    "rxdb-database-setup"
+  ],
+  "createdAt": "2026-02-09T18:27:51.093Z",
+  "updatedAt": "2026-02-09T19:33:34.550Z",
+  "startedAt": "2026-02-09T19:15:35.781Z",
+  "descriptionHistory": []
+}

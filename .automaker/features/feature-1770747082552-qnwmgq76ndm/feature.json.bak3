@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, I would like to select an amount per week or month for habits. Provide a slider when the frequency is not daily for times-per-week/month. For example 1-7 for weekly, 1-30 for monthly. Update the statistics to account for this new data subset.",
+  "title": "Add frequency-based habit amount slider with statistics",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770747082552-qnwmgq76ndm",
+  "descriptionHistory": [
+    {
+      "description": "As a user, I would like to select an amount per week or month for habits. Provide a slider when the frequency is not daily for times-per-week/month. For example 1-7 for weekly, 1-30 for monthly. Update the statistics to account for this new data subset.",
+      "timestamp": "2026-02-10T18:11:22.670Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T18:11:27.903Z",
+  "updatedAt": "2026-02-10T18:27:03.264Z",
+  "justFinishedAt": "2026-02-10T18:27:03.264Z"
+}

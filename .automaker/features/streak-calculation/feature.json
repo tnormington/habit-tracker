@@ -1,0 +1,17 @@
+{
+  "id": "streak-calculation",
+  "category": "Core",
+  "title": "Streak Tracking Logic",
+  "description": "Implement algorithm to calculate current streak, longest streak, and streak history for each habit. Handle positive habit streaks (consecutive completions) and negative habit streaks (consecutive non-completions). Update streaks in real-time.",
+  "status": "completed",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": [
+    "habit-log-service"
+  ],
+  "createdAt": "2026-02-09T18:27:51.105Z",
+  "updatedAt": "2026-02-10T02:15:02.699Z",
+  "startedAt": "2026-02-09T23:07:08.971Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Implement Streak Calculation Algorithm\n\n### Changes Implemented\n- Created `streakService.ts` with comprehensive streak calculation algorithm:\n  - `calculateStreakForHabit()`: Calculates current streak, longest streak, streak dates, and active status\n  - `calculateStreaksForHabits()`: Batch calculation for multiple habits\n  - `calculateStreaksForAllActiveHabits()`: Calculate streaks for all non-archived habits\n  - `getStreakHistory()`: Returns complete streak history with all streak periods\n  - `getBestStreakEver()`: Find the longest streak across all habits\n  - `getHabitsWithActiveStreaks()`: List habits with currently active streaks\n  - `calculateCompletionRate()`: Calculate success rate for a date range\n  - Helper functions: `getTodayDateString()`, `getYesterdayDateString()`\n- Handles both positive and negative habits correctly:\n  - Positive habits: Streaks count consecutive days where `completed=true` (building the habit)\n  - Negative habits: Streaks count consecutive days where `completed=false` (avoiding the habit)\n- Created `useStreak.ts` with reactive React hooks for real-time updates:\n  - `useStreak()`: Get streak data for a single habit with auto-refresh on log changes\n  - `useStreaks()`: Get streak data for multiple habits\n  - `useAllActiveStreaks()`: Get streak data for all active habits\n  - `useStreakHistory()`: Get complete streak history for a habit\n  - `useActiveStreaks()`: Get list of habits with active streaks\n  - `useBestStreak()`: Get the best streak ever achieved\n- All hooks subscribe to RxDB changes and update automatically when habit logs change\n- Updated `index.ts` to export all new streak functions, types, and hooks\n\n### Files Modified\n- `src/lib/database/streakService.ts` (new file - 782 lines)\n- `src/lib/database/useStreak.ts` (new file - 472 lines)\n- `src/lib/database/index.ts` (updated exports)\n\n### Verification Status\n- TypeScript compilation verified (no errors)\n- Unit tests verified the streak calculation algorithm:\n  - 19 tests passed covering:\n    - Date consecutive checks (including month/year boundaries)\n    - Days between calculation\n    - Positive/negative habit type handling\n    - Streak period calculation (single, multiple, with gaps)\n    - Date helper functions\n\n### Notes for Developer\n- Streaks are considered \"active\" if the most recent success was today or yesterday (allowing for today's entry to be pending)\n- The hooks automatically recalculate when habit logs are added, updated, or deleted via RxDB subscriptions\n- All functions return a `ServiceResult<T>` pattern with success/error handling for consistent API\n- The `StreakData` type includes: currentStreak, longestStreak, start/end dates for both, isStreakActive, and lastActivityDate"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "progress-charts",
+  "category": "UI",
+  "title": "Progress Charts and Graphs",
+  "description": "Create visual charts for habit progress including line graphs for completion trends, bar charts for weekly/monthly summaries, and pie charts for category distribution. Use lightweight charting library compatible with React.",
+  "status": "in_progress",
+  "priority": 3,
+  "complexity": "complex",
+  "dependencies": [
+    "habit-statistics"
+  ],
+  "createdAt": "2026-02-09T18:27:51.111Z",
+  "updatedAt": "2026-02-10T02:51:43.524Z",
+  "startedAt": "2026-02-10T02:51:43.283Z",
+  "descriptionHistory": []
+}

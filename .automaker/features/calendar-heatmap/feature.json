@@ -1,0 +1,17 @@
+{
+  "id": "calendar-heatmap",
+  "category": "UI",
+  "title": "Habit Completion Calendar",
+  "description": "Implement calendar heatmap visualization showing habit completion over time with color intensity based on completion status. Support month/year navigation and clickable dates to view/edit logs.",
+  "status": "completed",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": [
+    "habit-detail-view"
+  ],
+  "createdAt": "2026-02-09T18:27:51.110Z",
+  "updatedAt": "2026-02-10T03:05:12.648Z",
+  "startedAt": "2026-02-10T02:49:42.212Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Calendar Heatmap Visualization\n\n### Changes Implemented\n- Created `HabitCalendarHeatmap` component with GitHub-style heatmap visualization showing habit completion over time with color intensity based on completion status\n- Added `LogEditDialog` component for viewing and editing habit logs when clicking on calendar dates\n- Implemented month/year navigation with Previous, Next, and Today buttons\n- Added monthly success rate percentage display in the heatmap header\n- Color intensity system: green for successful days, red for missed days, neutral for no data\n- Disabled future dates to prevent invalid log entries\n- Added notes indicator (blue dot) for days with notes\n- Integrated the new heatmap into the habit detail page, replacing the original calendar component\n\n### Files Modified\n- `src/components/habits/HabitCalendarHeatmap.tsx` - New calendar heatmap component (created)\n- `src/components/habits/LogEditDialog.tsx` - New dialog for editing logs on clicked dates (created)\n- `src/components/habits/index.ts` - Added exports for new components\n- `src/app/habits/[id]/page.tsx` - Updated to use HabitCalendarHeatmap instead of HabitCalendar\n\n### Notes for Developer\n- The heatmap uses green color intensity for successful completions and red for missed days\n- Future dates are disabled (can't log for dates that haven't happened yet)\n- The LogEditDialog allows toggling completion status and adding notes for any past date\n- The original HabitCalendar component is still available but not used on the detail page\n- The component follows existing patterns using RxDB hooks for data fetching\n\n### Verification Status\n- Created comprehensive Playwright E2E tests to verify:\n  - Calendar heatmap renders correctly with all UI elements\n  - Month/year navigation works properly\n  - Clicking on dates opens the log edit dialog\n  - Updating completion status via dialog works\n  - Adding notes to log entries persists correctly\n  - Color intensity displays based on completion status\n- All 6 tests passed successfully\n- Test file was deleted after verification as per requirements"
+}

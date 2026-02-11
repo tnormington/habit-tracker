@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Add a subtle modern hover effect to the habit card.",
+  "title": "Add subtle modern hover effect to habit cards",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770772383418-3pwqg57bi36",
+  "descriptionHistory": [
+    {
+      "description": "Add a subtle modern hover effect to the habit card.",
+      "timestamp": "2026-02-11T01:13:03.538Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T01:13:14.698Z",
+  "updatedAt": "2026-02-11T01:13:56.239Z",
+  "justFinishedAt": "2026-02-11T01:13:56.229Z",
+  "summary": "## Summary: Add a subtle modern hover effect to the habit card\n\n### Changes Implemented\n- Replaced the basic `transition-shadow hover:shadow-md` effect with a comprehensive modern hover effect\n- Added smooth upward lift animation using `-translate-y-0.5` (2px lift)\n- Enhanced shadow depth on hover (`shadow-lg` instead of `shadow-md`)\n- Added subtle border color change to `primary/20` on hover for a polished look\n- Used `transition-all duration-200 ease-out` for smooth, natural animation timing\n\n### Files Modified\n- `src/components/habits/HabitCard.tsx`\n\n### Notes for Developer\n- The hover effect is subtle and modern: cards gently lift upward, gain a deeper shadow, and show a slight primary-colored border tint\n- The 200ms duration with ease-out timing creates a responsive yet smooth feel\n- The effect respects the existing `opacity-60` styling for archived habits"
+}

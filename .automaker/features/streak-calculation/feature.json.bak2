@@ -1,0 +1,16 @@
+{
+  "id": "streak-calculation",
+  "category": "Core",
+  "title": "Streak Tracking Logic",
+  "description": "Implement algorithm to calculate current streak, longest streak, and streak history for each habit. Handle positive habit streaks (consecutive completions) and negative habit streaks (consecutive non-completions). Update streaks in real-time.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": [
+    "habit-log-service"
+  ],
+  "createdAt": "2026-02-09T18:27:51.105Z",
+  "updatedAt": "2026-02-10T02:15:02.689Z",
+  "startedAt": "2026-02-09T23:07:08.971Z",
+  "descriptionHistory": []
+}

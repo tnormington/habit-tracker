@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Remove Frequency Field from Negative Habits\n\nModify the habit tracking system to remove the frequency field from negative habits and automatically treat them as daily habits in all statistical calculations.\n\nRequirements:\n- Remove frequency field from the UI when creating or editing negative habits\n- Ensure frequency field remains visible and functional for positive habits\n- Update database schema or data handling to exclude frequency for negative habits\n- Modify statistics calculation logic to automatically use daily frequency for negative habits\n- Migrate existing negative habits: set or default their frequency to daily\n- Update any validation rules that check frequency requirements for negative habits\n- Ensure habit display, filtering, and sorting still work correctly without frequency field for negative habits\n- Verify that streak calculations and progress tracking use daily frequency for negative habits\n- Test that analytics and reports correctly treat negative habits as daily occurrences\n\nEdge cases to consider:\n- Existing negative habits with non-daily frequencies need proper migration\n- Ensure import/export functionality handles negative habits correctly without frequency\n- Consider how this affects any habit comparison or grouping features",
+  "title": "Remove frequency field from negative habits",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "completed",
+  "id": "feature-1770780983114-j5sshs4adm",
+  "descriptionHistory": [
+    {
+      "description": "Remove Frequency Field from Negative Habits\n\nModify the habit tracking system to remove the frequency field from negative habits and automatically treat them as daily habits in all statistical calculations.\n\nRequirements:\n- Remove frequency field from the UI when creating or editing negative habits\n- Ensure frequency field remains visible and functional for positive habits\n- Update database schema or data handling to exclude frequency for negative habits\n- Modify statistics calculation logic to automatically use daily frequency for negative habits\n- Migrate existing negative habits: set or default their frequency to daily\n- Update any validation rules that check frequency requirements for negative habits\n- Ensure habit display, filtering, and sorting still work correctly without frequency field for negative habits\n- Verify that streak calculations and progress tracking use daily frequency for negative habits\n- Test that analytics and reports correctly treat negative habits as daily occurrences\n\nEdge cases to consider:\n- Existing negative habits with non-daily frequencies need proper migration\n- Ensure import/export functionality handles negative habits correctly without frequency\n- Consider how this affects any habit comparison or grouping features",
+      "timestamp": "2026-02-11T03:36:23.242Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T03:36:40.596Z",
+  "updatedAt": "2026-02-11T03:42:02.742Z",
+  "justFinishedAt": "2026-02-11T03:42:02.730Z",
+  "summary": "## Summary: Remove Frequency Field from Negative Habits\n\n### Changes Implemented\n- Hidden frequency field in HabitCreationForm when habit type is 'negative'\n- Hidden frequency field in HabitEditFormDialog when habit type is 'negative'\n- Added React effects to reset frequency to 'daily' when switching to negative type in both forms\n- Updated habitService createHabit to auto-set frequency to 'daily' for negative habits\n- Updated habitService updateHabit to enforce daily frequency when type changes to negative\n- Modified statisticsService to always use daily frequency for negative habits in calculations\n- Modified streakService to always use daily frequency for negative habits in calculations\n- Added migrateNegativeHabitsToDaily() function to update existing negative habits\n- Migration runs automatically on database initialization via useDatabase hook\n- Exported migration function from database index for manual use if needed\n\n### Files Modified\n- `src/components/habits/HabitCreationForm.tsx` - Hide frequency UI for negative habits\n- `src/components/habits/HabitEditFormDialog.tsx` - Hide frequency UI for negative habits\n- `src/lib/database/habitService.ts` - Enforce daily frequency for negative habits + migration function\n- `src/lib/database/index.ts` - Export migration function\n- `src/lib/database/statisticsService.ts` - Treat negative habits as daily in stats\n- `src/lib/database/streakService.ts` - Treat negative habits as daily in streak calculations\n- `src/lib/database/useDatabase.ts` - Run migration on database init\n\n### Notes for Developer\n- Negative habits are now always treated as daily habits in all calculations\n- Existing negative habits with non-daily frequencies will be automatically migrated to daily on database initialization\n- The migration is idempotent and only updates habits that need changes\n- The frequency field is hidden in UI but still stored as 'daily' in the database for consistency\n- TypeScript compilation passes with no errors"
+}

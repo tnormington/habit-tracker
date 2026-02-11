@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Correct Calendar Day Display Error\n\nThe calendar component is incorrectly displaying Wednesday as the current day when today is actually Tuesday. Fix the date calculation or display logic to show the correct current day.\n\nRequirements:\n- Identify where the calendar determines and displays the current day\n- Check for timezone-related issues that might cause off-by-one day errors\n- Verify the date source (client system time vs server time vs hardcoded value)\n- Ensure the day calculation accounts for locale and timezone settings\n- Test that the current day indicator updates correctly at midnight\n- Verify the fix works across different timezones\n- Confirm other calendar functionality (date selection, navigation) still works correctly\n\nEdge cases to consider:\n- Users in different timezones viewing the calendar\n- Daylight saving time transitions\n- Date rollover at midnight\n- Server and client time mismatches",
+  "title": "Fix calendar day display off-by-one error",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770780308909-sqbzph0smn",
+  "descriptionHistory": [
+    {
+      "description": "Correct Calendar Day Display Error\n\nThe calendar component is incorrectly displaying Wednesday as the current day when today is actually Tuesday. Fix the date calculation or display logic to show the correct current day.\n\nRequirements:\n- Identify where the calendar determines and displays the current day\n- Check for timezone-related issues that might cause off-by-one day errors\n- Verify the date source (client system time vs server time vs hardcoded value)\n- Ensure the day calculation accounts for locale and timezone settings\n- Test that the current day indicator updates correctly at midnight\n- Verify the fix works across different timezones\n- Confirm other calendar functionality (date selection, navigation) still works correctly\n\nEdge cases to consider:\n- Users in different timezones viewing the calendar\n- Daylight saving time transitions\n- Date rollover at midnight\n- Server and client time mismatches",
+      "timestamp": "2026-02-11T03:25:09.028Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T03:25:16.060Z",
+  "updatedAt": "2026-02-11T03:28:39.251Z",
+  "justFinishedAt": "2026-02-11T03:28:39.251Z"
+}

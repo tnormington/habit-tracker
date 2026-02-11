@@ -1,0 +1,17 @@
+{
+  "id": "habit-edit-form",
+  "category": "UI",
+  "title": "Habit Edit Interface",
+  "description": "Build edit form dialog for updating existing habits, pre-populated with current values. Include archive/unarchive and delete confirmation dialog. Reuse form components from habit creation with update logic.",
+  "status": "completed",
+  "priority": 2,
+  "complexity": "simple",
+  "dependencies": [
+    "habit-creation-form"
+  ],
+  "createdAt": "2026-02-09T18:27:51.102Z",
+  "updatedAt": "2026-02-10T02:35:09.805Z",
+  "startedAt": "2026-02-10T02:27:31.374Z",
+  "descriptionHistory": [],
+  "summary": "## Summary: Build edit form dialog for updating existing habits\n\n### Changes Implemented\n- Created `HabitEditFormDialog` component (`src/components/habits/HabitEditFormDialog.tsx`) that:\n  - Opens when clicking the edit button (MoreVertical icon) on a habit card\n  - Pre-populates all form fields with current habit values (name, description, type, category, color)\n  - Reuses form patterns, validation, and UI components from the existing HabitCreationForm\n  - Calls the `updateHabit` service function to save changes\n  - Includes Archive/Restore toggle button for soft delete functionality\n  - Includes Delete button that triggers the delete confirmation dialog\n\n- Created `DeleteConfirmationDialog` component (`src/components/habits/DeleteConfirmationDialog.tsx`) that:\n  - Shows a warning dialog before permanently deleting a habit\n  - Displays the habit name being deleted\n  - Has Cancel and Delete buttons with loading state during deletion\n  - Uses the AlertTriangle icon to indicate destructive action\n\n- Updated `src/app/habits/page.tsx` to:\n  - Add state management for edit dialog (`editingHabit`, `isEditDialogOpen`)\n  - Wire up `handleEditHabit` callback to open the edit dialog with the selected habit\n  - Integrate `HabitEditFormDialog` component with proper props\n\n- Updated `src/components/habits/index.ts` to export the new components\n\n### Files Modified\n- `src/components/habits/HabitEditFormDialog.tsx` (new file - 404 lines)\n- `src/components/habits/DeleteConfirmationDialog.tsx` (new file - 63 lines)\n- `src/components/habits/index.ts` (modified - added 2 exports)\n- `src/app/habits/page.tsx` (modified - added edit dialog integration)\n\n### Notes for Developer\n- The edit form uses the same validation logic as the creation form (name required, max 200 chars; description optional, max 1000 chars)\n- Form fields are pre-populated using a `useEffect` hook that runs when the habit prop changes\n- Archive/Restore functionality uses the existing `archiveHabit` and `restoreHabit` service functions\n- Delete functionality uses the existing `deleteHabit` service function with a confirmation step\n- All buttons show loading states during async operations\n- Test IDs follow the existing convention with `edit-habit-*` prefix for easy testing\n\n### Verification Status\n- Created temporary Playwright test with 6 test cases covering:\n  1. Opening create dialog and creating a test habit\n  2. Opening edit dialog when clicking edit button on habit card\n  3. Updating habit when saving changes\n  4. Showing archive/restore button based on habit status\n  5. Showing delete confirmation dialog with cancel functionality\n  6. Canceling editing without saving changes\n- All 6 tests passed successfully\n- Verification test file deleted after successful testing"
+}

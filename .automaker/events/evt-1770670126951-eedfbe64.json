@@ -1,0 +1,11 @@
+{
+  "id": "evt-1770670126951-eedfbe64",
+  "trigger": "feature_error",
+  "timestamp": "2026-02-09T20:48:46.951Z",
+  "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker",
+  "projectName": "habit-tracker",
+  "featureId": "main-layout",
+  "featureName": "Application Layout and Navigation",
+  "error": "Operation was cancelled",
+  "errorType": "cancellation"
+}

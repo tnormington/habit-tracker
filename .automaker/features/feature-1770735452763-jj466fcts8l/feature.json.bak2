@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "As a user, i want to create daily, weekly, or monthly habits. These should all fit in to the statistics calculations correctly based on their frequency.",
+  "title": "Implement configurable habit frequency with accurate statistics",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770735452763-jj466fcts8l",
+  "descriptionHistory": [
+    {
+      "description": "As a user, i want to create daily, weekly, or monthly habits. These should all fit in to the statistics calculations correctly based on their frequency.",
+      "timestamp": "2026-02-10T14:57:32.897Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T15:36:57.132Z",
+  "updatedAt": "2026-02-10T15:39:23.840Z",
+  "summary": "## Summary: Add daily, weekly, or monthly habit frequency\n\n### Changes Implemented\n- Added `HabitFrequency` type with three options: 'daily', 'weekly', 'monthly'\n- Updated habit database schema to include required `frequency` field (defaults to 'daily')\n- Added `validateHabitFrequency()` function and `VALID_HABIT_FREQUENCIES` constant\n- Updated `CreateHabitData` and `UpdateHabitData` interfaces to include optional frequency\n- Updated `HabitQueryOptions` to support filtering by frequency\n- Modified streak service to calculate streaks based on frequency periods:\n  - Daily habits: consecutive days (existing behavior)\n  - Weekly habits: consecutive weeks with at least one completion\n  - Monthly habits: consecutive months with at least one completion\n- Updated statistics service to count completions by periods for weekly/monthly habits\n- Added frequency selector to HabitCreationForm (defaults to 'Daily')\n- Added frequency selector to HabitEditFormDialog\n- Added frequency badges to HabitCard (shows \"Weekly\" or \"Monthly\" badges for non-daily habits)\n- Added frequency badge to HabitDetailHeader (shows frequency for all habits)\n- Updated dashboard statistics to account for weekly/monthly habits in today's stats\n\n### Files Modified\n- `src/lib/database/types.ts` - Added HabitFrequency type and frequency field to HabitDocType\n- `src/lib/database/schemas.ts` - Added frequency field to habit schema with index\n- `src/lib/database/habitService.ts` - Added validation, constants, and query support for frequency\n- `src/lib/database/streakService.ts` - Added period-based streak calculations for weekly/monthly\n- `src/lib/database/statisticsService.ts` - Added frequency-aware statistics calculations\n- `src/lib/database/useHabits.ts` - Added frequency to CreateHabitInput and UpdateHabitInput\n- `src/lib/database/index.ts` - Exported HabitFrequency type and frequency-related functions\n- `src/components/habits/HabitCreationForm.tsx` - Added frequency selector UI\n- `src/components/habits/HabitEditFormDialog.tsx` - Added frequency selector UI\n- `src/components/habits/HabitCard.tsx` - Added frequency badge display\n- `src/components/habits/HabitDetailHeader.tsx` - Added frequency badge display\n\n### Notes for Developer\n- Existing habits will default to 'daily' frequency (handled via schema default and fallbacks)\n- Weekly habits: A streak increments when there's at least one successful completion in a week\n- Monthly habits: A streak increments when there's at least one successful completion in a month\n- The frequency is displayed as a badge in the habit cards and detail view\n- Statistics calculations properly aggregate by period for non-daily habits",
+  "justFinishedAt": "2026-02-10T15:39:23.840Z"
+}

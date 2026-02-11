@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "As an accessibility expert, review the app front-end for any font contrast issues or other UX issues that might be present. Check both light and dark mode theme.",
+  "title": "Review app accessibility and contrast in themes",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770693300953-6xpbag2akyf",
+  "descriptionHistory": [
+    {
+      "description": "As an accessibility expert, review the app front-end for any font contrast issues or other UX issues that might be present. Check both light and dark mode theme.",
+      "timestamp": "2026-02-10T03:15:01.080Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T03:15:07.091Z",
+  "updatedAt": "2026-02-10T03:20:37.594Z",
+  "justFinishedAt": "2026-02-10T03:20:37.594Z"
+}

@@ -1,0 +1,37 @@
+{
+  "category": "Uncategorized",
+  "description": "Habits to break should say 3/3 avoided when they are unchecked",
+  "title": "Mark avoided habit count when unchecked",
+  "images": [],
+  "imagePaths": [
+    {
+      "id": "img-1770781606962-tz9jyztzo",
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770781648799-bfh31j8xao6\\images\\pasted-image-2026-02-11T03-46-46-952Z-1770781606960.png",
+      "filename": "pasted-image-2026-02-11T03-46-46-952Z.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "in_progress",
+  "id": "feature-1770781648799-bfh31j8xao6",
+  "descriptionHistory": [
+    {
+      "description": "Habits to break should say 3/3 avoided when they are unchecked",
+      "timestamp": "2026-02-11T03:47:28.925Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T03:47:32.943Z",
+  "updatedAt": "2026-02-11T03:47:33.243Z"
+}

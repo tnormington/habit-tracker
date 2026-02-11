@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Remove the color selection on the habit form",
+  "title": "Remove color selection from habit form",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770745985863-4t7e01p16mu",
+  "descriptionHistory": [
+    {
+      "description": "Remove the color selection on the habit form",
+      "timestamp": "2026-02-10T17:53:05.997Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T17:53:12.646Z",
+  "updatedAt": "2026-02-10T17:56:04.524Z",
+  "justFinishedAt": "2026-02-10T17:56:04.524Z"
+}

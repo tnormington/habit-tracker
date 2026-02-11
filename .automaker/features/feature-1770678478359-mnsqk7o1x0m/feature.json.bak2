@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Add a darkmode theme, and give the user the option to switch between light/dark in the settings. Use the system default at first.",
+  "title": "Add dark mode theme with system default preference",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770678478359-mnsqk7o1x0m",
+  "descriptionHistory": [
+    {
+      "description": "Add a darkmode theme, and give the user the option to switch between light/dark in the settings. Use the system default at first.",
+      "timestamp": "2026-02-09T23:07:58.518Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T02:25:40.319Z",
+  "updatedAt": "2026-02-10T02:28:11.571Z",
+  "justFinishedAt": "2026-02-10T02:28:11.558Z",
+  "summary": "## Summary: Add a darkmode theme with light/dark/system toggle\n\n### Changes Implemented\n- Created `ThemeProvider` context that manages theme state (light, dark, or system)\n- Theme persists in localStorage with key `habit-tracker-theme`\n- System theme detection using `prefers-color-scheme` media query\n- Real-time updates when system theme changes (when using \"system\" mode)\n- `ThemeToggle` component with visual selection UI showing icon, label, and description for each option\n- Integrated theme toggle into the Settings page under the \"Appearance\" card\n- System default is used on first visit (before user makes a choice)\n\n### Files Modified\n- `src/components/theme/theme-provider.tsx` (new) - Theme context and provider with localStorage persistence\n- `src/components/theme/theme-toggle.tsx` (new) - Visual toggle component with light/dark/system options\n- `src/components/theme/index.ts` (new) - Barrel export for theme components\n- `src/app/layout.tsx` - Added ThemeProvider wrapper and suppressHydrationWarning\n- `src/app/settings/page.tsx` - Added ThemeToggle to Appearance card\n\n### Notes for Developer\n- The dark mode CSS variables were already defined in `globals.css` under the `.dark` class - no CSS changes needed\n- Theme is applied by adding `light` or `dark` class to the `<html>` element\n- The `useTheme` hook can be used anywhere in the app to access current theme or change it programmatically\n- Build passes successfully with no TypeScript errors"
+}

@@ -1,0 +1,30 @@
+{
+  "category": "Uncategorized",
+  "description": "I would like to setup a notification system that sends the user a daily notification at a specified time. This is to prompt the user to update their habits for that day.",
+  "title": "Implement daily habit reminder notifications at custom times",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": false,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "verified",
+  "id": "feature-1770745512051-x0ukwe4vnyk",
+  "descriptionHistory": [
+    {
+      "description": "I would like to setup a notification system that sends the user a daily notification at a specified time. This is to prompt the user to update their habits for that day.",
+      "timestamp": "2026-02-10T17:45:12.481Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T17:45:16.980Z",
+  "updatedAt": "2026-02-10T18:01:55.880Z"
+}

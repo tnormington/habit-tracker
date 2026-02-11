@@ -1,0 +1,39 @@
+{
+  "category": "Uncategorized",
+  "description": "When creating a habit, the type appears selected but submitting the form returns this error message. The default state for this field doesn't seem to be connected correctly. Debug this.",
+  "title": "Fix habit type selection default state bug",
+  "images": [],
+  "imagePaths": [
+    {
+      "id": "img-1770757085591-pibcddnp8",
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770757138622-j7s597ps57a\\images\\Screenshot_2026-02-10_155750-1770757085589.png",
+      "filename": "Screenshot_2026-02-10_155750.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1770757138622-j7s597ps57a",
+  "descriptionHistory": [
+    {
+      "description": "When creating a habit, the type appears selected but submitting the form returns this error message. The default state for this field doesn't seem to be connected correctly. Debug this.",
+      "timestamp": "2026-02-10T20:58:58.752Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-10T20:59:03.385Z",
+  "updatedAt": "2026-02-10T21:00:51.387Z",
+  "justFinishedAt": "2026-02-10T21:00:51.372Z",
+  "summary": "## Summary: Fix habit type field default state\n\n### Changes Implemented\n- Fixed the type field initialization to use `'positive'` as the default value instead of an empty string\n- Removed the fallback `|| 'positive'` from the ChoiceCardGroup value prop since the state is now always a valid HabitType\n- Updated the form reset logic to reset type to `'positive'` instead of empty string\n\n### Files Modified\n- `src/components/habits/HabitCreationForm.tsx`\n\n### Notes for Developer\n- The bug was caused by a mismatch between visual display (which showed 'positive' via fallback) and actual form state (which was empty)\n- The validation check `if (!type)` will now never trigger since type always has a valid value, but was left in place as a safety check"
+}

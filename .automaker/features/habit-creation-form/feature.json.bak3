@@ -1,0 +1,17 @@
+{
+  "id": "habit-creation-form",
+  "category": "UI",
+  "title": "Habit Creation Form",
+  "description": "Build form component for creating new habits with fields for name, description, type selection (positive/negative), category, and color picker. Use shadcn Form, Input, Textarea, Select, and validation with proper error messages.",
+  "status": "in_progress",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": [
+    "habit-crud-service",
+    "tailwind-shadcn-setup"
+  ],
+  "createdAt": "2026-02-09T18:27:51.099Z",
+  "updatedAt": "2026-02-10T01:52:16.795Z",
+  "startedAt": "2026-02-09T23:04:46.732Z",
+  "descriptionHistory": []
+}

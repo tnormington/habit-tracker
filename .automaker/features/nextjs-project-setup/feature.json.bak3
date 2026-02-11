@@ -1,0 +1,14 @@
+{
+  "id": "nextjs-project-setup",
+  "category": "Core",
+  "title": "Next.js Project Initialization",
+  "description": "Initialize Next.js 14+ project with TypeScript, configure App Router, and set up project structure with necessary directories (app, components, lib, types). Install core dependencies including TypeScript types and configure tsconfig.json with strict mode.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "simple",
+  "dependencies": [],
+  "createdAt": "2026-02-09T18:27:51.087Z",
+  "updatedAt": "2026-02-09T18:36:24.401Z",
+  "startedAt": "2026-02-09T18:30:29.487Z",
+  "descriptionHistory": []
+}

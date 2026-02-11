@@ -1,0 +1,38 @@
+{
+  "category": "Uncategorized",
+  "description": "Update the graph text to be white in dark mode",
+  "title": "Update graph text color for dark mode",
+  "images": [],
+  "imagePaths": [
+    {
+      "id": "img-1770781920200-8mwfyrwk1",
+      "path": "C:\\Users\\timjn\\Workspace\\habit-tracker\\.automaker\\features\\feature-1770781994108-e3blc8smj8m\\images\\pasted-image-2026-02-11T03-52-00-191Z-1770781920199.png",
+      "filename": "pasted-image-2026-02-11T03-52-00-191Z.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "in_progress",
+  "id": "feature-1770781994108-e3blc8smj8m",
+  "descriptionHistory": [
+    {
+      "description": "Update the graph text to be white in dark mode",
+      "timestamp": "2026-02-11T03:53:14.203Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-11T04:04:27.810Z",
+  "updatedAt": "2026-02-11T04:04:27.956Z",
+  "summary": "## Summary: Update the graph text to be white in dark mode\n\n### Changes Implemented\n- Changed all chart axis tick fill colors from `hsl(var(--muted-foreground))` to `oklch(var(--foreground))` \n- The issue was that the CSS variables use `oklch` color format, but the charts were wrapping them with `hsl()` which resulted in incorrect color rendering\n- By using `--foreground` instead of `--muted-foreground`, the axis text is now properly white in dark mode (`oklch(0.985 0 0)`) and dark in light mode (`oklch(0.145 0 0)`)\n\n### Files Modified\n- `src/components/charts/CompletionTrendsChart.tsx` - Updated XAxis and YAxis tick fill colors for both AreaChart and LineChart\n- `src/components/charts/WeeklySummaryChart.tsx` - Updated XAxis and YAxis tick fill colors\n- `src/components/charts/MonthlySummaryChart.tsx` - Updated XAxis and YAxis tick fill colors\n\n### Notes for Developer\n- The CategoryDistributionChart uses a PieChart without axis text, so no changes were needed there\n- The fix ensures proper contrast in both light and dark modes by using the theme-aware `--foreground` CSS variable"
+}
