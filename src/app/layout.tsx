@@ -3,6 +3,7 @@ import "./globals.css";
 import { AppLayout } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme";
 import { NotificationProvider } from "@/components/notifications";
+import { LevaProvider } from "@/components/dev";
 
 export const metadata: Metadata = {
   title: "Habit Tracker",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <NotificationProvider>
+            <LevaProvider />
             <AppLayout>{children}</AppLayout>
           </NotificationProvider>
         </ThemeProvider>
