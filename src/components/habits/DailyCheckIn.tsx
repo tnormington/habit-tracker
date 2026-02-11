@@ -97,22 +97,56 @@ function HabitCheckInItem({ habit, isCompleted, periodProgress, onToggle }: Habi
   const showPeriodProgress = periodProgress && habit.frequency !== 'daily';
   const periodReached = periodProgress && periodProgress.current >= periodProgress.target;
 
+  // Handle card click to toggle the checkbox state
+  const handleCardClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent toggle if clicking on interactive elements (links, buttons)
+    const target = event.target as HTMLElement;
+    if (
+      target.closest('a') ||
+      target.closest('button') ||
+      target.closest('[role="button"]')
+    ) {
+      return;
+    }
+    onToggle(habit.id);
+  };
+
+  // Handle keyboard navigation for accessibility
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    // Toggle on Space or Enter key press
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      onToggle(habit.id);
+    }
+  };
+
   return (
     <div
       className={cn(
-        'relative flex items-center gap-4 rounded-lg border p-4 transition-colors',
+        'relative flex items-center gap-4 rounded-lg border p-4 transition-all duration-200',
+        'cursor-pointer select-none',
+        'hover:border-primary/50 hover:bg-muted/30',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'active:scale-[0.99]',
         isCompleted && 'bg-muted/50',
-        periodReached && 'border-green-300 dark:border-green-700'
+        periodReached && 'border-green-300 dark:border-green-700 hover:border-green-400 dark:hover:border-green-600'
       )}
       data-testid="habit-checkin-item"
       data-habit-id={habit.id}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="checkbox"
+      aria-checked={isCompleted}
+      aria-label={`${habit.name} - ${isCompleted ? 'completed' : 'not completed'}. Press Space or Enter to toggle.`}
     >
 
-      {/* Checkbox */}
+      {/* Checkbox - visual only, card handles interaction */}
       <Checkbox
         checked={isCompleted}
         onCheckedChange={() => onToggle(habit.id)}
-        aria-label={`Mark ${habit.name} as ${isCompleted ? 'incomplete' : 'complete'}`}
+        aria-hidden="true"
+        tabIndex={-1}
         data-testid="habit-checkbox"
       />
 
