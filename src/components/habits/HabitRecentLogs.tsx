@@ -80,13 +80,21 @@ export function HabitRecentLogs({ habitId, habitType }: HabitRecentLogsProps) {
           <div className="space-y-1" data-testid="recent-logs-list">
             {recentLogs.map((log) => {
               const success = isSuccess(log.completed);
-              const dateObj = new Date(log.date);
+              const dateObj = new Date(log.date + 'T12:00:00');
               const today = new Date();
               const yesterday = new Date(today);
               yesterday.setDate(yesterday.getDate() - 1);
 
-              const todayStr = today.toISOString().split('T')[0];
-              const yesterdayStr = yesterday.toISOString().split('T')[0];
+              // Format dates in local timezone
+              const formatDateLocal = (d: Date) => {
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+              };
+
+              const todayStr = formatDateLocal(today);
+              const yesterdayStr = formatDateLocal(yesterday);
 
               let dateLabel: string;
               if (log.date === todayStr) {

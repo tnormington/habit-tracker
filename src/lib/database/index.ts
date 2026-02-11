@@ -301,3 +301,26 @@ export {
 export type {
   UseNotificationSettingsResult,
 } from './useNotificationSettings';
+
+// Timezone Utilities
+// Note: getUserTimezone is already exported from notificationService above
+export {
+  formatDateInTimezone,
+  getTodayInTimezone,
+  getLocalTodayDate,
+  getYesterdayInTimezone,
+  getLocalYesterdayDate,
+  parseDateString,
+  addDaysToDate,
+  getStartOfWeek,
+  getEndOfWeek,
+  getStartOfMonth,
+  getEndOfMonth,
+  daysBetween,
+  areDatesConsecutive,
+  getDayOfWeek as getDayOfWeekFromDate,
+  generateDateRange,
+  getWeekKey,
+  getMonthKey,
+  isValidTimezone,
+} from './timezoneUtils';

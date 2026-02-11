@@ -124,28 +124,40 @@ async function getDatabaseOrThrow(): Promise<HabitTrackerDatabase> {
 }
 
 /**
- * Get today's date in YYYY-MM-DD format
+ * Get today's date in YYYY-MM-DD format using local timezone
+ * This ensures streak calculations use the user's local day boundaries
  */
 export function getTodayDateString(): string {
-  return new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
- * Get yesterday's date in YYYY-MM-DD format
+ * Get yesterday's date in YYYY-MM-DD format using local timezone
  */
 export function getYesterdayDateString(): string {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  return yesterday.toISOString().split('T')[0];
+  const year = yesterday.getFullYear();
+  const month = String(yesterday.getMonth() + 1).padStart(2, '0');
+  const day = String(yesterday.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
  * Add days to a date string and return new date string
+ * Uses noon to avoid DST edge cases
  */
 function addDays(dateStr: string, days: number): string {
-  const date = new Date(dateStr);
+  const date = new Date(dateStr + 'T12:00:00');
   date.setDate(date.getDate() + days);
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**

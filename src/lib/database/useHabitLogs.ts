@@ -92,8 +92,9 @@ function generateId(): string {
  *   filter: { startDate: '2025-01-01', endDate: '2025-01-31' }
  * });
  *
- * // Get logs for today
- * const today = new Date().toISOString().split('T')[0];
+ * // Get logs for today (using local timezone)
+ * const now = new Date();
+ * const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
  * const { logs } = useHabitLogs({
  *   filter: { date: today }
  * });

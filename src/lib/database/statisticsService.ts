@@ -272,45 +272,60 @@ async function getDatabaseOrThrow(): Promise<HabitTrackerDatabase> {
 }
 
 /**
- * Get today's date in YYYY-MM-DD format
+ * Get today's date in YYYY-MM-DD format using local timezone
+ * This ensures statistics use the user's local day boundaries
  */
 function getTodayDate(): string {
-  return new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
  * Get the day of week from a date string
+ * Use noon to avoid timezone edge cases
  */
 function getDayOfWeek(dateStr: string): DayOfWeek {
-  return new Date(dateStr).getDay() as DayOfWeek;
+  return new Date(dateStr + 'T12:00:00').getDay() as DayOfWeek;
 }
 
 /**
- * Get the start of the current week (Sunday)
+ * Get the start of the current week (Sunday) using local timezone
  */
 function getWeekStart(date: Date = new Date()): string {
   const d = new Date(date);
   const day = d.getDay();
   d.setDate(d.getDate() - day);
-  return d.toISOString().split('T')[0];
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const dayNum = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${dayNum}`;
 }
 
 /**
- * Get the start of the current month
+ * Get the start of the current month using local timezone
  */
 function getMonthStart(date: Date = new Date()): string {
   const d = new Date(date);
   d.setDate(1);
-  return d.toISOString().split('T')[0];
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  return `${year}-${month}-01`;
 }
 
 /**
  * Add days to a date string
+ * Uses noon to avoid DST edge cases
  */
 function addDays(dateStr: string, days: number): string {
-  const date = new Date(dateStr);
+  const date = new Date(dateStr + 'T12:00:00');
   date.setDate(date.getDate() + days);
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -1102,7 +1117,17 @@ export async function getCompletionStatsForDate(
 }
 
 /**
- * Get the start date for a given period
+ * Format a Date object to YYYY-MM-DD string using local timezone
+ */
+function formatDateLocal(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Get the start date for a given period using local timezone
  */
 function getPeriodStartDate(period: StatisticsPeriod): string {
   const now = new Date();
@@ -1112,15 +1137,15 @@ function getPeriodStartDate(period: StatisticsPeriod): string {
       const dayOfWeek = now.getDay();
       const startOfWeek = new Date(now);
       startOfWeek.setDate(now.getDate() - dayOfWeek);
-      return startOfWeek.toISOString().split('T')[0];
+      return formatDateLocal(startOfWeek);
     }
     case 'month': {
       const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-      return startOfMonth.toISOString().split('T')[0];
+      return formatDateLocal(startOfMonth);
     }
     case 'year': {
       const startOfYear = new Date(now.getFullYear(), 0, 1);
-      return startOfYear.toISOString().split('T')[0];
+      return formatDateLocal(startOfYear);
     }
     case 'all':
     default:

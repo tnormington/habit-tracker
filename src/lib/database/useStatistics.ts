@@ -361,8 +361,10 @@ export function useDateCompletionStats(
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Default to today if no date provided
-  const targetDate = date ?? new Date().toISOString().split('T')[0];
+  // Default to today if no date provided (using local timezone)
+  const now = new Date();
+  const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const targetDate = date ?? localToday;
 
   const refresh = useCallback(async () => {
     if (!isReady || !database) {
