@@ -122,10 +122,11 @@ function ChartSkeleton() {
 }
 
 function getBarColor(rate: number): string {
-  if (rate >= 80) return 'hsl(142.1 76.2% 36.3%)'; // green-600
-  if (rate >= 60) return 'hsl(142.1 70.6% 45.3%)'; // green-500
-  if (rate >= 40) return 'hsl(43.3 96.4% 56.3%)'; // yellow-400
-  if (rate >= 20) return 'hsl(38.3 95.3% 51.2%)'; // orange-400
+  // Using oklch colors that provide good contrast in both light and dark modes
+  if (rate >= 80) return 'oklch(0.527 0.154 150.069)'; // green-600 - darker green for better contrast
+  if (rate >= 60) return 'oklch(0.648 0.150 160.0)'; // green-500 - medium green
+  if (rate >= 40) return 'oklch(0.681 0.162 75.834)'; // amber-500 - amber for medium rates
+  if (rate >= 20) return 'oklch(0.646 0.222 41.116)'; // orange-500 - orange for lower rates
   return 'hsl(var(--muted))';
 }
 
@@ -172,18 +173,16 @@ export function MonthlySummaryChart({
                 />
                 <XAxis
                   dataKey="month"
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   tickLine={false}
                   axisLine={false}
-                  className="text-muted-foreground"
                 />
                 <YAxis
                   domain={[0, 100]}
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(value) => `${value}%`}
-                  className="text-muted-foreground"
                   width={45}
                 />
                 <Tooltip content={<CustomTooltip />} />

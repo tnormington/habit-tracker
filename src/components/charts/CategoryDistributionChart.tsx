@@ -24,17 +24,17 @@ interface CategoryDataPoint {
   color: string;
 }
 
-// Category display names and colors
+// Category display names and colors - using oklch for consistent contrast in light/dark modes
 const CATEGORY_CONFIG: Record<HabitCategory, { label: string; color: string }> = {
-  health: { label: 'Health', color: 'hsl(142.1 76.2% 36.3%)' }, // green
-  fitness: { label: 'Fitness', color: 'hsl(217.2 91.2% 59.8%)' }, // blue
-  productivity: { label: 'Productivity', color: 'hsl(262.1 83.3% 57.8%)' }, // purple
-  mindfulness: { label: 'Mindfulness', color: 'hsl(199.4 95.5% 53.8%)' }, // cyan
-  learning: { label: 'Learning', color: 'hsl(43.3 96.4% 56.3%)' }, // yellow
-  social: { label: 'Social', color: 'hsl(330.4 81.2% 60.4%)' }, // pink
-  finance: { label: 'Finance', color: 'hsl(24.6 95% 53.1%)' }, // orange
-  creativity: { label: 'Creativity', color: 'hsl(280.4 72.3% 62.4%)' }, // violet
-  other: { label: 'Other', color: 'hsl(var(--muted-foreground))' }, // gray
+  health: { label: 'Health', color: 'oklch(0.527 0.154 150.069)' }, // green-600 - good contrast both modes
+  fitness: { label: 'Fitness', color: 'oklch(0.546 0.245 262.881)' }, // blue-600 - medium blue
+  productivity: { label: 'Productivity', color: 'oklch(0.558 0.288 302.321)' }, // purple-600 - vibrant purple
+  mindfulness: { label: 'Mindfulness', color: 'oklch(0.609 0.126 221.723)' }, // cyan-600 - teal cyan
+  learning: { label: 'Learning', color: 'oklch(0.681 0.162 75.834)' }, // amber-500 - readable amber
+  social: { label: 'Social', color: 'oklch(0.645 0.246 16.439)' }, // rose-500 - soft pink/rose
+  finance: { label: 'Finance', color: 'oklch(0.646 0.222 41.116)' }, // orange-500 - warm orange
+  creativity: { label: 'Creativity', color: 'oklch(0.606 0.276 292.717)' }, // violet-500 - rich violet
+  other: { label: 'Other', color: 'hsl(var(--muted-foreground))' }, // gray - theme-aware
 };
 
 function transformCategoryData(

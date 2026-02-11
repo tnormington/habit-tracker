@@ -152,17 +152,15 @@ export function WeeklySummaryChart({
                 />
                 <XAxis
                   dataKey="day"
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   tickLine={false}
                   axisLine={false}
-                  className="text-muted-foreground"
                 />
                 <YAxis
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={showCompletionRate ? (value) => `${value}%` : undefined}
-                  className="text-muted-foreground"
                   width={showCompletionRate ? 45 : 35}
                 />
                 <Tooltip content={<CustomTooltip showRate={showCompletionRate} />} />

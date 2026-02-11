@@ -142,18 +142,16 @@ export function CompletionTrendsChart({
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                     tickLine={false}
                     axisLine={false}
-                    className="text-muted-foreground"
                   />
                   <YAxis
                     domain={[0, 100]}
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `${value}%`}
-                    className="text-muted-foreground"
                     width={45}
                   />
                   <Tooltip content={<CustomTooltip />} />
@@ -179,18 +177,16 @@ export function CompletionTrendsChart({
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                     tickLine={false}
                     axisLine={false}
-                    className="text-muted-foreground"
                   />
                   <YAxis
                     domain={[0, 100]}
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `${value}%`}
-                    className="text-muted-foreground"
                     width={45}
                   />
                   <Tooltip content={<CustomTooltip />} />
