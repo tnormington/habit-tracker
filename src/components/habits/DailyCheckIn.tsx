@@ -295,6 +295,35 @@ export function DailyCheckIn({ date }: DailyCheckInProps) {
     return { positiveHabits: positive, negativeHabits: negative };
   }, [habits]);
 
+  // Calculate overall progress
+  // For positive/neutral habits: success = completed (checked)
+  // For negative habits: success = avoided (not completed / unchecked)
+  const totalHabits = habits.length;
+  const todayLogMap = useMemo(() => {
+    const map = new Map<string, boolean>();
+    for (const log of todayLogs) {
+      map.set(log.habitId, log.completed);
+    }
+    return map;
+  }, [todayLogs]);
+
+  const successCount = useMemo(() => {
+    return habits.filter(habit => {
+      const hasLog = todayLogMap.has(habit.id);
+      const isCompleted = todayLogMap.get(habit.id) ?? false;
+
+      if (habit.type === 'positive' || habit.type === 'neutral') {
+        // For positive/neutral habits: success when completed (checked)
+        return isCompleted;
+      } else {
+        // For negative habits: success when avoided (has log with completed=false)
+        return hasLog && !isCompleted;
+      }
+    }).length;
+  }, [habits, todayLogMap]);
+
+  const progressPercentage = Math.round((successCount / totalHabits) * 100) || 0;
+
   // Handle toggle with auto-save
   const handleToggle = async (habitId: string) => {
     try {
@@ -333,35 +362,6 @@ export function DailyCheckIn({ date }: DailyCheckInProps) {
       </Card>
     );
   }
-
-  // Calculate overall progress
-  // For positive/neutral habits: success = completed (checked)
-  // For negative habits: success = avoided (not completed / unchecked)
-  const totalHabits = habits.length;
-  const todayLogMap = useMemo(() => {
-    const map = new Map<string, boolean>();
-    for (const log of todayLogs) {
-      map.set(log.habitId, log.completed);
-    }
-    return map;
-  }, [todayLogs]);
-
-  const successCount = useMemo(() => {
-    return habits.filter(habit => {
-      const hasLog = todayLogMap.has(habit.id);
-      const isCompleted = todayLogMap.get(habit.id) ?? false;
-
-      if (habit.type === 'positive' || habit.type === 'neutral') {
-        // For positive/neutral habits: success when completed (checked)
-        return isCompleted;
-      } else {
-        // For negative habits: success when avoided (has log with completed=false)
-        return hasLog && !isCompleted;
-      }
-    }).length;
-  }, [habits, todayLogMap]);
-
-  const progressPercentage = Math.round((successCount / totalHabits) * 100);
 
   return (
     <div className="space-y-6" data-testid="daily-checkin">
