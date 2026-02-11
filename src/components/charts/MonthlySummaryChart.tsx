@@ -122,11 +122,11 @@ function ChartSkeleton() {
 }
 
 function getBarColor(rate: number): string {
-  // Using oklch colors that provide good contrast in both light and dark modes
-  if (rate >= 80) return 'oklch(0.527 0.154 150.069)'; // green-600 - darker green for better contrast
-  if (rate >= 60) return 'oklch(0.648 0.150 160.0)'; // green-500 - medium green
-  if (rate >= 40) return 'oklch(0.681 0.162 75.834)'; // amber-500 - amber for medium rates
-  if (rate >= 20) return 'oklch(0.646 0.222 41.116)'; // orange-500 - orange for lower rates
+  // Using blue oklch colors that provide good contrast in both light and dark modes
+  if (rate >= 80) return 'oklch(0.488 0.243 264.376)'; // blue-700 - darker blue for best rates
+  if (rate >= 60) return 'oklch(0.546 0.245 262.881)'; // blue-600 - medium-dark blue
+  if (rate >= 40) return 'oklch(0.623 0.214 259.815)'; // blue-500 - medium blue
+  if (rate >= 20) return 'oklch(0.707 0.165 254.624)'; // blue-400 - lighter blue for lower rates
   return 'hsl(var(--muted))';
 }
 
