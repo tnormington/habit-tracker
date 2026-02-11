@@ -99,11 +99,6 @@ function HabitCheckInItem({ habit, isCompleted, periodProgress, onToggle }: Habi
       data-testid="habit-checkin-item"
       data-habit-id={habit.id}
     >
-      {/* Color indicator */}
-      <div
-        className={cn('h-10 w-1 rounded-full', COLOR_CLASSES[habit.color])}
-        aria-hidden="true"
-      />
 
       {/* Checkbox */}
       <Checkbox
@@ -241,7 +236,7 @@ export function DailyCheckIn({ date }: DailyCheckInProps) {
   });
 
   // Fetch today's logs and get the toggleCompletion function
-  const { completedHabitIds, isLoading: logsLoading } = useHabitLogsForDate(today);
+  const { completedHabitIds, logs: todayLogs, isLoading: logsLoading } = useHabitLogsForDate(today);
   const { toggleCompletion } = useHabitLogs();
 
   // Fetch logs for the current week (for weekly habits)
@@ -340,9 +335,33 @@ export function DailyCheckIn({ date }: DailyCheckInProps) {
   }
 
   // Calculate overall progress
+  // For positive/neutral habits: success = completed (checked)
+  // For negative habits: success = avoided (not completed / unchecked)
   const totalHabits = habits.length;
-  const completedCount = habits.filter(h => completedHabitIds.has(h.id)).length;
-  const progressPercentage = Math.round((completedCount / totalHabits) * 100);
+  const todayLogMap = useMemo(() => {
+    const map = new Map<string, boolean>();
+    for (const log of todayLogs) {
+      map.set(log.habitId, log.completed);
+    }
+    return map;
+  }, [todayLogs]);
+
+  const successCount = useMemo(() => {
+    return habits.filter(habit => {
+      const hasLog = todayLogMap.has(habit.id);
+      const isCompleted = todayLogMap.get(habit.id) ?? false;
+
+      if (habit.type === 'positive' || habit.type === 'neutral') {
+        // For positive/neutral habits: success when completed (checked)
+        return isCompleted;
+      } else {
+        // For negative habits: success when avoided (has log with completed=false)
+        return hasLog && !isCompleted;
+      }
+    }).length;
+  }, [habits, todayLogMap]);
+
+  const progressPercentage = Math.round((successCount / totalHabits) * 100);
 
   return (
     <div className="space-y-6" data-testid="daily-checkin">
@@ -352,7 +371,7 @@ export function DailyCheckIn({ date }: DailyCheckInProps) {
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-medium">Today's Progress</span>
             <span className="text-sm text-muted-foreground">
-              {completedCount} of {totalHabits} habits
+              {successCount} of {totalHabits} habits
             </span>
           </div>
           <div className="h-3 w-full overflow-hidden rounded-full bg-secondary">
