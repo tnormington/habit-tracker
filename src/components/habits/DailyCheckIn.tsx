@@ -167,7 +167,11 @@ interface HabitGroupProps {
 
 function HabitGroup({ type, habits, completedHabitIds, periodProgressMap, onToggle }: HabitGroupProps) {
   const isPositive = type === 'positive';
-  const completedCount = habits.filter(h => completedHabitIds.has(h.id)).length;
+  // For positive habits: count checked (completed) habits
+  // For negative habits: count unchecked (avoided) habits
+  const successCount = isPositive
+    ? habits.filter(h => completedHabitIds.has(h.id)).length
+    : habits.filter(h => !completedHabitIds.has(h.id)).length;
 
   return (
     <Card
@@ -205,7 +209,7 @@ function HabitGroup({ type, habits, completedHabitIds, periodProgressMap, onTogg
             )}
             data-testid={`${type}-progress`}
           >
-            {completedCount}/{habits.length} {isPositive ? 'completed' : 'avoided'}
+            {successCount}/{habits.length} {isPositive ? 'completed' : 'avoided'}
           </span>
         </div>
       </CardHeader>
