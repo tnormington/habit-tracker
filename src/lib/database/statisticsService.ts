@@ -442,7 +442,8 @@ function calculateHabitStatsFromLogs(
 ): HabitStatistics {
   const completionsByDayOfWeek = initDayOfWeekCounts();
   const trackedDaysByDayOfWeek = initDayOfWeekCounts();
-  const frequency = habit.frequency || 'daily';
+  // Negative habits are always treated as daily for statistics
+  const frequency = habit.type === 'negative' ? 'daily' : (habit.frequency || 'daily');
 
   let totalCompletions = 0;
   let lastCompletionDate: string | null = null;
@@ -534,7 +535,8 @@ function calculateHabitStatsFromLogs(
     habitType: habit.type,
     habitCategory: habit.category,
     habitFrequency: frequency,
-    targetCount: habit.targetCount || 1,
+    // Negative habits always have targetCount of 1
+    targetCount: habit.type === 'negative' ? 1 : (habit.targetCount || 1),
     totalCompletions,
     totalTrackedDays,
     completionRate,

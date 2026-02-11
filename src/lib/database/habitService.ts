@@ -537,7 +537,8 @@ export async function createHabit(
     const db = await getDatabaseOrThrow();
     const now = Date.now();
 
-    const frequency = data.frequency ?? 'daily';
+    // Negative habits are always daily - enforce this at the service level
+    const frequency = data.type === 'negative' ? 'daily' : (data.frequency ?? 'daily');
     // Default targetCount based on frequency (1 for daily, or provided value)
     const targetCount = frequency === 'daily' ? 1 : (data.targetCount ?? 1);
 
@@ -831,6 +832,11 @@ export async function updateHabit(
     }
     if (data.type !== undefined) {
       updates.type = data.type;
+      // If changing to negative type, enforce daily frequency
+      if (data.type === 'negative') {
+        updates.frequency = 'daily';
+        updates.targetCount = 1;
+      }
     }
     if (data.category !== undefined) {
       updates.category = data.category;
@@ -838,15 +844,18 @@ export async function updateHabit(
     if (data.color !== undefined) {
       updates.color = data.color;
     }
-    if (data.frequency !== undefined) {
+    // Determine effective type for frequency/targetCount logic
+    const effectiveType = data.type ?? doc.type;
+    if (data.frequency !== undefined && effectiveType !== 'negative') {
+      // Only allow frequency change for non-negative habits
       updates.frequency = data.frequency;
       // If frequency is set to daily, reset targetCount to 1
       if (data.frequency === 'daily') {
         updates.targetCount = 1;
       }
     }
-    if (data.targetCount !== undefined) {
-      // Only update targetCount if frequency is not daily
+    if (data.targetCount !== undefined && effectiveType !== 'negative') {
+      // Only update targetCount if frequency is not daily and habit is not negative
       const frequency = data.frequency ?? doc.frequency ?? 'daily';
       updates.targetCount = frequency === 'daily' ? 1 : data.targetCount;
     }
@@ -1054,6 +1063,56 @@ export async function bulkDeleteHabits(
       success: false,
       error: new HabitServiceError(
         'Failed to bulk delete habits',
+        HabitServiceErrorCode.OPERATION_FAILED,
+        undefined,
+        error
+      ),
+    };
+  }
+}
+
+/**
+ * Migrate existing negative habits to daily frequency
+ * This ensures all negative habits have frequency='daily' and targetCount=1
+ *
+ * @returns Promise with count of migrated habits
+ */
+export async function migrateNegativeHabitsToDaily(): Promise<HabitServiceResult<number>> {
+  try {
+    const db = await getDatabaseOrThrow();
+    let migratedCount = 0;
+
+    // Find all negative habits with non-daily frequency
+    const negativeHabits = await db.habits
+      .find({
+        selector: {
+          type: 'negative',
+          $or: [
+            { frequency: { $ne: 'daily' } },
+            { targetCount: { $ne: 1 } }
+          ]
+        }
+      })
+      .exec();
+
+    for (const habit of negativeHabits) {
+      // Only update if frequency is not daily or targetCount is not 1
+      if (habit.frequency !== 'daily' || habit.targetCount !== 1) {
+        await habit.patch({
+          frequency: 'daily',
+          targetCount: 1,
+          updatedAt: Date.now(),
+        });
+        migratedCount++;
+      }
+    }
+
+    return { success: true, data: migratedCount };
+  } catch (error) {
+    return {
+      success: false,
+      error: new HabitServiceError(
+        'Failed to migrate negative habits',
         HabitServiceErrorCode.OPERATION_FAILED,
         undefined,
         error

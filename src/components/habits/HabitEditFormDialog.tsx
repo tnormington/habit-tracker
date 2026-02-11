@@ -118,6 +118,14 @@ export function HabitEditFormDialog({
     }
   }, [habit]);
 
+  // Reset frequency to daily when switching to negative habit type
+  React.useEffect(() => {
+    if (type === 'negative') {
+      setFrequency('daily');
+      setTargetCount(1);
+    }
+  }, [type]);
+
   // Handle frequency change - adjust targetCount if needed
   const handleFrequencyChange = (newFrequency: HabitFrequency) => {
     setFrequency(newFrequency);
@@ -167,14 +175,16 @@ export function HabitEditFormDialog({
     setErrors({});
 
     try {
+      // Negative habits are always daily
+      const effectiveFrequency = type === 'negative' ? 'daily' : frequency;
       const result = await updateHabit(habit.id, {
         name: name.trim(),
         description: description.trim() || undefined,
         type,
         category,
         color,
-        frequency,
-        targetCount: frequency === 'daily' ? 1 : targetCount,
+        frequency: effectiveFrequency,
+        targetCount: effectiveFrequency === 'daily' ? 1 : targetCount,
       });
 
       if (result.success) {
@@ -372,26 +382,28 @@ export function HabitEditFormDialog({
               )}
             </div>
 
-            {/* Frequency Field */}
-            <div className="space-y-2">
-              <Label>Frequency</Label>
-              <ChoiceCardGroup
-                options={FREQUENCY_OPTIONS}
-                value={frequency}
-                onChange={handleFrequencyChange}
-                disabled={isLoading}
-                aria-label="Habit frequency"
-                data-testid="edit-habit-frequency"
-              />
-              {errors.frequency && (
-                <p id="edit-habit-frequency-error" className="text-sm text-destructive" data-testid="edit-habit-frequency-error">
-                  {errors.frequency}
-                </p>
-              )}
-            </div>
+            {/* Frequency Field - hidden for negative habits (always daily) */}
+            {type !== 'negative' && (
+              <div className="space-y-2">
+                <Label>Frequency</Label>
+                <ChoiceCardGroup
+                  options={FREQUENCY_OPTIONS}
+                  value={frequency}
+                  onChange={handleFrequencyChange}
+                  disabled={isLoading}
+                  aria-label="Habit frequency"
+                  data-testid="edit-habit-frequency"
+                />
+                {errors.frequency && (
+                  <p id="edit-habit-frequency-error" className="text-sm text-destructive" data-testid="edit-habit-frequency-error">
+                    {errors.frequency}
+                  </p>
+                )}
+              </div>
+            )}
 
-            {/* Target Count Field - only shown for non-daily frequencies */}
-            {frequency !== 'daily' && (
+            {/* Target Count Field - only shown for non-daily frequencies and non-negative habits */}
+            {type !== 'negative' && frequency !== 'daily' && (
               <div className="space-y-2">
                 <Label htmlFor="edit-habit-target-count">
                   Target ({getTargetLabel(frequency)})

@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { getDatabase, isDatabaseInitialized, destroyDatabase } from './database';
+import { migrateNegativeHabitsToDaily } from './habitService';
 import type { HabitTrackerDatabase } from './types';
 import { DatabaseError, DatabaseErrorCode } from './types';
 
@@ -40,6 +41,10 @@ export function useDatabase(): UseDatabaseResult {
     try {
       const db = await getDatabase();
       setDatabase(db);
+
+      // Run migration to ensure negative habits are daily
+      // This is idempotent and only updates habits that need it
+      await migrateNegativeHabitsToDaily();
     } catch (err) {
       if (err instanceof DatabaseError) {
         setError(err);

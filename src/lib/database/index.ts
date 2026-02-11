@@ -84,6 +84,8 @@ export {
   habitExists,
   bulkDeleteHabits,
   bulkArchiveHabits,
+  // Migration functions
+  migrateNegativeHabitsToDaily,
   // Validation functions
   validateHabitName,
   validateHabitDescription,

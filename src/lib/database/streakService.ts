@@ -367,7 +367,8 @@ export async function calculateStreakForHabit(
 
     const habitData = habit.toJSON() as HabitDocType;
     const habitType = habitData.type;
-    const frequency = habitData.frequency || 'daily';
+    // Negative habits are always treated as daily for streak calculations
+    const frequency = habitType === 'negative' ? 'daily' : (habitData.frequency || 'daily');
 
     // Get all logs for this habit, sorted by date ascending
     const logs = await db.habit_logs
@@ -807,7 +808,8 @@ export async function getStreakHistory(
 
     const habitData = habit.toJSON() as HabitDocType;
     const habitType = habitData.type;
-    const frequency = habitData.frequency || 'daily';
+    // Negative habits are always treated as daily for streak calculations
+    const frequency = habitType === 'negative' ? 'daily' : (habitData.frequency || 'daily');
 
     // Get all logs for this habit, sorted by date ascending
     const logs = await db.habit_logs
