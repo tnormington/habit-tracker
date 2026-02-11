@@ -32,18 +32,26 @@ const CATEGORY_LABELS: Record<HabitDocType['category'], string> = {
   other: 'Other',
 };
 
+/** Format date to YYYY-MM-DD using local timezone */
+function formatDateString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 /** Get today's date in YYYY-MM-DD format */
 function getTodayDate(): string {
-  return new Date().toISOString().split('T')[0];
+  return formatDateString(new Date());
 }
 
 /** Get start of current week (Monday) in YYYY-MM-DD format */
 function getStartOfWeek(dateStr: string): string {
-  const date = new Date(dateStr);
+  const date = new Date(dateStr + 'T12:00:00'); // Use noon to avoid timezone issues
   const day = date.getDay();
   const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Sunday
   const monday = new Date(date.setDate(diff));
-  return monday.toISOString().split('T')[0];
+  return formatDateString(monday);
 }
 
 /** Get start of current month in YYYY-MM-DD format */
@@ -53,17 +61,17 @@ function getStartOfMonth(dateStr: string): string {
 
 /** Get end of current week (Sunday) in YYYY-MM-DD format */
 function getEndOfWeek(dateStr: string): string {
-  const startOfWeek = new Date(getStartOfWeek(dateStr));
+  const startOfWeek = new Date(getStartOfWeek(dateStr) + 'T12:00:00'); // Use noon to avoid timezone issues
   const sunday = new Date(startOfWeek);
   sunday.setDate(sunday.getDate() + 6);
-  return sunday.toISOString().split('T')[0];
+  return formatDateString(sunday);
 }
 
 /** Get end of current month in YYYY-MM-DD format */
 function getEndOfMonth(dateStr: string): string {
-  const date = new Date(dateStr);
+  const date = new Date(dateStr + 'T12:00:00'); // Use noon to avoid timezone issues
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  return lastDay.toISOString().split('T')[0];
+  return formatDateString(lastDay);
 }
 
 /** Get period date range based on frequency */
