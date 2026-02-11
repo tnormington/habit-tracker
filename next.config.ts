@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
+  basePath: "/habit-tracker",
+  assetPrefix: "/habit-tracker/",
   images: {
     unoptimized: true,
   },
