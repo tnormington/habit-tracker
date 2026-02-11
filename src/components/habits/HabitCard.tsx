@@ -21,11 +21,21 @@ interface HabitCardProps {
   onEdit?: (habit: HabitDocType) => void;
 }
 
-const FREQUENCY_CONFIG = {
-  daily: { label: 'Daily' },
-  weekly: { label: 'Weekly' },
-  monthly: { label: 'Monthly' },
-} as const;
+/**
+ * Get the frequency label including target count for weekly/monthly habits
+ */
+function getFrequencyLabel(frequency: 'daily' | 'weekly' | 'monthly', targetCount: number): string {
+  switch (frequency) {
+    case 'daily':
+      return 'Daily';
+    case 'weekly':
+      return `${targetCount}x/week`;
+    case 'monthly':
+      return `${targetCount}x/month`;
+    default:
+      return 'Daily';
+  }
+}
 
 /**
  * Background colors for category icon based on habit type
@@ -97,16 +107,13 @@ export function HabitCard({
             <div className="flex items-center justify-between">
               {/* Frequency badge */}
               <div className="flex flex-wrap items-center gap-2">
-                {/* Frequency badge (only show for non-daily) */}
-                {frequency !== 'daily' && (
-                  <span
-                    className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                    data-testid="habit-frequency-badge"
-                  >
-                    <FrequencyIcon className="size-3" aria-hidden="true" />
-                    {FREQUENCY_CONFIG[frequency].label}
-                  </span>
-                )}
+                <span
+                  className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                  data-testid="habit-frequency-badge"
+                >
+                  <FrequencyIcon className="size-3" aria-hidden="true" />
+                  {getFrequencyLabel(frequency, habit.targetCount || 1)}
+                </span>
               </div>
 
               {/* Quick action buttons */}
