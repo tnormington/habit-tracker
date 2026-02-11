@@ -14,22 +14,24 @@ import {
   Calendar,
 } from 'lucide-react';
 import type { HabitFrequency } from '@/lib/database/types';
+import { CATEGORY_ICONS } from '@/lib/constants/habit-display';
 
 interface HabitDetailHeaderProps {
   habit: HabitDocType;
   onEdit: () => void;
 }
 
-const COLOR_CLASSES: Record<HabitDocType['color'], string> = {
-  red: 'bg-red-500',
-  orange: 'bg-orange-500',
-  yellow: 'bg-yellow-500',
-  green: 'bg-green-500',
-  blue: 'bg-blue-500',
-  purple: 'bg-purple-500',
-  pink: 'bg-pink-500',
-  gray: 'bg-gray-500',
-};
+/**
+ * Background colors for category icon based on habit type
+ * - positive (build): green
+ * - negative (break): red
+ * - neutral (track): grey
+ */
+const TYPE_BG_COLORS = {
+  positive: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  negative: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  neutral: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+} as const;
 
 const CATEGORY_LABELS: Record<HabitDocType['category'], string> = {
   health: 'Health',
@@ -54,6 +56,7 @@ export function HabitDetailHeader({ habit, onEdit }: HabitDetailHeaderProps) {
   const isPositive = habit.type === 'positive';
   const frequency = (habit.frequency || 'daily') as HabitFrequency;
   const FrequencyIcon = FREQUENCY_CONFIG[frequency].Icon;
+  const CategoryIcon = CATEGORY_ICONS[habit.category];
 
   return (
     <div className="space-y-4" data-testid="habit-detail-header">
@@ -81,14 +84,17 @@ export function HabitDetailHeader({ habit, onEdit }: HabitDetailHeaderProps) {
 
       {/* Habit info */}
       <div className="flex items-start gap-4">
-        {/* Color indicator */}
+        {/* Category icon with type-based color */}
         <div
           className={cn(
-            'size-12 rounded-lg shrink-0',
-            COLOR_CLASSES[habit.color]
+            'size-12 rounded-lg shrink-0 flex items-center justify-center',
+            TYPE_BG_COLORS[habit.type || 'neutral']
           )}
-          aria-hidden="true"
-        />
+          data-testid="habit-category-icon"
+          aria-label={`Category: ${CATEGORY_LABELS[habit.category]}`}
+        >
+          <CategoryIcon className="size-6" aria-hidden="true" />
+        </div>
 
         <div className="flex-1 min-w-0">
           <h1 className="text-2xl font-bold truncate" data-testid="habit-name">
