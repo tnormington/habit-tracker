@@ -48,6 +48,13 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     return (
       <div className={cn('relative flex items-center gap-4', className)}>
         <div className="relative flex-1">
+          {/* Visual track overlay - displays behind the input */}
+          <div
+            className="absolute inset-0 h-2 rounded-full pointer-events-none"
+            style={{
+              background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, hsl(var(--secondary)) ${percentage}%, hsl(var(--secondary)) 100%)`,
+            }}
+          />
           <input
             type="range"
             ref={ref}
@@ -58,11 +65,13 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
             onChange={handleChange}
             disabled={disabled}
             className={cn(
-              'w-full h-2 appearance-none rounded-full cursor-pointer',
+              'relative w-full h-2 appearance-none rounded-full cursor-pointer bg-transparent',
               '[&::-webkit-slider-runnable-track]:h-2',
               '[&::-webkit-slider-runnable-track]:rounded-full',
+              '[&::-webkit-slider-runnable-track]:bg-transparent',
               '[&::-moz-range-track]:h-2',
               '[&::-moz-range-track]:rounded-full',
+              '[&::-moz-range-track]:bg-transparent',
               '[&::-webkit-slider-thumb]:appearance-none',
               '[&::-webkit-slider-thumb]:w-5',
               '[&::-webkit-slider-thumb]:h-5',
@@ -85,9 +94,6 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
               disabled && '[&::-webkit-slider-thumb]:cursor-not-allowed',
               disabled && '[&::-moz-range-thumb]:cursor-not-allowed'
             )}
-            style={{
-              background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, hsl(var(--secondary)) ${percentage}%, hsl(var(--secondary)) 100%)`,
-            }}
             {...props}
           />
         </div>
