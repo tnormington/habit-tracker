@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useLevaControls } from '@/lib/hooks';
 import type { HabitDocType } from '@/lib/database/types';
 import {
   MoreHorizontal,
@@ -54,6 +55,7 @@ export function HabitCard({
   onRestore,
   onEdit,
 }: HabitCardProps) {
+  const { cardBorderRadius, contentPadding, animationSpeed, enableAnimations } = useLevaControls();
   const frequency = habit.frequency || 'daily';
   const FrequencyIcon = FREQUENCY_ICONS[frequency];
   const CategoryIcon = CATEGORY_ICONS[habit.category];
@@ -62,10 +64,14 @@ export function HabitCard({
     <Card
       className={cn(
         'relative overflow-hidden p-0',
-        'transition-all duration-200 ease-out',
+        enableAnimations && 'transition-all ease-out',
         'hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20',
         habit.isArchived && 'opacity-60'
       )}
+      style={{
+        borderRadius: `${cardBorderRadius}px`,
+        transitionDuration: enableAnimations ? `${Math.round(200 / animationSpeed)}ms` : '0ms',
+      }}
       data-testid="habit-card"
       data-habit-id={habit.id}
     >
@@ -73,9 +79,10 @@ export function HabitCard({
         {/* Large category icon on the left - colored by habit type */}
         <div
           className={cn(
-            'flex items-center justify-center px-4 py-6',
+            'flex items-center justify-center',
             TYPE_BG_COLORS[habit.type || 'neutral']
           )}
+          style={{ padding: `${contentPadding * 1.5}px ${contentPadding}px` }}
           data-testid="habit-category-icon"
         >
           <CategoryIcon className="size-8" aria-hidden="true" />

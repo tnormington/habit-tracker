@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
+import { useLevaControls } from '@/lib/hooks';
 import { useHabits } from '@/lib/database/useHabits';
 import { useHabitLogs, useHabitLogsForDate } from '@/lib/database/useHabitLogs';
 import type { HabitDocType, HabitFrequency, HabitLogDocType } from '@/lib/database/types';
@@ -94,6 +95,7 @@ interface HabitCheckInItemProps {
 }
 
 function HabitCheckInItem({ habit, isCompleted, periodProgress, onToggle }: HabitCheckInItemProps) {
+  const { cardBorderRadius, enableAnimations, animationSpeed } = useLevaControls();
   const showPeriodProgress = periodProgress && habit.frequency !== 'daily';
   const periodReached = periodProgress && periodProgress.current >= periodProgress.target;
 
@@ -123,14 +125,19 @@ function HabitCheckInItem({ habit, isCompleted, periodProgress, onToggle }: Habi
   return (
     <div
       className={cn(
-        'relative flex items-center gap-4 rounded-lg border p-4 transition-all duration-200',
+        'relative flex items-center gap-4 border p-4',
+        enableAnimations && 'transition-all ease-out',
         'cursor-pointer select-none',
         'hover:border-primary/50 hover:bg-muted/30',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-        'active:scale-[0.99]',
+        enableAnimations && 'active:scale-[0.99]',
         isCompleted && 'bg-muted/50',
         periodReached && 'border-green-300 dark:border-green-700 hover:border-green-400 dark:hover:border-green-600'
       )}
+      style={{
+        borderRadius: `${cardBorderRadius}px`,
+        transitionDuration: enableAnimations ? `${Math.round(200 / animationSpeed)}ms` : '0ms',
+      }}
       data-testid="habit-checkin-item"
       data-habit-id={habit.id}
       onClick={handleCardClick}

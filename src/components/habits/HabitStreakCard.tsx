@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useStreak, useStreakHistory } from '@/lib/database/useStreak';
+import { useLevaControls } from '@/lib/hooks';
 import { Flame, Trophy, CalendarDays, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +11,7 @@ interface HabitStreakCardProps {
 }
 
 export function HabitStreakCard({ habitId }: HabitStreakCardProps) {
+  const { streakFlameColor } = useLevaControls();
   const { streakData, isLoading: streakLoading } = useStreak(habitId);
   const { history, isLoading: historyLoading } = useStreakHistory(habitId);
 
@@ -52,29 +54,28 @@ export function HabitStreakCard({ habitId }: HabitStreakCardProps) {
             className={cn(
               'p-4 rounded-lg border-2',
               isStreakActive && currentStreak > 0
-                ? 'border-orange-500 bg-orange-50 dark:bg-orange-950/20'
+                ? 'bg-orange-50 dark:bg-orange-950/20'
                 : 'border-muted bg-muted/50'
             )}
+            style={{
+              borderColor: isStreakActive && currentStreak > 0 ? streakFlameColor : undefined,
+            }}
             data-testid="current-streak-display"
           >
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
               <Flame
-                className={cn(
-                  'size-4',
-                  isStreakActive && currentStreak > 0
-                    ? 'text-orange-500'
-                    : 'text-muted-foreground'
-                )}
+                className="size-4"
+                style={{
+                  color: isStreakActive && currentStreak > 0 ? streakFlameColor : undefined,
+                }}
               />
               Current Streak
             </div>
             <p
-              className={cn(
-                'text-3xl font-bold',
-                isStreakActive && currentStreak > 0
-                  ? 'text-orange-600 dark:text-orange-400'
-                  : ''
-              )}
+              className="text-3xl font-bold"
+              style={{
+                color: isStreakActive && currentStreak > 0 ? streakFlameColor : undefined,
+              }}
               data-testid="current-streak-value"
             >
               {currentStreak}
@@ -83,7 +84,7 @@ export function HabitStreakCard({ habitId }: HabitStreakCardProps) {
               </span>
             </p>
             {isStreakActive && currentStreak > 0 && (
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 flex items-center gap-1">
+              <p className="text-xs mt-1 flex items-center gap-1" style={{ color: streakFlameColor }}>
                 <Zap className="size-3" />
                 Active now
               </p>

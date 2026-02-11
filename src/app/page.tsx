@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { DailyCheckIn } from '@/components/habits';
+import { useLevaControls } from '@/lib/hooks';
 import { useDashboardStatistics } from '@/lib/database';
 import { useActiveStreaks } from '@/lib/database/useStreak';
 import { useHabits } from '@/lib/database/useHabits';
@@ -64,6 +65,7 @@ interface StreakItemProps {
 }
 
 function StreakItem({ habitName, streak, rank }: StreakItemProps) {
+  const { streakFlameColor } = useLevaControls();
   const getBadgeColor = (rank: number) => {
     if (rank === 1) return 'bg-yellow-500 text-yellow-950';
     if (rank === 2) return 'bg-gray-500 text-white';
@@ -85,7 +87,7 @@ function StreakItem({ habitName, streak, rank }: StreakItemProps) {
         <span className="font-medium">{habitName}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        <Flame className="size-4 text-orange-500" />
+        <Flame className="size-4" style={{ color: streakFlameColor }} />
         <span className="font-semibold">{streak}</span>
         <span className="text-sm text-muted-foreground">days</span>
       </div>
@@ -135,9 +137,10 @@ function getMotivationalMessage(
 }
 
 export default function DashboardPage() {
-  const { statistics, isLoading: statsLoading } = useDashboardStatistics();
-  const { activeStreaks, isLoading: streaksLoading } = useActiveStreaks();
-  const { habits, isLoading: habitsLoading } = useHabits({
+  const { streakFlameColor } = useLevaControls();
+  const { statistics, isLoading: statsLoading, error: statsError } = useDashboardStatistics();
+  const { activeStreaks, isLoading: streaksLoading, error: streaksError } = useActiveStreaks();
+  const { habits, isLoading: habitsLoading, error: habitsError } = useHabits({
     filter: { isArchived: false },
   });
 
@@ -161,6 +164,7 @@ export default function DashboardPage() {
   }, [activeStreaks, habitNameMap]);
 
   const isLoading = statsLoading || streaksLoading || habitsLoading;
+  const hasError = statsError || streaksError || habitsError;
 
   const motivational = statistics
     ? getMotivationalMessage(
@@ -174,6 +178,19 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center py-12" data-testid="dashboard-loading">
         <Loader2 className="size-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-12" data-testid="dashboard-error">
+        <p className="text-sm text-muted-foreground">
+          Failed to load dashboard data. Try clearing your browser data for this site and refreshing.
+        </p>
+        <Button variant="outline" onClick={() => window.location.reload()}>
+          Retry
+        </Button>
       </div>
     );
   }
@@ -192,7 +209,7 @@ export default function DashboardPage() {
           className="border-primary/20 bg-primary/5"
           data-testid="motivational-card"
         >
-          <CardContent className="flex items-center gap-4 pt-6">
+          <CardContent className="flex items-center gap-4">
             <div className="rounded-full bg-background p-3 shadow-sm">
               {motivational.icon}
             </div>
@@ -223,7 +240,7 @@ export default function DashboardPage() {
               ? `Best: ${statistics.bestCurrentStreak.days} days`
               : 'Start a streak today!'
           }
-          icon={<Flame className="size-5 text-orange-500" />}
+          icon={<Flame className="size-5" style={{ color: streakFlameColor }} />}
         />
         <StatCard
           title="Overall Completion"
@@ -257,7 +274,7 @@ export default function DashboardPage() {
           <Card data-testid="streaks-card">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Flame className="size-5 text-orange-500" />
+                <Flame className="size-5" style={{ color: streakFlameColor }} />
                 Active Streaks
               </CardTitle>
             </CardHeader>
@@ -275,7 +292,7 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 <div className="py-8 text-center">
-                  <Flame className="mx-auto size-12 text-muted-foreground/30" />
+                  <Flame className="mx-auto size-12" style={{ color: streakFlameColor, opacity: 0.3 }} />
                   <p className="mt-2 text-sm text-muted-foreground">
                     No active streaks yet
                   </p>
