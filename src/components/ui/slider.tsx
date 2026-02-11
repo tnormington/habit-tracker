@@ -52,7 +52,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           <div
             className="absolute inset-0 h-2 rounded-full pointer-events-none"
             style={{
-              background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, hsl(var(--secondary)) ${percentage}%, hsl(var(--secondary)) 100%)`,
+              background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, var(--secondary) ${percentage}%, var(--secondary) 100%)`,
             }}
           />
           <input
