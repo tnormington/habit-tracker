@@ -83,7 +83,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
               disabled && '[&::-moz-range-thumb]:cursor-not-allowed'
             )}
             style={{
-              background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${percentage}%, hsl(var(--secondary)) ${percentage}%, hsl(var(--secondary)) 100%)`,
+              background: `linear-gradient(to right, oklch(0.6 0.118 184.704) 0%, oklch(0.6 0.118 184.704) ${percentage}%, hsl(var(--secondary)) ${percentage}%, hsl(var(--secondary)) 100%)`,
             }}
             {...props}
           />
