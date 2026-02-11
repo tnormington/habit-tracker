@@ -142,13 +142,13 @@ export function CompletionTrendsChart({
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `${value}%`}
@@ -177,13 +177,13 @@ export function CompletionTrendsChart({
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `${value}%`}

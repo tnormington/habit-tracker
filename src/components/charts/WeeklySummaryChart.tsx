@@ -152,12 +152,12 @@ export function WeeklySummaryChart({
                 />
                 <XAxis
                   dataKey="day"
-                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                   tickLine={false}
                   axisLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  tick={{ fontSize: 12, fill: 'oklch(var(--foreground))' }}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={showCompletionRate ? (value) => `${value}%` : undefined}
