@@ -47,10 +47,10 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 
     return (
       <div className={cn('relative flex items-center gap-4', className)}>
-        <div className="relative flex-1">
-          {/* Visual track overlay - displays behind the input */}
+        <div className="relative flex-1 flex items-center h-5">
+          {/* Visual track overlay - displays behind the input, vertically centered */}
           <div
-            className="absolute inset-0 h-2 rounded-full pointer-events-none"
+            className="absolute left-0 right-0 h-2 rounded-full pointer-events-none"
             style={{
               background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, var(--secondary) ${percentage}%, var(--secondary) 100%)`,
             }}
@@ -65,7 +65,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
             onChange={handleChange}
             disabled={disabled}
             className={cn(
-              'relative w-full h-2 appearance-none rounded-full cursor-pointer bg-transparent',
+              'relative w-full h-5 appearance-none rounded-full cursor-pointer bg-transparent',
               '[&::-webkit-slider-runnable-track]:h-2',
               '[&::-webkit-slider-runnable-track]:rounded-full',
               '[&::-webkit-slider-runnable-track]:bg-transparent',
@@ -83,6 +83,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
               '[&::-webkit-slider-thumb]:transition-all',
               '[&::-webkit-slider-thumb]:hover:scale-110',
               '[&::-webkit-slider-thumb]:shadow-md',
+              '[&::-webkit-slider-thumb]:-mt-[6px]',
               '[&::-moz-range-thumb]:w-5',
               '[&::-moz-range-thumb]:h-5',
               '[&::-moz-range-thumb]:rounded-full',
@@ -90,6 +91,7 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
               '[&::-moz-range-thumb]:border-2',
               '[&::-moz-range-thumb]:border-primary',
               '[&::-moz-range-thumb]:cursor-pointer',
+              '[&::-moz-range-thumb]:border-0',
               disabled && 'opacity-50 cursor-not-allowed',
               disabled && '[&::-webkit-slider-thumb]:cursor-not-allowed',
               disabled && '[&::-moz-range-thumb]:cursor-not-allowed'
