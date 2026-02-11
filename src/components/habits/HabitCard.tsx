@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { HabitDocType } from '@/lib/database/types';
 import {
-  Trash2,
-  Pencil,
+  MoreHorizontal,
   ChevronRight,
+  RotateCcw,
 } from 'lucide-react';
 import {
   CATEGORY_ICONS,
@@ -17,7 +17,7 @@ import {
 
 interface HabitCardProps {
   habit: HabitDocType;
-  onArchive?: (habit: HabitDocType) => void;
+  onRestore?: (habit: HabitDocType) => void;
   onEdit?: (habit: HabitDocType) => void;
 }
 
@@ -41,7 +41,7 @@ const TYPE_BG_COLORS = {
 
 export function HabitCard({
   habit,
-  onArchive,
+  onRestore,
   onEdit,
 }: HabitCardProps) {
   const frequency = habit.frequency || 'daily';
@@ -109,35 +109,37 @@ export function HabitCard({
                 )}
               </div>
 
-              {/* Quick action button */}
+              {/* Quick action buttons */}
               <div className="flex items-center gap-1">
-                <Button
-                variant="ghost"
-                size="icon"
-                className="size-8 shrink-0"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onEdit?.(habit);
-                }}
-                aria-label={`Edit ${habit.name}`}
-              >
-                <Pencil className="size-4" />
-              </Button>
-
+                {habit.isArchived && onRestore && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-8 shrink-0"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onRestore(habit);
+                    }}
+                    aria-label={`Restore ${habit.name}`}
+                    title="Restore habit"
+                  >
+                    <RotateCcw className="size-4" />
+                  </Button>
+                )}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="size-8"
+                  className="size-8 shrink-0"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    onArchive?.(habit);
+                    onEdit?.(habit);
                   }}
-                  aria-label={`Delete ${habit.name}`}
-                  title="Delete habit"
+                  aria-label={`Options for ${habit.name}`}
+                  title="Options"
                 >
-                  <Trash2 className="size-4 text-red-500" />
+                  <MoreHorizontal className="size-4" />
                 </Button>
               </div>
             </div>

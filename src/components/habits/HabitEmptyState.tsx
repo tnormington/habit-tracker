@@ -2,10 +2,10 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Search, Filter } from 'lucide-react';
+import { PlusCircle, Search, Filter, Archive } from 'lucide-react';
 
 interface HabitEmptyStateProps {
-  type: 'no-habits' | 'no-results' | 'filtered-empty';
+  type: 'no-habits' | 'no-results' | 'filtered-empty' | 'no-archived';
   onCreateHabit?: () => void;
   onClearFilters?: () => void;
 }
@@ -45,6 +45,13 @@ export function HabitEmptyState({
           Clear Filters
         </Button>
       ),
+    },
+    'no-archived': {
+      icon: Archive,
+      title: 'No archived habits',
+      description:
+        "You don't have any archived habits yet. Habits you archive will appear here.",
+      action: null,
     },
   };
 

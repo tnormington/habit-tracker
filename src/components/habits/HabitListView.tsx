@@ -7,7 +7,9 @@ import { HabitFilters, type HabitFiltersState } from './HabitFilters';
 import { HabitSearch } from './HabitSearch';
 import { HabitEmptyState } from './HabitEmptyState';
 import type { HabitDocType } from '@/lib/database/types';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Archive, List } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface HabitListViewProps {
   onCreateHabit?: () => void;
@@ -16,15 +18,16 @@ interface HabitListViewProps {
 
 export function HabitListView({ onCreateHabit, onEditHabit }: HabitListViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showArchived, setShowArchived] = useState(false);
   const [filters, setFilters] = useState<HabitFiltersState>({
     type: null,
     category: null,
   });
 
   // Fetch habits with filter from database
-  const { habits, isLoading, archiveHabit } = useHabits({
+  const { habits, isLoading, updateHabit } = useHabits({
     filter: {
-      isArchived: false,
+      isArchived: showArchived,
       ...(filters.type && { type: filters.type }),
       ...(filters.category && { category: filters.category }),
     },
@@ -42,16 +45,11 @@ export function HabitListView({ onCreateHabit, onEditHabit }: HabitListViewProps
     );
   }, [habits, searchQuery]);
 
-  const handleComplete = (habit: HabitDocType) => {
-    // This will be hooked up to habit log toggle in the future
-    console.log('Complete habit:', habit.id);
-  };
-
-  const handleArchive = async (habit: HabitDocType) => {
+  const handleRestore = async (habit: HabitDocType) => {
     try {
-      await archiveHabit(habit.id);
+      await updateHabit(habit.id, { isArchived: false });
     } catch (error) {
-      console.error('Failed to archive habit:', error);
+      console.error('Failed to restore habit:', error);
     }
   };
 
@@ -61,10 +59,10 @@ export function HabitListView({ onCreateHabit, onEditHabit }: HabitListViewProps
   };
 
   // Determine empty state type
-  const getEmptyStateType = (): 'no-habits' | 'no-results' | 'filtered-empty' | null => {
+  const getEmptyStateType = (): 'no-habits' | 'no-results' | 'filtered-empty' | 'no-archived' | null => {
     if (isLoading) return null;
     if (habits.length === 0 && !filters.type && !filters.category) {
-      return 'no-habits';
+      return showArchived ? 'no-archived' : 'no-habits';
     }
     if (filteredHabits.length === 0 && searchQuery) {
       return 'no-results';
@@ -79,6 +77,30 @@ export function HabitListView({ onCreateHabit, onEditHabit }: HabitListViewProps
 
   return (
     <div className="space-y-6" data-testid="habit-list-view">
+      {/* View toggle: Active / Archived */}
+      <div className="flex gap-2">
+        <Button
+          variant={!showArchived ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setShowArchived(false)}
+          className={cn('gap-1.5')}
+          data-testid="view-active-habits"
+        >
+          <List className="size-4" />
+          Active
+        </Button>
+        <Button
+          variant={showArchived ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setShowArchived(true)}
+          className={cn('gap-1.5')}
+          data-testid="view-archived-habits"
+        >
+          <Archive className="size-4" />
+          Archived
+        </Button>
+      </div>
+
       {/* Search and filters section */}
       <div className="space-y-4">
         <HabitSearch value={searchQuery} onChange={setSearchQuery} />
@@ -114,8 +136,7 @@ export function HabitListView({ onCreateHabit, onEditHabit }: HabitListViewProps
             <HabitCard
               key={habit.id}
               habit={habit}
-              onComplete={handleComplete}
-              onArchive={handleArchive}
+              onRestore={showArchived ? handleRestore : undefined}
               onEdit={onEditHabit}
             />
           ))}
