@@ -11,29 +11,15 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import {
-  CATEGORY_DISPLAY,
   CATEGORY_ICONS,
   FREQUENCY_ICONS,
-  TYPE_ICONS,
 } from '@/lib/constants/habit-display';
 
 interface HabitCardProps {
   habit: HabitDocType;
-  onComplete?: (habit: HabitDocType) => void;
   onArchive?: (habit: HabitDocType) => void;
   onEdit?: (habit: HabitDocType) => void;
 }
-
-const COLOR_CLASSES: Record<HabitDocType['color'], string> = {
-  red: 'bg-red-500',
-  orange: 'bg-orange-500',
-  yellow: 'bg-yellow-500',
-  green: 'bg-green-500',
-  blue: 'bg-blue-500',
-  purple: 'bg-purple-500',
-  pink: 'bg-pink-500',
-  gray: 'bg-gray-500',
-};
 
 const FREQUENCY_CONFIG = {
   daily: { label: 'Daily' },
@@ -43,20 +29,12 @@ const FREQUENCY_CONFIG = {
 
 export function HabitCard({
   habit,
-  onComplete,
   onArchive,
   onEdit,
 }: HabitCardProps) {
   const frequency = habit.frequency || 'daily';
   const FrequencyIcon = FREQUENCY_ICONS[frequency];
   const CategoryIcon = CATEGORY_ICONS[habit.category];
-  const TypeIcon = TYPE_ICONS[habit.type];
-
-  const typeStyles = {
-    positive: 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400',
-    neutral: 'bg-gray-100 text-gray-600 dark:bg-gray-900/30 dark:text-gray-400',
-    negative: 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400',
-  };
 
   return (
     <Card
@@ -68,15 +46,12 @@ export function HabitCard({
       data-habit-id={habit.id}
     >
       <div className="flex">
-        {/* Large habit type icon on the left */}
+        {/* Large category icon on the left */}
         <div
-          className={cn(
-            'flex items-center justify-center px-4 py-6',
-            typeStyles[habit.type]
-          )}
-          data-testid="habit-type-icon"
+          className="flex items-center justify-center px-4 py-6 bg-secondary text-secondary-foreground"
+          data-testid="habit-category-icon"
         >
-          <TypeIcon className="size-8" aria-hidden="true" />
+          <CategoryIcon className="size-8" aria-hidden="true" />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -115,17 +90,8 @@ export function HabitCard({
 
           <CardContent className="pt-0">
             <div className="flex items-center justify-between">
-              {/* Type and category badges */}
+              {/* Frequency badge */}
               <div className="flex flex-wrap items-center gap-2">
-                {/* Category badge */}
-                <span
-                  className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground"
-                  data-testid="habit-category-badge"
-                >
-                  <CategoryIcon className="size-3" aria-hidden="true" />
-                  {CATEGORY_DISPLAY[habit.category].label}
-                </span>
-
                 {/* Frequency badge (only show for non-daily) */}
                 {frequency !== 'daily' && (
                   <span
