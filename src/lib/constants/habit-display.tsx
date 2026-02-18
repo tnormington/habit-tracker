@@ -24,6 +24,7 @@ import {
   Minus,
   TrendingDown,
 } from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
 import type { HabitCategory, HabitColor, HabitType, HabitFrequency } from '@/lib/database/types';
 
 /**
@@ -47,7 +48,7 @@ export const CATEGORY_DISPLAY: Record<
 /**
  * Get category icon component for custom sizing
  */
-export const CATEGORY_ICONS: Record<HabitCategory, React.ComponentType<{ className?: string }>> = {
+export const CATEGORY_ICONS: Record<HabitCategory, React.ComponentType<LucideProps>> = {
   health: Heart,
   fitness: Dumbbell,
   productivity: Target,
@@ -88,7 +89,7 @@ export const TYPE_DISPLAY: Record<
 /**
  * Get type icon component for custom sizing
  */
-export const TYPE_ICONS: Record<HabitType, React.ComponentType<{ className?: string }>> = {
+export const TYPE_ICONS: Record<HabitType, React.ComponentType<LucideProps>> = {
   positive: TrendingUp,
   neutral: Minus,
   negative: TrendingDown,
@@ -109,7 +110,7 @@ export const FREQUENCY_DISPLAY: Record<
 /**
  * Get frequency icon component for custom sizing
  */
-export const FREQUENCY_ICONS: Record<HabitFrequency, React.ComponentType<{ className?: string }>> = {
+export const FREQUENCY_ICONS: Record<HabitFrequency, React.ComponentType<LucideProps>> = {
   daily: CalendarDays,
   weekly: CalendarRange,
   monthly: Calendar,

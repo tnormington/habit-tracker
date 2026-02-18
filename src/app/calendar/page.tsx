@@ -9,6 +9,7 @@ import { useHabitLogs } from '@/lib/database/useHabitLogs';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CATEGORY_ICONS, CATEGORY_DISPLAY } from '@/lib/constants/habit-display';
+import { useComponentControls } from '@/lib/hooks/useLevaControls';
 import type { HabitDocType } from '@/lib/database/types';
 
 const MONTH_NAMES = [
@@ -31,9 +32,10 @@ const MAX_VISIBLE_ICONS = 16;
 interface HabitIconsDisplayProps {
   habits: HabitDocType[];
   isHighContrast: boolean;
+  iconSize: number;
 }
 
-function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
+function HabitIconsDisplay({ habits, isHighContrast, iconSize }: HabitIconsDisplayProps) {
   if (habits.length === 0) return null;
 
   const visibleHabits = habits.slice(0, MAX_VISIBLE_ICONS);
@@ -57,7 +59,7 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
               isHighContrast ? 'text-white/90' : 'text-foreground/70'
             )}
           >
-            <IconComponent className="size-3.5" />
+            <IconComponent size={iconSize} />
           </span>
         );
       })}
@@ -80,6 +82,18 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
+
+  // Leva controls for calendar customization
+  const controls = useComponentControls('Calendar', {
+    iconSize: {
+      value: 14,
+      min: 8,
+      max: 24,
+      step: 1,
+      label: 'Habit Icon Size',
+    },
+  });
+  const iconSize = (controls as { iconSize: number }).iconSize;
 
   // Fetch all active habits
   const { habits, isLoading: habitsLoading } = useHabits({
@@ -375,6 +389,7 @@ export default function CalendarPage() {
                           <HabitIconsDisplay
                             habits={successfulHabits}
                             isHighContrast={isHighContrast}
+                            iconSize={iconSize}
                           />
                         </div>
                       )}
