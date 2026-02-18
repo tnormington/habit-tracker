@@ -40,12 +40,9 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
   const overflowCount = habits.length - MAX_VISIBLE_ICONS;
   const hasOverflow = overflowCount > 0;
 
-  // Scale icon sizes based on number of habits
-  const iconSizeClass = habits.length <= 2 ? 'size-5' : habits.length <= 4 ? 'size-4' : habits.length <= 9 ? 'size-3' : 'size-2.5';
-
   return (
     <div
-      className="flex flex-wrap items-center justify-center gap-1 mt-1 max-w-full"
+      className="flex flex-wrap items-center justify-center gap-0.5 max-w-full"
       data-testid="habit-icons-display"
     >
       {visibleHabits.map((habit) => {
@@ -56,18 +53,18 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
             key={habit.id}
             title={`${habit.name} (${categoryLabel})`}
             className={cn(
-              'flex-shrink-0 cursor-default',
+              'cursor-default',
               isHighContrast ? 'text-white/90' : 'text-foreground/70'
             )}
           >
-            <IconComponent className={iconSizeClass} />
+            <IconComponent className="size-3.5" />
           </span>
         );
       })}
       {hasOverflow && (
         <span
           className={cn(
-            'flex-shrink-0 text-[10px] font-medium',
+            'text-[10px] font-medium',
             isHighContrast ? 'text-white/80' : 'text-muted-foreground'
           )}
           title={`+${overflowCount} more: ${habits.slice(MAX_VISIBLE_ICONS).map(h => `${h.name} (${CATEGORY_DISPLAY[h.category].label})`).join(', ')}`}
