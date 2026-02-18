@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -283,7 +284,8 @@ export function HabitEditFormDialog({
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4" data-testid="habit-edit-form">
+          <DialogBody>
+            <form onSubmit={handleSubmit} className="space-y-4" data-testid="habit-edit-form">
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="edit-habit-name">
@@ -489,6 +491,7 @@ export function HabitEditFormDialog({
               </div>
             </div>
           </form>
+          </DialogBody>
         </DialogContent>
       </Dialog>
 

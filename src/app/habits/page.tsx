@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -71,10 +72,12 @@ export default function HabitsPage() {
               Add a new habit to track. Fill in the details below to get started.
             </DialogDescription>
           </DialogHeader>
-          <HabitCreationForm
-            onSuccess={handleCreateSuccess}
-            onCancel={handleCreateCancel}
-          />
+          <DialogBody>
+            <HabitCreationForm
+              onSuccess={handleCreateSuccess}
+              onCancel={handleCreateCancel}
+            />
+          </DialogBody>
         </DialogContent>
       </Dialog>
 
