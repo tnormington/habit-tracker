@@ -6,8 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useHabits } from '@/lib/database/useHabits';
 import { useHabitLogs } from '@/lib/database/useHabitLogs';
-import { ChevronLeft, ChevronRight, Check, X, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { CATEGORY_ICONS } from '@/lib/constants/habit-display';
+import type { HabitDocType } from '@/lib/database/types';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -21,6 +23,59 @@ function formatDateString(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+// Maximum number of icons to display before showing overflow indicator
+const MAX_VISIBLE_ICONS = 4;
+
+interface HabitIconsDisplayProps {
+  habits: HabitDocType[];
+  isHighContrast: boolean;
+}
+
+function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
+  if (habits.length === 0) return null;
+
+  const visibleHabits = habits.slice(0, MAX_VISIBLE_ICONS);
+  const overflowCount = habits.length - MAX_VISIBLE_ICONS;
+  const hasOverflow = overflowCount > 0;
+
+  // Calculate icon size based on number of habits
+  const iconSizeClass = habits.length <= 2 ? 'size-3' : 'size-2.5';
+
+  return (
+    <div
+      className="flex flex-wrap items-center justify-center gap-0.5 mt-0.5 max-w-full"
+      data-testid="habit-icons-display"
+    >
+      {visibleHabits.map((habit) => {
+        const IconComponent = CATEGORY_ICONS[habit.category];
+        return (
+          <span
+            key={habit.id}
+            title={habit.name}
+            className={cn(
+              'flex-shrink-0',
+              isHighContrast ? 'text-white/90' : 'text-foreground/70'
+            )}
+          >
+            <IconComponent className={iconSizeClass} />
+          </span>
+        );
+      })}
+      {hasOverflow && (
+        <span
+          className={cn(
+            'flex-shrink-0 text-[8px] font-medium',
+            isHighContrast ? 'text-white/80' : 'text-muted-foreground'
+          )}
+          title={`+${overflowCount} more: ${habits.slice(MAX_VISIBLE_ICONS).map(h => h.name).join(', ')}`}
+        >
+          +{overflowCount}
+        </span>
+      )}
+    </div>
+  );
 }
 
 export default function CalendarPage() {
@@ -59,6 +114,26 @@ export default function CalendarPage() {
     }
     return map;
   }, [logs]);
+
+  // Get successful habits for a given day (with their details)
+  const getSuccessfulHabitsForDay = React.useCallback((dateStr: string) => {
+    const dayLogs = logsByDateAndHabit.get(dateStr);
+    if (!dayLogs) return [];
+
+    const successfulHabits: HabitDocType[] = [];
+    for (const habit of habits) {
+      const log = dayLogs.get(habit.id);
+      if (log) {
+        // For positive/neutral habits: completed = success
+        // For negative habits: !completed = success (avoided the bad habit)
+        const isSuccess = habit.type === 'negative' ? !log.completed : log.completed;
+        if (isSuccess) {
+          successfulHabits.push(habit);
+        }
+      }
+    }
+    return successfulHabits;
+  }, [habits, logsByDateAndHabit]);
 
   // Generate calendar days with completion stats
   const calendarDays = React.useMemo(() => {
@@ -267,12 +342,14 @@ export default function CalendarPage() {
                 {calendarDays.map(({ date, dateStr, isCurrentMonth, isToday, isFuture, stats }) => {
                   const hasData = stats.total > 0 && !isFuture;
                   const colorClass = getCompletionColor(stats.rate, hasData);
+                  const successfulHabits = hasData ? getSuccessfulHabitsForDay(dateStr) : [];
+                  const isHighContrast = hasData && stats.rate >= 50;
 
                   return (
                     <div
                       key={dateStr}
                       className={cn(
-                        'relative aspect-square flex flex-col items-center justify-center rounded-md text-sm transition-colors',
+                        'relative aspect-square flex flex-col items-center justify-center rounded-md text-sm transition-colors p-0.5',
                         !isCurrentMonth && 'opacity-30',
                         isFuture && 'opacity-20',
                         isToday && 'ring-2 ring-primary ring-offset-1 ring-offset-background',
@@ -287,19 +364,17 @@ export default function CalendarPage() {
                       data-rate={stats.rate}
                     >
                       <span className={cn(
-                        'text-sm',
+                        'text-xs leading-none',
                         isToday && 'font-bold',
-                        hasData && stats.rate >= 50 && 'text-white dark:text-white'
+                        isHighContrast && 'text-white dark:text-white'
                       )}>
                         {date.getDate()}
                       </span>
-                      {hasData && (
-                        <span className={cn(
-                          'text-[10px] leading-none',
-                          stats.rate >= 50 ? 'text-white/80' : 'text-muted-foreground'
-                        )}>
-                          {stats.rate}%
-                        </span>
+                      {hasData && successfulHabits.length > 0 && (
+                        <HabitIconsDisplay
+                          habits={successfulHabits}
+                          isHighContrast={isHighContrast}
+                        />
                       )}
                     </div>
                   );
