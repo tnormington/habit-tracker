@@ -8,7 +8,7 @@ import { useHabits } from '@/lib/database/useHabits';
 import { useHabitLogs } from '@/lib/database/useHabitLogs';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { CATEGORY_ICONS } from '@/lib/constants/habit-display';
+import { CATEGORY_ICONS, CATEGORY_DISPLAY } from '@/lib/constants/habit-display';
 import type { HabitDocType } from '@/lib/database/types';
 
 const MONTH_NAMES = [
@@ -40,22 +40,23 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
   const overflowCount = habits.length - MAX_VISIBLE_ICONS;
   const hasOverflow = overflowCount > 0;
 
-  // Calculate icon size based on number of habits
-  const iconSizeClass = habits.length <= 2 ? 'size-3' : 'size-2.5';
+  // Larger icon sizes - scale down slightly when many habits
+  const iconSizeClass = habits.length <= 2 ? 'size-5' : habits.length <= 4 ? 'size-4' : 'size-3.5';
 
   return (
     <div
-      className="flex flex-wrap items-center justify-center gap-0.5 mt-0.5 max-w-full"
+      className="flex flex-wrap items-center justify-center gap-1 mt-1 max-w-full"
       data-testid="habit-icons-display"
     >
       {visibleHabits.map((habit) => {
         const IconComponent = CATEGORY_ICONS[habit.category];
+        const categoryLabel = CATEGORY_DISPLAY[habit.category].label;
         return (
           <span
             key={habit.id}
-            title={habit.name}
+            title={`${habit.name} (${categoryLabel})`}
             className={cn(
-              'flex-shrink-0',
+              'flex-shrink-0 cursor-default',
               isHighContrast ? 'text-white/90' : 'text-foreground/70'
             )}
           >
@@ -66,10 +67,10 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
       {hasOverflow && (
         <span
           className={cn(
-            'flex-shrink-0 text-[8px] font-medium',
+            'flex-shrink-0 text-[10px] font-medium',
             isHighContrast ? 'text-white/80' : 'text-muted-foreground'
           )}
-          title={`+${overflowCount} more: ${habits.slice(MAX_VISIBLE_ICONS).map(h => h.name).join(', ')}`}
+          title={`+${overflowCount} more: ${habits.slice(MAX_VISIBLE_ICONS).map(h => `${h.name} (${CATEGORY_DISPLAY[h.category].label})`).join(', ')}`}
         >
           +{overflowCount}
         </span>
@@ -349,7 +350,7 @@ export default function CalendarPage() {
                     <div
                       key={dateStr}
                       className={cn(
-                        'relative aspect-square flex flex-col items-center justify-center rounded-md text-sm transition-colors p-0.5',
+                        'relative aspect-square flex flex-col rounded-md text-sm transition-colors p-1',
                         !isCurrentMonth && 'opacity-30',
                         isFuture && 'opacity-20',
                         isToday && 'ring-2 ring-primary ring-offset-1 ring-offset-background',
@@ -363,18 +364,22 @@ export default function CalendarPage() {
                       data-testid={`calendar-day-${dateStr}`}
                       data-rate={stats.rate}
                     >
+                      {/* Day number in top right corner */}
                       <span className={cn(
-                        'text-xs leading-none',
+                        'absolute top-1 right-1.5 text-xs leading-none',
                         isToday && 'font-bold',
                         isHighContrast && 'text-white dark:text-white'
                       )}>
                         {date.getDate()}
                       </span>
+                      {/* Habit icons centered in remaining space */}
                       {hasData && successfulHabits.length > 0 && (
-                        <HabitIconsDisplay
-                          habits={successfulHabits}
-                          isHighContrast={isHighContrast}
-                        />
+                        <div className="flex-1 flex items-center justify-center pt-3">
+                          <HabitIconsDisplay
+                            habits={successfulHabits}
+                            isHighContrast={isHighContrast}
+                          />
+                        </div>
                       )}
                     </div>
                   );
