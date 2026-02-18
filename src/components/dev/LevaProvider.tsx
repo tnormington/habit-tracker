@@ -3,6 +3,8 @@
 import { Leva } from "leva";
 import { useLevaControls } from "@/lib/hooks";
 
+const isDev = process.env.NODE_ENV === "development";
+
 /**
  * LevaProvider wraps the Leva GUI panel for development-time parameter tweaking.
  *
@@ -15,19 +17,15 @@ import { useLevaControls } from "@/lib/hooks";
  * These controls are available for components to consume throughout the app.
  */
 export function LevaProvider() {
-  const isDev = process.env.NODE_ENV === "development";
-
   // Register global controls - this makes them appear in the Leva panel
   // Components can import useLevaControls to access these values
   useLevaControls();
 
-  // Hide Leva panel in production
-  if (!isDev) {
-    return null;
-  }
-
+  // Use Leva's built-in hidden prop to hide in production
+  // This ensures no UI is rendered while keeping the store functional
   return (
     <Leva
+      hidden={!isDev}
       collapsed={false}
       oneLineLabels={false}
       flat={false}

@@ -8,6 +8,9 @@ import { useControls, folder } from "leva";
  * This hook creates a centralized set of controls that can be used
  * to adjust visual and behavioral parameters during development.
  *
+ * The Leva panel is hidden in production via the `hidden` prop on the
+ * Leva component, but the hooks still work and return the default values.
+ *
  * Example usage:
  * ```tsx
  * const { animationSpeed, streakColor } = useLevaControls();
@@ -92,6 +95,7 @@ export function useLevaControls() {
  * Hook for component-specific Leva controls.
  *
  * Use this pattern to create isolated control folders for specific components.
+ * The Leva panel is hidden in production, but controls still return their default values.
  *
  * Example usage:
  * ```tsx
