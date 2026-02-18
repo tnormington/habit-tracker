@@ -758,6 +758,83 @@
       "dismissed": false,
       "featureId": "feature-1770823482362-iobbbr1oz5h",
       "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "beb937c0-7248-4e06-814b-81210b6e30a4",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771385299127-2pfl21oqt1j\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T03:33:22.280Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771385299127-2pfl21oqt1j",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "c31fd299-92aa-47c7-8e0a-6487f59f106b",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771385299127-2pfl21oqt1j\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T03:36:12.685Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771385299127-2pfl21oqt1j",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "5f31102f-43cd-4d5e-bec3-df121a1b7abc",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771385299127-2pfl21oqt1j\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T03:37:51.150Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771385299127-2pfl21oqt1j",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "2c97204a-7515-4b21-841d-191ef757faa8",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771385299127-2pfl21oqt1j\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T03:39:19.004Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771385299127-2pfl21oqt1j",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "6b71876d-2ead-4ac1-ae5d-e072dd9e16c2",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771385299127-2pfl21oqt1j\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T03:43:15.243Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771385299127-2pfl21oqt1j",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "9f1d219c-0f53-4683-8d05-55e4363e98fd",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771386715363-nbe6qbvlfsi\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T04:00:06.476Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771386715363-nbe6qbvlfsi",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
+    },
+    {
+      "id": "9f0f670c-439e-44ea-85f7-6bad12b3b2a4",
+      "type": "feature_waiting_approval",
+      "title": "Feature Ready for Review",
+      "message": "\"feature-1771393142909-wrjzuzpv0xp\" is ready for your review and approval.",
+      "createdAt": "2026-02-18T05:51:00.551Z",
+      "read": false,
+      "dismissed": false,
+      "featureId": "feature-1771393142909-wrjzuzpv0xp",
+      "projectPath": "C:\\Users\\timjn\\Workspace/habit-tracker"
     }
   ]
 }

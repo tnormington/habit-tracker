@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Fix Add Habit Modal Vertical Scrolling Issue\n\nThe add habit modal currently has a fixed height without vertical scrolling, causing content to overflow beyond the viewport. This renders form fields and action buttons inaccessible on smaller screens or when the form content exceeds the available space.\n\nRequirements:\n- Enable vertical scrolling within the modal body when content exceeds viewport height\n- Ensure the modal header (title, close button) remains fixed at the top\n- Keep action buttons (Cancel, Save) accessible at the bottom of scrollable area\n- Set appropriate max-height constraint to prevent modal from covering entire viewport\n- Maintain proper scrollable area padding and margins\n- Test on various screen sizes (mobile portrait/landscape, tablet, desktop)\n- Verify all form fields remain accessible and functional when scrolling\n- Ensure smooth scroll behavior on touch and mouse devices\n\nEdge cases to consider:\n- Very small mobile screens (320px width)\n- Long habit descriptions or additional form fields\n- Browser zoom levels above 100%\n- Modal behavior when keyboard is visible on mobile devices",
+  "title": "Fix Add Habit Modal Vertical Scrolling",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1771393142909-wrjzuzpv0xp",
+  "descriptionHistory": [
+    {
+      "description": "Fix Add Habit Modal Vertical Scrolling Issue\n\nThe add habit modal currently has a fixed height without vertical scrolling, causing content to overflow beyond the viewport. This renders form fields and action buttons inaccessible on smaller screens or when the form content exceeds the available space.\n\nRequirements:\n- Enable vertical scrolling within the modal body when content exceeds viewport height\n- Ensure the modal header (title, close button) remains fixed at the top\n- Keep action buttons (Cancel, Save) accessible at the bottom of scrollable area\n- Set appropriate max-height constraint to prevent modal from covering entire viewport\n- Maintain proper scrollable area padding and margins\n- Test on various screen sizes (mobile portrait/landscape, tablet, desktop)\n- Verify all form fields remain accessible and functional when scrolling\n- Ensure smooth scroll behavior on touch and mouse devices\n\nEdge cases to consider:\n- Very small mobile screens (320px width)\n- Long habit descriptions or additional form fields\n- Browser zoom levels above 100%\n- Modal behavior when keyboard is visible on mobile devices",
+      "timestamp": "2026-02-18T05:39:03.016Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-18T05:48:19.490Z",
+  "updatedAt": "2026-02-18T05:51:00.558Z",
+  "justFinishedAt": "2026-02-18T05:51:00.548Z",
+  "summary": "## Summary: Fix Add Habit Modal Vertical Scrolling Issue\n\n### Changes Implemented\n- Added `max-h-[calc(100vh-2rem)]` constraint to `DialogContent` component to prevent modal from exceeding viewport height\n- Changed `DialogContent` layout from `grid` to `flex flex-col` to properly handle overflow\n- Created new `DialogBody` component with `overflow-y-auto` for scrollable content area\n- Applied negative margins (`-mx-6 px-6`) to `DialogBody` to maintain edge-to-edge scrollbar appearance\n- Wrapped `HabitCreationForm` in `DialogBody` in the habits page\n- Wrapped edit form content in `DialogBody` in `HabitEditFormDialog`\n\n### Files Modified\n- `src/components/ui/dialog.tsx` - Added `DialogBody` component and updated `DialogContent` with max-height constraint and flex layout\n- `src/app/habits/page.tsx` - Wrapped `HabitCreationForm` in `DialogBody` for scrollable content\n- `src/components/habits/HabitEditFormDialog.tsx` - Wrapped form content in `DialogBody` for scrollable content\n\n### Notes for Developer\n- The `DialogHeader` remains fixed at the top of the modal\n- The `DialogBody` component handles vertical scrolling when content exceeds available space\n- The fix works for both Create and Edit habit dialogs\n- The modal maintains a 1rem margin from viewport edges on all sides (`calc(100vh-2rem)`)\n- The implementation is consistent with the existing shadcn/ui dialog pattern"
+}

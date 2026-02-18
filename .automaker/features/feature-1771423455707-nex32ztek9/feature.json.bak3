@@ -1,0 +1,28 @@
+{
+  "category": "Uncategorized",
+  "description": "Commit and push all pending changes and deploy the site",
+  "title": "",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": "Commit and push all pending changes and deploy the site",
+  "status": "backlog",
+  "id": "feature-1771423455707-nex32ztek9",
+  "descriptionHistory": [
+    {
+      "description": "Commit and push all pending changes and deploy the site",
+      "timestamp": "2026-02-18T14:04:15.808Z",
+      "source": "initial"
+    }
+  ]
+}

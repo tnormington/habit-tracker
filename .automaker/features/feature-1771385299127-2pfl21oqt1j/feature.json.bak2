@@ -1,0 +1,32 @@
+{
+  "category": "Uncategorized",
+  "description": "Display Habit Completion Icons in Calendar View\n\nAdd visual indicators to the calendar view that show an icon for each habit when it has been completed (for positive/neutral habits) or successfully avoided (for negative habits).\n\nRequirements:\n- Display the habit's category icon on calendar days where the habit was logged\n- For positive/neutral habits: show icon when habit is completed\n- For negative habits: show icon when habit is successfully avoided (not performed)\n- Support multiple habit icons per day when multiple habits are tracked\n- Ensure icons are appropriately sized and positioned within calendar day cells\n- Handle overflow gracefully when many habits are logged on a single day (consider icon size reduction, stacking, or scroll)\n- Use the existing habit category icon system (Lucide React icons)\n- Maintain visual clarity and readability at different screen sizes\n- Apply appropriate styling to distinguish completed vs. partial completion if habit has frequency targets\n- Ensure icons respect the current theme (light/dark mode) with proper contrast\n\nEdge Cases:\n- Days with many habits logged (>5 icons)\n- Habits completed multiple times per day vs. frequency target\n- Calendar view on mobile devices with limited space per day cell\n- Habits without assigned category icons\n\nDependencies:\n- Existing calendar day component structure\n- Habit category icon mapping\n- RxDB habit completion log queries by date\n- Current responsive calendar layout",
+  "title": "Add habit completion icons to calendar view",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1771385299127-2pfl21oqt1j",
+  "descriptionHistory": [
+    {
+      "description": "Display Habit Completion Icons in Calendar View\n\nAdd visual indicators to the calendar view that show an icon for each habit when it has been completed (for positive/neutral habits) or successfully avoided (for negative habits).\n\nRequirements:\n- Display the habit's category icon on calendar days where the habit was logged\n- For positive/neutral habits: show icon when habit is completed\n- For negative habits: show icon when habit is successfully avoided (not performed)\n- Support multiple habit icons per day when multiple habits are tracked\n- Ensure icons are appropriately sized and positioned within calendar day cells\n- Handle overflow gracefully when many habits are logged on a single day (consider icon size reduction, stacking, or scroll)\n- Use the existing habit category icon system (Lucide React icons)\n- Maintain visual clarity and readability at different screen sizes\n- Apply appropriate styling to distinguish completed vs. partial completion if habit has frequency targets\n- Ensure icons respect the current theme (light/dark mode) with proper contrast\n\nEdge Cases:\n- Days with many habits logged (>5 icons)\n- Habits completed multiple times per day vs. frequency target\n- Calendar view on mobile devices with limited space per day cell\n- Habits without assigned category icons\n\nDependencies:\n- Existing calendar day component structure\n- Habit category icon mapping\n- RxDB habit completion log queries by date\n- Current responsive calendar layout",
+      "timestamp": "2026-02-18T03:28:19.251Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-18T03:40:27.543Z",
+  "updatedAt": "2026-02-18T03:43:15.237Z",
+  "summary": "## Summary: Display Habit Completion Icons in Calendar View\n\n### Changes Implemented\n- Added `HabitIconsDisplay` component to render habit category icons within calendar day cells\n- Icons are displayed for successfully completed habits (positive/neutral) or successfully avoided habits (negative)\n- Implemented overflow handling: shows max 4 icons with \"+N\" indicator for additional habits\n- Adaptive icon sizing: larger icons for 1-2 habits, smaller for 3+ habits\n- Proper contrast styling for both light/dark mode and varying completion rate background colors\n- Tooltips show individual habit names on hover, overflow tooltip shows all remaining habit names\n- Reused existing `CATEGORY_ICONS` from `habit-display.tsx` for consistent icon rendering\n- Added `getSuccessfulHabitsForDay` callback to efficiently retrieve completed habits per day\n\n### Files Modified\n- `src/app/calendar/page.tsx` - Added HabitIconsDisplay component and integrated it into the calendar grid\n\n### Notes for Developer\n- The implementation uses the existing Lucide React icon system defined in `src/lib/constants/habit-display.tsx`\n- Icons automatically adapt contrast based on completion rate (white icons for >=50% completion rate backgrounds)\n- The MAX_VISIBLE_ICONS constant (4) can be adjusted if needed\n- For negative habits, success is defined as \"not completed\" (avoided the bad habit), which correctly shows the icon when the user resisted the habit\n- TypeScript types are fully enforced using existing `HabitDocType` from the database types",
+  "justFinishedAt": "2026-02-18T03:43:15.237Z"
+}

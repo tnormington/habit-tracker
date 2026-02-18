@@ -2,6 +2,83 @@
   "version": 1,
   "events": [
     {
+      "id": "evt-1771423455810-e23d6803",
+      "trigger": "feature_created",
+      "timestamp": "2026-02-18T14:04:15.810Z",
+      "featureName": "Untitled Feature",
+      "featureId": "feature-1771423455707-nex32ztek9"
+    },
+    {
+      "id": "evt-1771393860576-b34817de",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T05:51:00.576Z",
+      "featureName": "Fix Add Habit Modal Vertical Scrolling",
+      "featureId": "feature-1771393142909-wrjzuzpv0xp"
+    },
+    {
+      "id": "evt-1771393143019-2c59357e",
+      "trigger": "feature_created",
+      "timestamp": "2026-02-18T05:39:03.020Z",
+      "featureName": "Untitled Feature",
+      "featureId": "feature-1771393142909-wrjzuzpv0xp"
+    },
+    {
+      "id": "evt-1771387206506-82f313f7",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T04:00:06.506Z",
+      "featureName": "",
+      "featureId": "feature-1771386715363-nbe6qbvlfsi"
+    },
+    {
+      "id": "evt-1771386715473-cfe7e500",
+      "trigger": "feature_created",
+      "timestamp": "2026-02-18T03:51:55.473Z",
+      "featureName": "Untitled Feature",
+      "featureId": "feature-1771386715363-nbe6qbvlfsi"
+    },
+    {
+      "id": "evt-1771386195254-d726dee4",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T03:43:15.254Z",
+      "featureName": "Add habit completion icons to calendar view",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
+      "id": "evt-1771385959014-394adf58",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T03:39:19.014Z",
+      "featureName": "Add habit completion icons to calendar view",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
+      "id": "evt-1771385871166-040df68c",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T03:37:51.166Z",
+      "featureName": "Add habit completion icons to calendar view",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
+      "id": "evt-1771385772693-4ffa7ef8",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T03:36:12.693Z",
+      "featureName": "Add habit completion icons to calendar view",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
+      "id": "evt-1771385602306-72c05ab4",
+      "trigger": "feature_success",
+      "timestamp": "2026-02-18T03:33:22.306Z",
+      "featureName": "Add habit completion icons to calendar view",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
+      "id": "evt-1771385299253-33dcf8c7",
+      "trigger": "feature_created",
+      "timestamp": "2026-02-18T03:28:19.253Z",
+      "featureName": "Untitled Feature",
+      "featureId": "feature-1771385299127-2pfl21oqt1j"
+    },
+    {
       "id": "evt-1770825538499-de4656c3",
       "trigger": "feature_success",
       "timestamp": "2026-02-11T15:58:58.499Z",

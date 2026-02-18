@@ -460,6 +460,36 @@ Edge Cases:
 - Multiple rapid clicks - prevent race conditions
 - Touch devices - ensure touch events work properly</description>
     </feature>
+    <feature>
+      <name>Add habit completion icons to calendar view</name>
+      <description>Display Habit Completion Icons in Calendar View
+
+Add visual indicators to the calendar view that show an icon for each habit when it has been completed (for positive/neutral habits) or successfully avoided (for negative habits).
+
+Requirements:
+- Display the habit&apos;s category icon on calendar days where the habit was logged
+- For positive/neutral habits: show icon when habit is completed
+- For negative habits: show icon when habit is successfully avoided (not performed)
+- Support multiple habit icons per day when multiple habits are tracked
+- Ensure icons are appropriately sized and positioned within calendar day cells
+- Handle overflow gracefully when many habits are logged on a single day (consider icon size reduction, stacking, or scroll)
+- Use the existing habit category icon system (Lucide React icons)
+- Maintain visual clarity and readability at different screen sizes
+- Apply appropriate styling to distinguish completed vs. partial completion if habit has frequency targets
+- Ensure icons respect the current theme (light/dark mode) with proper contrast
+
+Edge Cases:
+- Days with many habits logged (&gt;5 icons)
+- Habits completed multiple times per day vs. frequency target
+- Calendar view on mobile devices with limited space per day cell
+- Habits without assigned category icons
+
+Dependencies:
+- Existing calendar day component structure
+- Habit category icon mapping
+- RxDB habit completion log queries by date
+- Current responsive calendar layout</description>
+    </feature>
   </implemented_features>
 
   <additional_requirements>

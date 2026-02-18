@@ -14,7 +14,12 @@
       "Bash(claude mcp add:*)",
       "Bash(tasklist:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh api:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run watch:*)"
     ]
   }
 }

@@ -45,3 +45,17 @@ yarn-error.log*
 .vscode
 *.swp
 *.swo
+
+# Debug files
+debug-*.png
+debug-*.mjs
+debug-*.json
+screenshot-*.png
+storage-state.json
+
+# Playwright
+playwright-report/
+test-results/
+
+# Windows
+nul

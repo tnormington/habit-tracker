@@ -1,0 +1,36 @@
+{
+  "category": "Uncategorized",
+  "description": "Disable Leva Debug Panel in Production Build\n\nRemove the leva configuration panel that is incorrectly appearing in the production deployment at https://tnormington.github.io/habit-tracker/. The leva debug UI should only be visible during local development, not in deployed production environments.\n\nRequirements:\n- Identify where leva is being initialized or rendered in the codebase\n- Add environment check to conditionally render leva only in development mode\n- Verify NODE_ENV or equivalent environment variable is properly set in production builds\n- Ensure leva import is tree-shaken or excluded from production bundle\n- Test locally that leva appears in dev mode (npm run dev)\n- Verify leva does not appear after production build (npm run build && npm run start)\n- Deploy and confirm leva is hidden on GitHub Pages production URL\n- Consider moving leva initialization inside admin bar or dev tools section if not already there\n\nEdge Cases:\n- Check if leva CSS is still being loaded even when component is not rendered\n- Ensure no console errors occur when leva code is excluded\n- Verify any leva controls used in admin bar still function correctly in dev mode",
+  "title": "",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "custom",
+  "titleGenerating": false,
+  "status": "in_progress",
+  "id": "feature-1771386715363-nbe6qbvlfsi",
+  "descriptionHistory": [
+    {
+      "description": "Ensure the leva config box does not appear when not in dev mode. I am seeing it on: https://tnormington.github.io/habit-tracker/ when deployed",
+      "timestamp": "2026-02-18T03:51:55.470Z",
+      "source": "initial"
+    },
+    {
+      "description": "Disable Leva Debug Panel in Production Build\n\nRemove the leva configuration panel that is incorrectly appearing in the production deployment at https://tnormington.github.io/habit-tracker/. The leva debug UI should only be visible during local development, not in deployed production environments.\n\nRequirements:\n- Identify where leva is being initialized or rendered in the codebase\n- Add environment check to conditionally render leva only in development mode\n- Verify NODE_ENV or equivalent environment variable is properly set in production builds\n- Ensure leva import is tree-shaken or excluded from production bundle\n- Test locally that leva appears in dev mode (npm run dev)\n- Verify leva does not appear after production build (npm run build && npm run start)\n- Deploy and confirm leva is hidden on GitHub Pages production URL\n- Consider moving leva initialization inside admin bar or dev tools section if not already there\n\nEdge Cases:\n- Check if leva CSS is still being loaded even when component is not rendered\n- Ensure no console errors occur when leva code is excluded\n- Verify any leva controls used in admin bar still function correctly in dev mode",
+      "timestamp": "2026-02-18T03:52:45.657Z",
+      "source": "enhance",
+      "enhancementMode": "improve"
+    }
+  ],
+  "startedAt": "2026-02-18T03:52:51.939Z",
+  "updatedAt": "2026-02-18T03:52:52.136Z"
+}

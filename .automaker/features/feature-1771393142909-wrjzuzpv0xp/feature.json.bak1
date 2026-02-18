@@ -1,0 +1,31 @@
+{
+  "category": "Uncategorized",
+  "description": "Fix Add Habit Modal Vertical Scrolling Issue\n\nThe add habit modal currently has a fixed height without vertical scrolling, causing content to overflow beyond the viewport. This renders form fields and action buttons inaccessible on smaller screens or when the form content exceeds the available space.\n\nRequirements:\n- Enable vertical scrolling within the modal body when content exceeds viewport height\n- Ensure the modal header (title, close button) remains fixed at the top\n- Keep action buttons (Cancel, Save) accessible at the bottom of scrollable area\n- Set appropriate max-height constraint to prevent modal from covering entire viewport\n- Maintain proper scrollable area padding and margins\n- Test on various screen sizes (mobile portrait/landscape, tablet, desktop)\n- Verify all form fields remain accessible and functional when scrolling\n- Ensure smooth scroll behavior on touch and mouse devices\n\nEdge cases to consider:\n- Very small mobile screens (320px width)\n- Long habit descriptions or additional form fields\n- Browser zoom levels above 100%\n- Modal behavior when keyboard is visible on mobile devices",
+  "title": "Fix Add Habit Modal Vertical Scrolling",
+  "images": [],
+  "imagePaths": [],
+  "textFilePaths": [],
+  "skipTests": true,
+  "model": "claude-opus",
+  "thinkingLevel": "none",
+  "reasoningEffort": "none",
+  "branchName": "main",
+  "priority": 2,
+  "planningMode": "skip",
+  "requirePlanApproval": false,
+  "dependencies": [],
+  "workMode": "current",
+  "titleGenerating": false,
+  "status": "waiting_approval",
+  "id": "feature-1771393142909-wrjzuzpv0xp",
+  "descriptionHistory": [
+    {
+      "description": "Fix Add Habit Modal Vertical Scrolling Issue\n\nThe add habit modal currently has a fixed height without vertical scrolling, causing content to overflow beyond the viewport. This renders form fields and action buttons inaccessible on smaller screens or when the form content exceeds the available space.\n\nRequirements:\n- Enable vertical scrolling within the modal body when content exceeds viewport height\n- Ensure the modal header (title, close button) remains fixed at the top\n- Keep action buttons (Cancel, Save) accessible at the bottom of scrollable area\n- Set appropriate max-height constraint to prevent modal from covering entire viewport\n- Maintain proper scrollable area padding and margins\n- Test on various screen sizes (mobile portrait/landscape, tablet, desktop)\n- Verify all form fields remain accessible and functional when scrolling\n- Ensure smooth scroll behavior on touch and mouse devices\n\nEdge cases to consider:\n- Very small mobile screens (320px width)\n- Long habit descriptions or additional form fields\n- Browser zoom levels above 100%\n- Modal behavior when keyboard is visible on mobile devices",
+      "timestamp": "2026-02-18T05:39:03.016Z",
+      "source": "initial"
+    }
+  ],
+  "startedAt": "2026-02-18T05:48:19.490Z",
+  "updatedAt": "2026-02-18T05:51:00.548Z",
+  "justFinishedAt": "2026-02-18T05:51:00.548Z"
+}
