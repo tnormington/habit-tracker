@@ -26,7 +26,7 @@ function formatDateString(date: Date): string {
 }
 
 // Maximum number of icons to display before showing overflow indicator
-const MAX_VISIBLE_ICONS = 4;
+const MAX_VISIBLE_ICONS = 16;
 
 interface HabitIconsDisplayProps {
   habits: HabitDocType[];
@@ -40,8 +40,8 @@ function HabitIconsDisplay({ habits, isHighContrast }: HabitIconsDisplayProps) {
   const overflowCount = habits.length - MAX_VISIBLE_ICONS;
   const hasOverflow = overflowCount > 0;
 
-  // Larger icon sizes - scale down slightly when many habits
-  const iconSizeClass = habits.length <= 2 ? 'size-5' : habits.length <= 4 ? 'size-4' : 'size-3.5';
+  // Scale icon sizes based on number of habits
+  const iconSizeClass = habits.length <= 2 ? 'size-5' : habits.length <= 4 ? 'size-4' : habits.length <= 9 ? 'size-3' : 'size-2.5';
 
   return (
     <div
